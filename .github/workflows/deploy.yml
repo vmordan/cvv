@@ -1,0 +1,27 @@
+name: Deploy
+
+on: [push, workflow_dispatch]
+
+jobs:
+  build-launcher:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.8"]
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        sudo apt install python3-dev postgresql python3-pip libpq-dev gettext
+        python3 -m pip install --upgrade pip
+        pip3 install requests ujson graphviz django psycopg2 pluggy py attrs six more-itertools ply pytest atomicwrites pycparser psycopg2 sympy pytz
+    - name: Deployment of CVV
+      run: |
+        ./deploys/deployment.sh _test_
+        ./start.sh &
+        sleep 5
+        ./stop.sh
