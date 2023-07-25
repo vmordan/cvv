@@ -1,0 +1,4 @@
+web/settings.py
+web/db.json
+locale/ru/LC_MESSAGES/django.mo
+

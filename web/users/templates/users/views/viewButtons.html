@@ -1,0 +1,40 @@
+{% comment "License" %}
+% CVV is a continuous verification visualizer.
+% Copyright (c) 2023 ISP RAS (http://www.ispras.ru)
+% Ivannikov Institute for System Programming of the Russian Academy of Sciences
+%
+% Copyright (c) 2018 ISP RAS (http://www.ispras.ru)
+% Ivannikov Institute for System Programming of the Russian Academy of Sciences
+%
+% Licensed under the Apache License, Version 2.0 (the "License");
+% you may not use this file except in compliance with the License.
+% You may obtain a copy of the License at
+%
+%    http://www.apache.org/licenses/LICENSE-2.0
+%
+% Unless required by applicable law or agreed to in writing, software
+% distributed under the License is distributed on an "AS IS" BASIS,
+% WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+% See the License for the specific language governing permissions and
+% limitations under the License.
+{% endcomment %}
+
+{% load i18n %}
+
+<div class="ui action input fluid">
+    <label for="view_list__{{ view.type }}"></label>
+    <select id="view_list__{{ view.type }}" class="ui dropdown" onchange="change_view('{{view.type}}');">
+        <option value="default">{% trans 'Default' %}</option>
+        {% for v in view.views %}
+            <option title="{{ v.name }}" value="{{ v.id }}"{% if view.view_id == v.id %} selected{% endif %}>{{ v.name }}
+                {% if v.shared %} ({% if v.author_id == user.id %}{% trans 'shared' %}{% else %}{{ v.author.get_full_name }}{% endif %}){% endif %}
+            </option>
+        {% endfor %}
+    </select>
+    <br><br>
+    <button id="view_prefer_btn__{{ view.type }}" type="button" class="ui teal button">{% trans 'Make preferred' %}</button>
+    <button id="view_update_btn__{{ view.type }}" type="button" class="ui teal button">{% trans 'Update' %}</button>
+    <button id="view_share_btn__{{ view.type }}" type="button" class="ui teal button">{% trans 'Share' %}/{% trans 'Hide' %}</button>
+    <button id="view_remove_btn__{{ view.type }}" type="button" class="ui teal button">{% trans 'Delete' %}</button>
+</div>
+<input class="view-type-buttons" type="hidden" value="{{ view.type }}">

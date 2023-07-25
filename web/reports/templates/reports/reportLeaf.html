@@ -1,0 +1,216 @@
+{% extends 'base.html' %}
+{% comment "License" %}
+% CVV is a continuous verification visualizer.
+% Copyright (c) 2023 ISP RAS (http://www.ispras.ru)
+% Ivannikov Institute for System Programming of the Russian Academy of Sciences
+%
+% Copyright (c) 2018 ISP RAS (http://www.ispras.ru)
+% Ivannikov Institute for System Programming of the Russian Academy of Sciences
+%
+% Licensed under the Apache License, Version 2.0 (the "License");
+% you may not use this file except in compliance with the License.
+% You may obtain a copy of the License at
+%
+%    http://www.apache.org/licenses/LICENSE-2.0
+%
+% Unless required by applicable law or agreed to in writing, software
+% distributed under the License is distributed on an "AS IS" BASIS,
+% WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+% See the License for the specific language governing permissions and
+% limitations under the License.
+{% endcomment %}
+
+{% load i18n %}
+{% load static %}
+
+{% block help_link %}{% if report_type == 'safe' %}safe{% elif report_type == 'unsafe' %}unsafe{% else %}unknown{% endif %}{% endblock %}
+
+{% block title %}{% if report_type == 'safe' %}{% trans 'Safe' %}{% elif report_type == 'unsafe' %}{% trans 'Unsafe' %}{% else %}{% trans 'Unknown' %}{% endif %}{% endblock %}
+
+{% block head_block %}
+    {% if etv %}<link href="{% static 'reports/css/ETV.css' %}" rel="stylesheet">{% endif %}
+    {% if report_type != 'unknown' %}<link href="{% static 'marks/css/tagsmap.css' %}" rel="stylesheet">{% endif %}
+    <link href="{% static 'reports/css/reportLeaf.css' %}" rel="stylesheet">
+    {% if report_type != 'unknown' %}
+        <script type="text/javascript" src="{% static 'marks/js/tags.js' %}"></script>
+        <script type="text/javascript" src="{% static 'marks/js/tagsmap.js' %}"></script>
+    {% endif %}
+    <script type="text/javascript" src="{% static 'marks/js/commonMarkForm.js' %}"></script>
+    <script type="text/javascript" src="{% static 'marks/js/inlineMarkForm.js' %}"></script>
+    {% if etv %}
+        <script type="text/javascript" src="{% static 'reports/js/ETV.js' %}"></script>
+        <script type="text/javascript" src="{% static 'reports/js/ETV-windows.js' %}"></script>
+    {% endif %}
+    <script type="text/javascript" src="{% static 'reports/js/reportLeaf.js' %}"></script>
+{% endblock %}
+
+{% block body_block %}
+    <input id="tags_type" type="hidden" value="{{ report_type }}">
+    <div class="ui grid">
+        <div class="eleven wide column">
+            <div class="ui breadcrumb">
+                {% if report.root.job.name %}
+                    {% trans 'Report' %} <a href="{% url 'jobs:job' report.root.job.pk %}">{{ report.root.job.name }}</a>
+                {% endif %}
+                {% if parents.0 %}
+                    <i class="right arrow icon divider"></i>
+                    {% if report_type == 'unsafe' %}
+                        <a href="{% url 'reports:unsafes' parents.0.id %}">{% trans 'List of all error traces' %}</a>
+                        <i class="right arrow icon divider"></i>
+                        <a href="{% url 'reports:unsafes' parents.0.id %}?verdict=5">{% trans 'List of unmarked error traces' %}</a>
+                    {% elif report_type == 'safe' %}
+                        <a href="{% url 'reports:safes' parents.0.id %}">{% trans 'List of all safes' %}</a>
+                    {% else %}
+                        <a href="{% url 'reports:unknowns' parents.0.id %}">{% trans 'List of all unknowns' %}</a>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+        <div class="five wide column right floated right aligned">
+            {% if resources %}
+                <i class="ui tiny inverted purple button parent-popup" data-variation="very wide">{% trans 'Consumed resources' %}</i>
+                <div class="ui special popup">
+                    <table class="ui celled compact purple table">
+                        <tbody>
+                            <tr>
+                                <td class="purple-subtitle">{% trans 'Wall time' %}</td>
+                                <td>{{ resources.wall_time }}</td>
+                            </tr>
+                            <tr>
+                                <td class="purple-subtitle">{% trans 'CPU time' %}</td>
+                                <td>{{ resources.cpu_time }}</td>
+                            </tr>
+                            <tr>
+                                <td class="purple-subtitle">{% trans 'Memory' %}</td>
+                                <td>{{ resources.memory }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            {% endif %}
+            <i class="ui tiny inverted purple button parent-popup" data-variation="very wide">{% trans 'Attributes' %}</i>
+            <div class="ui special popup">
+                <table class="ui celled compact purple table">
+                    <tbody>
+                        {% for a_id, a_name, a_value, a_data in SelfAttrsData %}
+                            <tr>
+                                <td class="purple-subtitle">{{ a_name }}</td>
+                                <td class="collapsing">
+                                    {% if a_data %}
+                                        <a class="attr-data-href" href="#" data-attr-id="{{ a_id }}">{{ a_value }}</a>
+                                    {% else %}
+                                        <span>{{ a_value }}</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% with parents|last as parent %}
+                {% if parent.has_coverage %}
+                    <a href="{% url 'reports:coverage_light' report.parent_id %}" class="ui tiny yellow button" style="color: black">{% trans 'Coverage' %}</a>
+                {% endif %}
+            {% endwith %}
+        </div>
+    </div>
+
+    {# Specific content of the report #}
+    {% if report_type == 'safe' %}
+        {% if etv %}
+            {% include 'reports/UnsafeContent.html' %}
+        {% else %}
+            <h3 class="ui red header">{% trans 'There is no proof description for this safe' %}</h3>
+        {% endif %}
+    {% elif report_type == 'unsafe' %}
+        {% include 'reports/UnsafeContent.html' %}
+    {% else %}
+        <div class="ui red segment filecontent" style="min-height:300px;max-height: 70vh;">{{ main_content }}</div>
+    {% endif %}
+
+    {# Marks #}
+    <input id="report_pk" type="hidden" value="{{ report.pk }}">
+    <input id="report_type" type="hidden" value="{{ report_type }}">
+    {% if MarkTable.values|length %}
+    <h3 class="ui horizontal divider header">
+        {% trans 'Applied marks' %}
+    </h3>
+    {% include 'reports/AssociatedMarksTable.html' with MarkTable=MarkTable %}
+    {% endif %}
+
+    <div class="ui horizontal buttons">
+        {% if MarkTable.can_mark %}
+            <a id="create_light_mark_btn" class="ui red button right aligned basic"><i class="star icon"></i> {% trans 'Create default mark' %}</a>
+            <a href="{% url 'marks:mark_form' report_type report.pk 'create' %}" class="ui red button"><i class="empty star icon"></i> {% trans 'Create extended mark' %}</a>
+        {% endif %}
+    </div>
+    {% if MarkTable.values|length %}
+        <button style="margin-top: 3px;" id="view_show_form_btn_{{ MarkTable.view.type }}" class="ui tiny violet right labeled icon button right floated">{{ MarkTable.view.viewtitle }}<i class="right chevron icon"></i></button>
+    {% endif %}
+
+    {% if MarkTable.can_mark %}
+        <div id="inline_mark_form" style="display: none"></div>
+    {% endif %}
+
+    <div id="view_form_segment_{{ MarkTable.view.type }}" class="ui form yellow segment" style="display:none;">
+        {% include MarkTable.view.template with view=MarkTable.view verdicts=MarkTable.verdicts statuses=MarkTable.statuses ass_types=MarkTable.ass_types selected_columns=MarkTable.selected_columns available_columns=MarkTable.available_columns %}
+    </div>
+
+    <div id="file_content_modal" class="ui dinamic large modal">
+        <div class="content">
+            <div class="ui grid">
+                <div class="eight wide column">
+                    <a id="download_file_href" class="ui icon olive button" href=""><i class="download icon"></i></a>
+                </div>
+                <div class="eight wide column right aligned">
+                    <button id="close_file_view" class="ui icon red button"><i class="remove icon"></i></button>
+                </div>
+            </div>
+            <div class="filecontent ui olive segment" id="file_content" style="height:75vh;"></div>
+        </div>
+    </div>
+    <div class="ui segment basic">
+        <div class="ui breadcrumb">
+            {% trans 'Components' %}:
+            <a class="section parent-popup" href="{{ parents.0.href }}" data-variation="very wide">{{ parents.0.title }}</a>
+            <div class="ui special popup">
+                <div class="header">{{ parents.0.title }}</div>
+                <div class="content">
+                    {% if parents.0.attrs %}
+                    <table class="ui celled compact purple table">
+                        <tbody>
+                            {% for attr in parents.0.attrs %}
+                                <tr>
+                                    <td><span class="purple-subtitle">{{ attr.0 }} </span></td>
+                                    <td>{{ attr.1|safe }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% endif %}
+                </div>
+            </div>
+            {% for parent in parents|slice:"1:" %}
+                <i class="right arrow icon divider"></i>
+                <a class="section parent-popup" href="{{ parent.href }}" data-variation="very wide">{{ parent.title }}</a>
+                <div class="ui special popup">
+                    <div class="header">{{ parent.title }}</div>
+                    <div class="content">
+                        {% if parent.attrs %}
+                        <table class="ui celled compact purple table">
+                            <tbody>
+                                {% for attr in parent.attrs %}
+                                    <tr>
+                                        <td><span class="purple-subtitle">{{ attr.0 }} </span></td>
+                                        <td>{{ attr.1|safe }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

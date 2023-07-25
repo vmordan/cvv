@@ -1,0 +1,75 @@
+{% extends 'help/header.html' %}
+{% comment "License" %}
+%
+% CVV is a continuous verification visualizer.
+% Copyright (c) 2019-2023 ISP RAS (http://www.ispras.ru)
+% Ivannikov Institute for System Programming of the Russian Academy of Sciences
+%
+% Licensed under the Apache License, Version 2.0 (the "License");
+% you may not use this file except in compliance with the License.
+% You may obtain a copy of the License at
+%
+%    http://www.apache.org/licenses/LICENSE-2.0
+%
+% Unless required by applicable law or agreed to in writing, software
+% distributed under the License is distributed on an "AS IS" BASIS,
+% WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+% See the License for the specific language governing permissions and
+% limitations under the License.
+{% endcomment %}
+
+{% load i18n %}
+
+
+{% block general %}
+
+{% blocktrans %}This page shows correctness proof and applied marks.
+Note, that currently correctness proofs cannot be compared here, therefore marks are applied only by comparing selected attributes values.{% endblocktrans %}
+
+{% endblock %}
+{% block actions %}
+
+<div class="ui list">
+    <h5 class="ui header">{%trans 'Proof views'%}</h5>
+    <div class="item">
+        <button class="ui mini green button icon note-popup" data-content="{% trans 'Toggle top level elements' %}">
+            <i class="ui eye icon"></i>
+        </button>-
+        {% blocktrans %}show/hide all top level proof hints{% endblocktrans %};
+    </div>
+    <div class="item">
+        <button class="ui mini green button icon note-popup" data-content="{% trans 'Toggle all elements' %}">
+            <i class="ui sitemap icon"></i>
+        </button>-
+        {% blocktrans %}show/hide all proof hints{% endblocktrans %}.
+    </div>
+
+    <h5 class="ui header">{%trans 'Proof control'%}</h5>
+    <div class="item">
+        <button class="ui mini button violet icon note-popup" data-content="{% trans 'Download standalone proof' %}">
+            <i class="ui download icon"></i>
+        </button>-
+        {% blocktrans %}download archive with the proof in html view (as presented on this page) for standalone usage{% endblocktrans %};
+    </div>
+    <div class="item">
+        <button class="ui mini button violet icon note-popup" data-content="{% trans 'Download proof internal representation' %}">
+            <i class="ui save outline icon"></i>
+        </button>-
+        {% blocktrans %}download internal representation of the proof (json format){% endblocktrans %}.
+    </div>
+
+    <h5 class="ui header">{%trans 'Marks control'%}</h5>
+    {% blocktrans %}Similar to the {{unsafe_page}} page{% endblocktrans %}.
+</div>
+
+{% endblock %}
+{% block use_cases %}
+
+<div class="ui ordered list">
+    <div class="item">
+        <b>{%trans 'Create new mark'%}</b><br>
+        {% blocktrans %}If the given correctness proof is invalid (e.g., a real bug is missing or coverage value is suspicious),
+the user creates new mark (extended if compared set of attributes should be changed).{% endblocktrans %}
+    </div>
+</div>
+{% endblock %}

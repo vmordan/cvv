@@ -1,0 +1,352 @@
+{% extends 'base.html' %}
+{% comment "License" %}
+% CVV is a continuous verification visualizer.
+% Copyright (c) 2023 ISP RAS (http://www.ispras.ru)
+% Ivannikov Institute for System Programming of the Russian Academy of Sciences
+%
+% Copyright (c) 2018 ISP RAS (http://www.ispras.ru)
+% Ivannikov Institute for System Programming of the Russian Academy of Sciences
+%
+% Licensed under the Apache License, Version 2.0 (the "License");
+% you may not use this file except in compliance with the License.
+% You may obtain a copy of the License at
+%
+%    http://www.apache.org/licenses/LICENSE-2.0
+%
+% Unless required by applicable law or agreed to in writing, software
+% distributed under the License is distributed on an "AS IS" BASIS,
+% WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+% See the License for the specific language governing permissions and
+% limitations under the License.
+{% endcomment %}
+
+{% load i18n %}
+{% load static %}
+{% if markdata.type == 'unsafe' %}
+{% block help_link %}unsafe_mark{% endblock %}
+{% endif %}
+
+{% block title %}
+    {% if markdata.type == 'safe' %}{% trans 'Safes mark' %}{% elif markdata.type == 'unknown' %}{% trans 'Unknowns mark' %}{% else %}{% trans 'Unsafes mark' %}{% endif %}
+{% endblock %}
+
+{% block head_block %}
+    <link href="{% static 'marks/css/mark.css' %}" rel="stylesheet">
+    <link href="{% static 'marks/css/tagsmap.css' %}" rel="stylesheet">
+    <script type="text/javascript" src="{% static 'marks/js/tags.js' %}"></script>
+    <script type="text/javascript" src="{% static 'marks/js/tagsmap.js' %}"></script>
+    <script type="text/javascript" src="{% static 'marks/js/commonMarkForm.js' %}"></script>
+    <script type="text/javascript" src="{% static 'marks/js/markForm.js' %}"></script>
+
+    {% if markdata.type == 'unsafe' %}<link href="{% static 'reports/css/ETV.css' %}" rel="stylesheet">{% endif %}
+{% endblock %}
+
+{% block body_block %}
+    <input id="report_to_redirect" value="{{ report_to_redirect }}" hidden>
+    <span id="tags_type" hidden>{{ markdata.type }}</span>
+    <div class="ui grid">
+        <div class="eight wide column">
+            {# Basic parameters from default mark creation #}
+            <div class="ui pink segment">
+                {% if markdata.type == 'unknown' %}
+                {# Unknown pattern, function and problem link #}
+                <div class="ui segment">
+                    <div class="ui checkbox">
+                        <input type="checkbox" id="is_regexp"{% if markdata.unknown_data.3 %} checked{% endif %}>
+                        <label for="is_regexp">{% trans 'Regular expression' %}</label>
+                    </div>
+                    <br><br>
+                    <label for="unknown_function" class="purple-title">{% trans 'Pattern' %}</label>
+                    <div class="ui form">
+                        <textarea id="unknown_function" rows="5" style="resize:none" placeholder="{% trans 'Pattern' %}">{{ markdata.unknown_data.0 }}</textarea>
+                    </div>
+                    <br>
+                    <label for="unknown_problem_pattern" class="purple-title">{% trans 'Problem' %}</label>
+                    <div class="ui input fluid">
+                        <input id="unknown_problem_pattern" type="text" value="{{ markdata.unknown_data.1 }}" maxlength="20">
+                    </div>
+                    <br>
+                    <label for="unknown_link" class="purple-title">{% trans 'Link to detailed description' %}</label>
+                    <div class="ui input fluid">
+                        <input id="unknown_link" type="url" {% if markdata.unknown_data.2 %}value="{{ markdata.unknown_data.2 }}"{% endif %}>
+                    </div>
+                    {% if action == 'create' %}
+                        <div class="ui divider"></div>
+                        <button id="test_unknown_mark" class="ui mini teal button" style="float: right">{% trans 'Test pattern' %}</button>
+                        <br>
+                        <div id="test_mark_result_div" style="display: none">
+                            <h5>{% trans 'Problem' %}: <span id="test_mark_problem" style="color: #a2443f"></span></h5>
+                            <h5>{% trans 'Matched text' %}:</h5>
+                            <div id="test_mark_result" class="filecontent code-text"></div>
+                        </div>
+                        <div id="test_mark_nomatch_div" style="display: none">
+                            <h4 class="ui red header">{% trans 'No matches found' %}</h4>
+                            <div id="regexp_err_result" class="filecontent error-text" style="display: none"></div>
+                        </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+
+                <div class="ui segment">
+                    <div class="ui grid">
+                        {# Verdict #}
+                        {% if markdata.type != 'unknown' %}
+                            <div class="eight wide column">
+                                <h4 class="header ui pink">{% trans 'Verdict' %}</h4>
+                                <div style="margin-left: 25px">
+                                    {% for v in markdata.verdicts %}
+                                        <div class="ui radio checkbox">
+                                            <input id="selected_verdict__{{ v.value }}" type="radio" name="selected_verdict" value="{{ v.value }}"{% if v.checked %} checked{% endif %}>
+                                            <label for="selected_verdict__{{ v.value }}" style="color: {{ v.color }}">{{ v.title }}</label>
+                                        </div>
+                                        <br>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        {% endif %}
+                        {# Status #}
+                        <div class="eight wide column">
+                            <h4 class="header ui pink">{% trans 'Status' %}</h4>
+                            <div style="margin-left: 25px">
+                                {% for s in markdata.statuses %}
+                                    <div class="ui radio checkbox">
+                                        <input id="selected_status__{{ s.value }}" type="radio" name="selected_status" value="{{ s.value }}"{% if s.checked %} checked{% endif %}>
+                                        <label for="selected_status__{{ s.value }}" style="color: {{ s.color }}">{{ s.title }}</label>
+                                    </div>
+                                    <br>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {# Tags #}
+                {% if markdata.type != 'unknown' %}
+                    <div class="ui segment">
+                        <h4 class="header ui pink">{% trans 'Tags' %}</h4>
+                        {% include 'marks/MarkTags.html' with tags=markdata.tags.table available=markdata.tags.available selected=markdata.tags.selected %}
+                    </div>
+                {% endif %}
+
+                {# Description #}
+                <div class="ui segment">
+                    <h4 class="header ui pink">{% trans 'Description' %}</h4>
+                    <div class="ui form">
+                        <label for="mark_description"></label>
+                        <textarea id="mark_description" rows="3" style="resize:none">{{ markdata.description }}</textarea>
+                    </div>
+                </div>
+            </div>
+
+            {% if access.can_freeze %}
+            <div class="ui grid">
+                <div class="ui basic segment">
+                    <div class="ui toggle checkbox">
+                        <input type="checkbox" id="is_modifiable" {% if mark and mark.is_modifiable %}checked{% endif %}>
+                        <label for="is_modifiable">{% trans 'Editable' %}</label>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+            {% if markdata.type == 'unsafe' %}
+                <div class="ui red segment">
+                    <h4 class="header ui red">{% trans 'Converted error trace' %}</h4>
+                    <div class="ui form">
+                        <label for="converted_error_trace"></label>
+                        <textarea id="converted_error_trace" rows="15" style="font-family: monospace" onkeydown="if(event.keyCode===9){var v=this.value,s=this.selectionStart,e=this.selectionEnd;this.value=v.substring(0, s)+'\t'+v.substring(e);this.selectionStart=this.selectionEnd=s+1;return false;}">{{ converted_error_trace }}</textarea>
+                    </div>
+                </div>
+            {% else %}
+                <br>
+            {% endif %}
+
+            <div class="ui action input fluid">
+                <input id="mark_comment" type="text" placeholder="{% trans 'Comment' %}">
+                <a href="{{ cancel_url }}" class="ui blue button" style="float:right">{% trans 'Cancel' %}</a>
+                <button id="save_mark_btn" class="ui green button">{% trans 'Save' %}</button>
+            </div>
+        </div>
+        <div class="eight wide column">
+            {% if markdata.type == 'unsafe' %}
+                {# Conversion function #}
+                <div class="ui teal segment">
+                    <h4 class="header ui teal">{% trans 'Error traces conversion function' %}</h4>
+                    <select id="conversion_function" class="ui dropdown fluid top attached" onchange="conversion_function_change(this.value)">
+                        {% for f in markdata.conversion %}
+                            <option value="{{ f }}"{% if f.name == conversion_function %} selected{% endif %}>{{ f.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <div class="ui teal segment">
+                        <h5>{% trans 'Description' %}</h5>
+                        <p id="conversion_function_description" class="func-description">
+                            {% for f in markdata.conversion %}
+                                {% if f.name == conversion_function %} {{ f.desc }} {% endif %}
+                            {% endfor %}
+                        </p>
+                    </div>
+
+                    <div id="conversion_function_arguments" class="ui teal segment">
+                        <h5>{% trans 'Conversion function arguments' %}</h5>
+                        <div class="ui form">
+                            <div class="fields">
+                                <div class="five wide field">
+                                    <input type="text" id="filtered_model_functions"
+                                       {% if conversion_function != 'model functions' and conversion_function != 'call tree' and conversion_function != 'full' %} hidden {% endif %}
+                                       placeholder="{% trans 'Filtered functions' %}"
+                                       onchange="update_converted_error_trace_on_args(this.value)" value="{{ args.filtered_model_functions }}"
+                                    >
+                                </div>
+                                <div class="six wide field">
+                                    <input type="text" id="additional_model_functions"
+                                       {% if conversion_function != 'model functions' %} hidden {% endif %}
+                                       placeholder="{% trans 'Additional model functions' %}"
+                                       onchange="update_converted_error_trace_on_args(this.value)" value="{{ args.additional_model_functions }}"
+                                    >
+                                </div>
+                            </div>
+                            <div class="fields">
+                                <div class="field">
+                                    <div class="ui checkbox">
+                                        <input id="model_functions_use_notes" type="checkbox" onchange="update_converted_error_trace_on_args(this.value)" {% if args.use_notes %} checked {% endif %}>
+                                        <label>{% trans 'Add property checks description' %}</label>
+                                    </div>
+                                </div>
+                                <div class="field" id="model_functions_use_warns_hide">
+                                    <div class="ui checkbox">
+                                        <input id="model_functions_use_warns" type="checkbox" onchange="update_converted_error_trace_on_args(this.value)" {% if args.use_warns %} checked {% endif %}>
+                                        <label>{% trans 'Add error label description' %}</label>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <div class="ui checkbox">
+                                        <input id="model_functions_ignore_notes_text" type="checkbox" onchange="update_converted_error_trace_on_args(this.value)" {% if args.ignore_notes_text %} checked {% endif %}>
+                                        <label>{% trans 'Do not consider property checks description' %}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ui blue segment">
+                    <h4 class="header blue ui">{% trans 'Error traces comparison function' %}</h4>
+                    <select id="comparison_function" class="ui dropdown fluid top attached" onchange="comparison_function_change(this.value)">
+                        {% for f in markdata.comparison %}
+                            <option value="{{ f }}"{% if f.name == comparison_function %} selected{% endif %}>{{ f.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <div class="ui blue segment">
+                        <h5>{% trans 'Description' %}</h5>
+                        <p id="comparison_function_description" class="func-description">
+                            {% for f in markdata.comparison %}
+                                {% if f.name == comparison_function %} {{ f.desc }} {% endif %}
+                            {% endfor %}
+                        </p>
+                    </div>
+                </div>
+            {% endif %}
+
+            {% if markdata.type == 'unknown' and problem_description %}
+                <div class="ui red segment filecontent" style="min-height:50vh;max-height:80vh;">{{ problem_description }}</div>
+            {% endif %}
+
+            {% if markdata.type == 'unsafe' %}
+                <div class="ui purple segment">
+                    <h4 class="header purple ui">
+                        {% trans 'Similarity threshold' %} ({% trans 'in percents' %})
+                        <i class="question icon purple" title="{% trans 'Jaccard index of threads sets' %}"></i>
+                    </h4>
+                    <div class="ui form">
+                        <div class="two wide field">
+                            <input type="number" id="similarity_threshold" min="1" max="100" value="{{ similarity }}">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ui brown segment">
+                    <h4 class="header brown ui">{% trans 'Optimizations' %} ({% trans 'use carefully' %})</h4>
+                    <div class="ui toggle checkbox">
+                        <input type="checkbox" id="apply_for_current" {% if 'apply_for_current' in optimizations %} checked {% endif %}>
+                        <label for="apply_for_current">{% trans 'Apply only to current report' %}</label>
+                    </div>
+                    {% if action == 'edit' %}
+                    <div class="ui toggle checkbox">
+                        <input type="checkbox" id="do_not_recalc" {% if 'do_not_recalc' in optimizations %} checked {% endif %}>
+                        <label for="do_not_recalc">{% trans 'Do not recalculate mark application cache' %}</label>
+                    </div>
+                    {% endif %}
+                </div>
+
+                {% if mark_report %}
+                <div class="ui violet segment">
+                    <h4 class="header ui violet">{% trans 'Change initial error trace for this mark' %}</h4>
+                    <select id="change_initial_error_trace" class="ui dropdown fluid top attached" onchange="change_initial_error_trace(this.value)">
+                        {% for report_id, data in mark_report.items %}
+                            <option value="{{ report_id }}"{% if data.selected %} selected{% endif %}>{{ report_id }} of {{ data.job_name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                {% endif %}
+
+            {% endif %}
+
+            {# Attributes #}
+            {% if markdata.attributes|length %}
+                <div class="ui styled accordion fluid">
+                    <div class="title">
+                        <i class="grid layout icon"></i>{% trans 'Attributes' %}
+                    </div>
+                    <div class="content">
+                        <div style="overflow-x:auto;">
+                            <table class="ui selectable compact table celled grey striped">
+                                <thead style="background: #d3d3d3;">
+                                    <tr>
+                                        <td width="1%">{% trans 'Name' %}</td>
+                                        <td width="1%">{% trans 'Operator' %}</td>
+                                        <td>{% trans 'Value of attribute' %}</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for v in markdata.attributes %}
+                                        <tr>
+                                            <td class="collapsing">
+                                                <div class="ui small checkbox">
+                                                    <label for="attr_checkbox__{{ v.0 }}">{{ v.0 }}</label>
+                                                    <input onchange="change_attr_checkbox('{{ v.0 }}')" id="attr_checkbox__{{ v.0 }}" type="checkbox" value="{{ v.0 }}"{% if v.2 %} checked{% endif %}>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <select id="attr_op__{{v.0}}" style="padding-bottom: 0px;padding-top: 0px">
+                                                    {% for op in operators %}
+                                                        <option value="{{op.0}}" {%if op.0 == 're'%}title="{% trans 'Regular expression' %}"{%endif%}
+                                                            {%if op.0 == v.3%}selected{%endif%}>
+                                                            {{op.1|safe}}
+                                                        </option>
+                                                    {% endfor %}
+                                                </select>
+                                            </td>
+                                            <td class="collapsing">
+                                                <div class="ui form fluid">
+                                                    <input type="text" class="ui {% if not v.2 %}disabled{% endif %} field" id="attr_values__{{ v.0 }}" value="{{ v.1 }}">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    {% include 'marks/MarkProgress.html' %}
+
+    <input id="obj_type" type="hidden" value="{{ markdata.type }}">
+    <input id="obj_id" type="hidden" value="{% if mark %}{{ mark.id }}{% elif report %}{{ report.id }}{% else %}0{% endif %}">
+    <input id="action" type="hidden" value="{{ action }}">
+    <input id="report_pk" type="hidden" value="{{ report.pk }}">
+    <input id="report_id" type="hidden" value="{{ report_id }}">
+
+{% endblock %}

@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% comment "License" %}
+% CVV is a continuous verification visualizer.
+% Copyright (c) 2023 ISP RAS (http://www.ispras.ru)
+% Ivannikov Institute for System Programming of the Russian Academy of Sciences
+%
+% Copyright (c) 2018 ISP RAS (http://www.ispras.ru)
+% Ivannikov Institute for System Programming of the Russian Academy of Sciences
+%
+% Licensed under the Apache License, Version 2.0 (the "License");
+% you may not use this file except in compliance with the License.
+% You may obtain a copy of the License at
+%
+%    http://www.apache.org/licenses/LICENSE-2.0
+%
+% Unless required by applicable law or agreed to in writing, software
+% distributed under the License is distributed on an "AS IS" BASIS,
+% WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+% See the License for the specific language governing permissions and
+% limitations under the License.
+{% endcomment %}
+
+{% load i18n %}
+{% load tz %}
+
+{% block title %}{% trans 'Profile' %}{% endblock %}
+
+{% block body_block %}
+{% if target %}
+    <div class="ui grid">
+        <div class="three wide column">
+            <h3><cite>{{ target.first_name }} {{ target.last_name }}</cite></h3>
+            <div class="ui list">
+                {% if target.email %}
+                    <div class="item"><span style="color: #a7aab4">{% trans 'Email' %}: </span><ins style="color: #507ab4">{{ target.email }}</ins></div>
+                {% endif %}
+                <div class="item"><span style="color: #a7aab4">{% trans 'Administrator' %}: </span>{% if target.is_superuser %}{% trans 'Yes' %}{% else %}{% trans 'No' %}{% endif %}</div>
+                <div class="item"><span style="color: #a7aab4">{% trans 'Role' %}: </span> {{ target.extended.get_role_display }}</div>
+                <div class="item"><span style="color: #a7aab4">{% trans 'Time zone' %}: </span> {{ target.extended.timezone }}</div>
+                <div class="item"><span style="color: #a7aab4">{% trans 'Language' %}: </span> {{ target.extended.get_language_display }}</div>
+            </div>
+        </div>
+        <div class="thirteen wide column">
+            <h2>{% trans 'Last Activity' %}</h2>
+            {% if activity|length %}
+                <table class="ui selectable celled stripped alternate-color compact table">
+                    <thead>
+                        <tr>
+                            <th width="1%">#</th>
+                            <th class="three wide">{% trans 'Date' %}</th>
+                            <th>{% trans 'Action Kind' %}</th>
+                            <th>{% trans 'Object Type' %}</th>
+                            <th>{% trans 'Object Link' %}</th>
+                            <th class="four wide">{% trans 'Change Comment' %}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for act in activity %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ act.date }}</td>
+                            <td style="color:{{ act.act_color }}">{{ act.act_type }}</td>
+                            <td>{{ act.obj_type }}</td>
+                            {% if act.href %}
+                                <td><a href="{{ act.href }}">{{ act.obj_link }}</a></td>
+                            {% else %}
+                                <td>{{ act.obj_link }}</td>
+                            {% endif %}
+                            {% if act.comment %}
+                                <td title="{{ act.comment }}"><small>{{ act.small_comment }}</small></td>
+                            {% else %}
+                                <td></td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+        </div>
+    </div>
+{% else %}
+<h1>{{error}}</h1>
+{% endif %}
+{% endblock %}

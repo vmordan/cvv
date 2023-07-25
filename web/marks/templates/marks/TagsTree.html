@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+{% comment "License" %}
+% CVV is a continuous verification visualizer.
+% Copyright (c) 2023 ISP RAS (http://www.ispras.ru)
+% Ivannikov Institute for System Programming of the Russian Academy of Sciences
+%
+% Copyright (c) 2018 ISP RAS (http://www.ispras.ru)
+% Ivannikov Institute for System Programming of the Russian Academy of Sciences
+%
+% Licensed under the Apache License, Version 2.0 (the "License");
+% you may not use this file except in compliance with the License.
+% You may obtain a copy of the License at
+%
+%    http://www.apache.org/licenses/LICENSE-2.0
+%
+% Unless required by applicable law or agreed to in writing, software
+% distributed under the License is distributed on an "AS IS" BASIS,
+% WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+% See the License for the specific language governing permissions and
+% limitations under the License.
+{% endcomment %}
+
+{% load i18n %}
+{% load static %}
+
+{% block head_block %}
+    <link href="{% static 'marks/css/tagsmap.css' %}" rel="stylesheet">
+    <script type="text/javascript" src="{% static 'marks/js/tags.js' %}"></script>
+    <script type="text/javascript" src="{% static 'marks/js/tagsmap.js' %}"></script>
+{% endblock %}
+
+{% block title %}{{ title }}{% endblock %}
+{% block help_link %}tags_tree{% endblock %}
+
+{% block body_block %}
+    <div class="tagsmap">
+        {% if can_create %}<button id="create_root_tag" class="ui tiny basic blue button"><i class="ui add icon"></i>{% trans 'Create new root tag' %}</button>{% endif %}
+
+        <br><br>
+        <table>
+            {% for row in tags %}
+                <tr>
+                {% for cell in row %}
+                    {% if cell|value_type == "<class 'str'>" %}
+                        <td class="line line-{{ cell }}">&nbsp;</td>
+                    {% elif cell|value_type == "<class 'marks.tags.TagData'>" %}
+                        <td id="tag_id_{{ cell.id }}" class="edit-tag-cell {{ tags_type }}">{{ cell.name }}</td>
+                    {% else %}
+                        <td>&nbsp;</td>
+                    {% endif %}
+                {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <span id="tags_type" hidden>{{ tags_type }}</span>
+    {% include 'marks/TagsControls.html' %}
+    <div class="popups">
+        {% for row in tags %}
+            {% for cell in row %}
+                {% if cell|value_type == "<class 'marks.tags.TagData'>" %}
+                    <div id="tag_popup_{{ cell.id }}" class="ui popup" style="min-width: 250px;">
+                        {% if cell.can_edit %}
+                            <span class="icon-text" style="display: inline">&nbsp;</span>
+                        {% endif %}
+                        {% if cell.can_create_the_child %}
+                            <span>&nbsp;</span>
+                            <span class="icon-text icon-text-create">{% trans 'Create child' %}</span>
+                        {% endif %}
+                        {% if cell.can_edit %}
+                            <span class="icon-text icon-text-edit">{% trans 'Edit' %}</span>
+                            {% if cell.can_delete %}
+                                <span class="icon-text icon-text-remove">{% trans 'Remove' %}</span>
+                                <i class="ui small remove blue icon remove-tag-icon tag-icon" style="float: right"></i>
+                            {% endif %}
+                            <i class="ui small write blue icon edit-tag-icon tag-icon" style="float: right"></i>
+                        {% endif %}
+                        {% if cell.can_create_the_child %}
+                            <i class="ui small add blue icon create-tag-icon tag-icon" style="float: right"></i>
+                        {% endif %}
+                        <div class="content">{{ cell.description|safe }}</div>
+                        <p class="small-text" style="float: right">{% trans 'Author' %}: {{ cell.author }}</p>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+    </div>
+    <input id="edit_tag_id" type="hidden">
+    <div id="edit_tag_modal" class="ui dinamic modal">
+        <div class="ui header">{% trans 'Edit tag' %}</div>
+        <div class="content">
+            <div class="ui form">
+                <div class="ui grid">
+                    <div class="eight wide column">
+                        <label class="bold-text" for="tag_name">{% trans 'Name' %}</label>
+                        <div class="ui input fluid">
+                            <input id="tag_name" type="text" maxlength="32">
+                        </div>
+                    </div>
+                    <div class="eight wide column">
+                        <label class="bold-text" for="tag_parent">{% trans 'Parent' %}</label>
+                        <select id="tag_parent" class="ui search selection dropdown fluid">
+                            <option value="0">{% trans 'Root' %}</option>
+                        </select>
+                    </div>
+                </div>
+                <br>
+                <label class="bold-text" for="tag_description">{% trans 'Description' %}</label>
+                <textarea id="tag_description" rows="7" placeholder="{% trans 'Description' %}" style="resize:none"></textarea>
+                {% if user.extended.role == '2' %}
+                    <br><br>
+                    <div id="edit_tag_user_access_selection"></div>
+                {% endif %}
+                <br><br>
+            </div>
+        </div>
+        <div class="actions">
+            <div class="ui grid">
+                <div class="eight wide column left aligned">
+                    <button id="save_tag" type="button" class="ui green button small">{% trans 'Save' %}</button>
+                </div>
+                <div class="eight wide column right aligned">
+                    <button id="cancel_edit_tag" type="button" class="ui blue button small">{% trans 'Cancel' %}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="remove_tag_modal" class="ui basic modal">
+        <div class="ui icon header">
+            <i class="warning sign icon"></i>
+            {% trans 'Are you sure' %}?
+        </div>
+        <div class="content">
+            <div class="ui center aligned grid">
+                <p>{% trans 'All children of the selected tag will be also removed' %}!</p>
+            </div>
+        </div>
+        <div class="actions">
+            <div class="ui center aligned grid">
+                <button id="cancel_remove_tag" type="button" class="ui blue basic inverted button">{% trans 'Cancel' %}</button>
+                <button id="confirm_remove_tag" class="ui red basic inverted button">{% trans 'Remove' %}</button>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% comment "License" %}
+% CVV is a continuous verification visualizer.
+% Copyright (c) 2023 ISP RAS (http://www.ispras.ru)
+% Ivannikov Institute for System Programming of the Russian Academy of Sciences
+%
+% Copyright (c) 2018 ISP RAS (http://www.ispras.ru)
+% Ivannikov Institute for System Programming of the Russian Academy of Sciences
+%
+% Licensed under the Apache License, Version 2.0 (the "License");
+% you may not use this file except in compliance with the License.
+% You may obtain a copy of the License at
+%
+%    http://www.apache.org/licenses/LICENSE-2.0
+%
+% Unless required by applicable law or agreed to in writing, software
+% distributed under the License is distributed on an "AS IS" BASIS,
+% WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+% See the License for the specific language governing permissions and
+% limitations under the License.
+{% endcomment %}
+
+{% load i18n %}
+
+{% if DataStatistics|length %}
+    <div class="ui top attached tabular menu">
+    {% for data in DataStatistics %}
+        <a class="item{% if data.active %} active{% endif %}" data-tab="{{ data.tab }}">{{ data.tab }}</a>
+    {% endfor %}
+    </div>
+    {% for data in DataStatistics %}
+        <div class="ui bottom attached tab segment{% if data.active %} active{% endif %}" data-tab="{{ data.tab }}">{{ data.content|safe }}</div>
+    {% endfor %}
+{% else %}
+    <h3>{% trans 'There is no data statistics' %}</h3>
+{% endif %}

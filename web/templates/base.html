@@ -1,0 +1,201 @@
+{% comment "License" %}
+% CVV is a continuous verification visualizer.
+% Copyright (c) 2023 ISP RAS (http://www.ispras.ru)
+% Ivannikov Institute for System Programming of the Russian Academy of Sciences
+%
+% Copyright (c) 2018 ISP RAS (http://www.ispras.ru)
+% Ivannikov Institute for System Programming of the Russian Academy of Sciences
+%
+% Licensed under the Apache License, Version 2.0 (the "License");
+% you may not use this file except in compliance with the License.
+% You may obtain a copy of the License at
+%
+%    http://www.apache.org/licenses/LICENSE-2.0
+%
+% Unless required by applicable law or agreed to in writing, software
+% distributed under the License is distributed on an "AS IS" BASIS,
+% WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+% See the License for the specific language governing permissions and
+% limitations under the License.
+{% endcomment %}
+
+<!DOCTYPE html>
+
+{% load static %}
+
+{% load i18n %}
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-COMPATIBLE" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="icon" href="/static/images/cv.png">
+        <title>{% block title %}{% trans 'Sign in' %}{% endblock %} | CV</title>
+        <script type="text/javascript" src="{% static 'js/jquery-2.1.4.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/notify.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'semantic/semantic.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/web.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/treetable.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/jquery.dataTables.min.js' %}"></script>
+
+        <link href="{% static 'semantic/semantic.min.css' %}" rel="stylesheet">
+        <link href="{% static 'css/web.css' %}" rel="stylesheet">
+        <link href="{% static 'data_tables/css/jquery.dataTables.min.css' %}" rel="stylesheet">
+        {% block head_block %}{% endblock %}
+    </head>
+    <body>
+        {% if not standalone_html %}
+        <div id="dimmer_of_page" class="ui dimmer">
+            <div class="ui text loader">{% trans 'Please wait' %}</div>
+        </div>
+
+        <div id="page_header" class="ui inverted menu blue fixed">
+            <div class="item" style="padding: 6px">
+                <a {% if user.is_authenticated %}href="{% url 'jobs:tree' %}"{% endif %}>
+                    <div title="{% trans 'Web-interface for Continuous Verification system' %}">
+                        <img height="40" src="/static/images/cv_logo.png">
+                    </div>
+                </a>
+            </div>
+        {% if user.is_authenticated %}
+            <div class="ui text menu compact" style="padding-left: 20px;">
+                <a class="browse item">
+                    <h4>{% trans 'Menu' %}<i class="dropdown icon"></i></h4>
+                </a>
+                <div class="ui flowing basic admission popup">
+                    <div class="ui {% if user.is_staff or user.extended and user.extended.role == '2' %}four{% else %}three{% endif %} column divided grid">
+                        <div class="blue column">
+                            <h4 class="ui header" style="color:white">{% trans 'Jobs' %}</h4>
+                            <div class="ui list">
+                                <a class="item" href="{% url 'jobs:tree' %}">{% trans 'Jobs Tree' %}</a>
+                                {% if user.extended.role == '2' or user.extended.role == '1' %}
+                                    <a class="item" href="{% url 'service:launcher' %}">{% trans 'Launcher' %}</a>
+                                {% endif %}
+                                <!-- TODO: not supported
+                                {% if user.extended.role == '2' or user.extended.role == '1' %}
+                                    <a class="item" id="show_upload_job_popup">{% trans 'Upload jobs' %}</a>
+                                {% endif %}
+                                -->
+                            </div>
+                        </div>
+                        <div class="column blue">
+                            <h4 class="ui header" style="color:white">{% trans 'Marks' %}</h4>
+                            <div class="ui list">
+                                <a class="item" href="{% url 'marks:list' 'unsafe' %}">{% trans 'Unsafes' %}</a>
+                                <a class="item" href="{% url 'marks:list' 'unknown' %}">{% trans 'Unknowns' %}</a>
+                                <a class="item" href="{% url 'marks:list' 'safe' %}">{% trans 'Safes' %}</a>
+                            </div>
+                        </div>
+                        <div class="column blue">
+                            <h4 class="ui header" style="color:white">{% trans 'Tags' %}</h4>
+                            <div class="ui list">
+                                <a class="item" href="{% url 'marks:tags' 'unsafe' %}">{% trans 'Unsafes' %}</a>
+                                <a class="item" href="{% url 'marks:tags' 'safe' %}">{% trans 'Safes' %}</a>
+                            </div>
+                        </div>
+                        {% if user.is_staff or user.extended and user.extended.role == '2' %}
+                        <div class="column blue">
+                            <h4 class="ui header" style="color:white">{% trans 'Admin' %}</h4>
+                            <div class="ui list">
+                                {% if user.is_staff %}
+                                <a class="item" href="/admin/">{% trans 'Admin Tools' %}</a>
+                                {% endif %}
+                                {% if user.extended and user.extended.role == '2' %}
+                                <a class="item" href="{% url 'tools:manager' %}">{% trans 'Manager Tools' %}</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+            <div class="right menu">
+            {% if user.is_authenticated %}
+                <a class="item" href="/help">{% trans 'About' %}</a>
+                <a class="item" href="/help/{% block help_link %}{% endblock %}"><i class="ui icon question circle"></i></a>
+                <div class="ui text menu right compact" style="padding-right: 20px; padding-top: 0px;">
+                    <a class="browse item">
+                        <h4>{{ user.username }}<i class="dropdown icon"></i></h4>
+                    </a>
+                    <div class="ui flowing basic popup">
+                        <div class="ui one column divided grid">
+                            <div class="column blue">
+                                <a class="item" href="{% url 'users:show_profile' user.pk %}">{% trans 'Activity' %}</a>
+                                <a class="item" href="{% url 'users:edit_profile' %}">{% trans 'Settings' %}</a>
+                                <a class="item" href="{% url 'users:logout' %}">{% trans 'Sign Out' %}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <a class="item" href="{% url 'users:register' %}">{% trans 'Register' %}</a>
+                <a class="item" href="{% url 'users:login' %}">{% trans 'Sign In' %}</a>
+            {% endif %}
+            </div>
+        </div>
+        <br>
+        {% endif %}
+        {% block body_block %}{% endblock %}
+        <div id="upload_job_popup" class="ui modal">
+            <div class="header">{% trans 'Upload jobs' %}</div>
+            <div class="content">
+                <p>{% trans "Set parent identifier. All file or folder names with non-ASCII characters will be truncated to 30 characters." %}</p>
+                <div class="ui grid">
+                    <div class="five wide column">
+                        <div class="ui fluid input">
+                            <input id="upload_job_parent_id" type="text" placeholder="{% trans 'Identifier' %}" maxlength="32">
+                        </div>
+                    </div>
+                    <div class="three wide column right aligned">
+                        <span class="ui violet button btn-file">{% trans 'Browse' %}<input id="upload_job_file_input" type="file" multiple></span>
+                    </div>
+                    <div class="eight wide column">
+                        <span id="upload_job_filename"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="actions">
+                <button id="upload_jobs_start" type="button" class="ui positive button">{% trans 'Upload' %}</button>
+                <button id="upload_job_cancel" type="button" class="ui blue button">{% trans 'Cancel' %}</button>
+            </div>
+        </div>
+
+        <div id="upload_jobtree_popup" class="ui modal">
+            <div class="header">{% trans 'Upload jobs tree' %}</div>
+            <div class="content">
+                <p>{% trans "Set parent identifier or leave it empty for root jobs from tree to be without a parent." %}</p>
+                <div class="ui grid">
+                    <div class="five wide column">
+                        <div class="ui fluid input">
+                            <input id="upload_jobtree_parent_id" type="text" placeholder="{% trans 'Identifier' %}" maxlength="32">
+                        </div>
+                    </div>
+                    <div class="three wide column right aligned">
+                        <span class="ui violet button btn-file">{% trans 'Browse' %}<input id="upload_jobtree_file_input" type="file"></span>
+                    </div>
+                    <div class="eight wide column">
+                        <span id="upload_jobtree_filename"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="actions">
+                <button id="upload_jobstree_start" type="button" class="ui positive button">{% trans 'Upload' %}</button>
+                <button id="upload_jobstree_cancel" type="button" class="ui blue button">{% trans 'Cancel' %}</button>
+            </div>
+        </div>
+        <span id="error__no_file_chosen" hidden>{% trans 'No file is chosen' %}</span>
+        <span id="error__ajax_error" hidden>{% trans 'Ajax request error. Maybe connection refused.' %}</span>
+        <span id="trans__sort_length_menu" hidden>{% trans 'Show _MENU_ rows' %}</span>
+        <span id="trans__sort_info" hidden>{% trans 'Display from _START_ to _END_ of _TOTAL_ rows' %}</span>
+        <span id="trans__sort_info_empty" hidden>{% trans 'Nothing is found' %}</span>
+        <span id="trans__sort_info_filtered" hidden>({% trans 'filtered of _MAX_ rows' %})</span>
+        <span id="trans__sort_search" hidden>{% trans 'Search' %}:</span>
+        <span id="trans__sort_next" hidden>{% trans 'Next' %}</span>
+        <span id="trans__sort_previous" hidden>{% trans 'Previous' %}</span>
+        <span id="trans__sort_all" hidden>{% trans 'all' %}</span>
+    </body>
+</html>

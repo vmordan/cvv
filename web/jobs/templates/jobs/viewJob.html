@@ -1,0 +1,380 @@
+{% extends 'jobs/base.html' %}
+{% comment "License" %}
+% CVV is a continuous verification visualizer.
+% Copyright (c) 2023 ISP RAS (http://www.ispras.ru)
+% Ivannikov Institute for System Programming of the Russian Academy of Sciences
+%
+% Copyright (c) 2018 ISP RAS (http://www.ispras.ru)
+% Ivannikov Institute for System Programming of the Russian Academy of Sciences
+%
+% Licensed under the Apache License, Version 2.0 (the "License");
+% you may not use this file except in compliance with the License.
+% You may obtain a copy of the License at
+%
+%    http://www.apache.org/licenses/LICENSE-2.0
+%
+% Unless required by applicable law or agreed to in writing, software
+% distributed under the License is distributed on an "AS IS" BASIS,
+% WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+% See the License for the specific language governing permissions and
+% limitations under the License.
+{% endcomment %}
+
+{% load i18n %}
+
+{% load humanize %}
+{% load tz %}
+{% load static %}
+
+{% block jobs_head_block %}
+    <link rel="stylesheet" href="{% static 'jstree/themes/default/style.min.css' %}">
+    <script src="{% static 'jstree/jstree.min.js' %}"></script>
+    <script src="{% static 'jobs/js/versions.js' %}"></script>
+    <script src="{% static 'jobs/js/jobPage.js' %}"></script>
+    <script src="{% static 'jobs/js/jobtree.js' %}"></script>
+{% endblock %}
+
+{% block title %}{{ job.name }}{% endblock %}
+
+{% block help_link %}job{% endblock %}
+
+{% block body_block %}
+
+
+<div class="ui grid">
+    <div class="twelve wide column left aligned">
+        <div class="ui breadcrumb">
+            <h3><a class="blue-link" href="{% url 'jobs:tree' %}">{% trans 'Reports tree' %}</a>
+            {% if parents.0 %}
+                {% for parent in parents|slice:"0:" %}
+                     <i class="icon arrow right divider"></i> <a class="blue-link" href="{% url 'jobs:job' parent.pk %}">{{ parent.name }}</a>
+                {% endfor %}
+            {% endif %}
+            <i class="icon arrow right divider"></i> {{ job.name }}
+            </h3>
+        </div>
+    </div>
+    <div class="four wide column right aligned">
+        {% if user.extended.role == '2' %}
+        <div class="ui text menu compact">
+            <div class="ui dropdown right icon item">
+                <div class="ui teal tiny basic button">{% trans 'Actions' %}</div>
+                <div class="menu">
+                    <!-- TODO: not supported anymore
+                    <a id="download_job_btn" href="{% url 'jobs:download' job.id %}" class="item{% if not job_access.can_download %} disabled{% endif %}">{% trans 'Download' %}</a>
+                    -->
+                    <a href="{% url 'jobs:form' job.id 'edit' %}" class="menu-link item{% if not job_access.can_edit %} disabled{% endif %}">{% trans 'Edit' %}</a>
+                    <a id="clear_job_btn" class="item{% if not job_access.can_download %} disabled{% endif %}" style="">{% trans 'Clear' %}</a>
+                    {% if not children %}
+                    <a id="remove_job_btn" class="item{% if not job_access.can_delete %} disabled{% endif %}" style="">{% trans 'Delete' %}</a>
+                    <a id="upload_reports_btn" class="item{% if not job_access.can_upload_reports %} disabled{% endif %}">{% trans 'Upload' %}</a>
+                    {% endif %}
+                    {% if job.status == '1' or job.status == '2' %}
+                    <a id="stop_job_btn" class="item">{% trans 'Stop' %}</a>
+                    {% endif %}
+                    {% if job.status == '0' %}
+                    <a href="{% url 'jobs:form' job.id 'copy' %}" class="menu-link item{% if not job_access.can_create %} disabled{% endif %}">{% trans 'Copy' %}</a>
+                    {% endif %}
+                    <a href="{% url 'service:launcher' job.id %}" class="item">{% trans 'Launch' %}</a>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+{% if reportdata.totals.unsafes.number > 0 or reportdata.totals.safes.number > 0 or reportdata.totals.unknowns.number > 0 or reportdata.data.resources|length %}
+
+<div class="ui grid">
+    {% if job %}
+        <div class="ten wide column">
+        {% include 'jobs/DecisionResults.html' %}
+        </div>
+    {% endif %}
+
+    <div class="six wide column right floated right aligned">
+        {# Job data table #}
+        <table class="ui selectable attached compact table celled striped" style="background: #cafdff">
+            <thead>
+                <tr>
+                    <td class="center aligned" colspan="2"  style="background: #baedef">
+                        <span class="ui header">{{ job.name }}{% if job.weight == '1' %} ({{ job.get_weight_display|lower }}){% endif %}</span>
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                {% if last_version.description|length %}
+                <tr><td class="right aligned">{% trans 'Description' %}</td><td><span style="white-space: pre-wrap;">{{ last_version.description|safe }}</span></td></tr>
+                {% endif %}
+                <tr id="tr_before_progress">
+                    <td class="right aligned">{% trans 'Last change' %}</td>
+                    <td>
+                        {% if user.extended.data_format == 'hum' %}{{ last_version.change_date|naturaltime }}{% else %}{{ last_version.change_date }}{% endif %}
+                        {% if last_version.change_author %}
+                            (<a class="blue-link" href="{% url 'users:show_profile' last_version.change_author.pk %}">{{ last_version.change_author.get_full_name }}</a>)
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr id="job_status_popup_activator">
+                    <td class="right aligned">{% trans 'Status' %}</td>
+                    <td>
+                        {% if reportdata.report %}
+                            <a class="blue-link" href="{% url 'reports:component' reportdata.report.id %}">{{ job.get_status_display }} ({% trans 'components tree' %})</a>
+                        {% else %}
+                            <span>{{ job.get_status_display }}</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% if attrs %}
+                    <tr>
+                        <td class="ui header center aligned" colspan="2"  style="background: #baedef">
+                            {% trans 'Attributes' %}
+                            <button id="apply_attributes" class="ui tiny red button basic "><b><i class="ui icon crosshairs"></i>{% trans 'Apply' %}</b></button>
+                            {% if reportdata.attrs %}
+                                <button id="cancel_attributes" class="ui tiny red button basic ">{% trans 'Cancel' %}</button>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% for name, vals in attrs.items|sort_list %}
+                    <tr>
+                        <td class="right aligned">{{ name }}</td>
+                        <td>
+                            {% if vals|length == 1 %}
+                                <div class="ui checkbox">
+                                    {% for val in vals %}
+                                    {# One iteration only #}
+                                    <input type="checkbox" id="attr_{{ name }}_{{ val }}" value="{{ val }}"
+                                           {% if name in reportdata.attrs %}
+                                                {% for s_name, s_vals in reportdata.attrs.items %}
+                                                    {% if name == s_name %}
+                                                        {% for s_val in s_vals %}
+                                                            {% if s_val.value == val %}
+                                                                checked
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                {% endfor %}
+                                            {% endif %}
+                                    >
+                                    <label>{{ val }}</label>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                            <div class="ui accordion">
+                                <div class="title"><i class="dropdown icon"></i>{{ vals|length }}
+                                    {% if vals|length == 1 %} {% trans 'element' %} {% else %} {% trans 'elements' %} {% endif %}
+                                </div>
+                                <div class="content">
+                                    {% for val in vals %}
+                                    <div class="ui checkbox">
+                                        <input type="checkbox" id="attr_{{ name }}_{{ val }}" value="{{val}}"
+                                        {% if name in reportdata.attrs %}
+                                            {% for s_name, s_vals in reportdata.attrs.items %}
+                                                {% if name == s_name %}
+                                                    {% for s_val in s_vals %}
+                                                        {% if s_val.value == val %}
+                                                            checked
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% endif %}
+                                        >
+                                        <label>{{ val }}</label>
+                                    </div>
+                                    <br>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% endif %}
+                {% if reportdata.config %}
+                    <tr>
+                        <td class="ui header center aligned" colspan="2" style="background: #baedef">
+                            {% trans 'Configuration' %}
+                        </td>
+                    </tr>
+                    {% for name, val in reportdata.config.items|sort_list %}
+                    <tr>
+                        <td class="right aligned">{{ name }}</td>
+                        <td>
+                            {% if name == "Options" %}
+                                <div class="ui accordion">
+                                    <div class="title"><i class="dropdown icon"></i>{% trans 'Show' %}</div>
+                                    <div class="content">
+                                        <ul class="ui list">
+                                        {% for op in val %}
+                                            <li class="content" {%if op.1%}title="{{op.1}}{%endif%}">{{op.0}}</li>
+                                        {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            {% else %}
+                                {{val}}
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% endif %}
+            </tbody>
+        </table>
+        <input id="job_status_value" type="hidden" value="{{ job.status }}">
+    </div>
+</div>
+{% endif %}
+
+{% if children %}
+    <table class="ui celled selectable compact teal table sort-table no-index" width="100%">
+        <thead>
+        <tr class="center aligned">
+            <th style="background-color: #cafdff;">{% trans '#' %}</th>
+            <th style="background-color: #cafdff;">{% trans 'Name' %}</th>
+            <th style="background-color: #cafdff;">{% trans 'Start date' %}</th>
+            <th style="background-color: #cafdff;">{% trans 'Unsafes' %}</th>
+            <th style="background-color: #cafdff;">{% trans 'Safes' %}</th>
+            <th style="background-color: #cafdff;">{% trans 'Unknowns' %}</th>
+            <th style="background-color: #cafdff;">{% trans 'Wall time' %}</th>
+            <th style="background-color: #cafdff;">{% trans 'CPU time' %}</th>
+            <th style="background-color: #cafdff;">{% trans 'Memory' %}</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for child in children %}
+                {% if child.pk %}
+                    <tr class="center aligned">
+                        <td id="value__{{ child.pk }}" width="1%">
+                            <div class="ui fitted checkbox">
+                                <input type="checkbox" id="job_checkbox__{{ child.pk }}">
+                                <label for="job_checkbox__{{ child.pk }}"></label>
+                            </div>
+                        </td>
+                        <td><a class="black-link" href="{% url 'jobs:job' child.pk %}">{{ child.name }}</a></td>
+                        <td><a class="black-link" href="{% url 'jobs:job' child.pk %}">{{ child.start_date }}</a></td>
+                        <td><a class="black-link" href="{% url 'jobs:job' child.pk %}">{{ child.unsafes }}</a></td>
+                        <td><a class="black-link" href="{% url 'jobs:job' child.pk %}">{{ child.safes }}</a></td>
+                        <td><a class="black-link" href="{% url 'jobs:job' child.pk %}">{{ child.unknowns }}</a></td>
+                        <td><a class="black-link" href="{% url 'jobs:job' child.pk %}">{{ child.wall }}</a></td>
+                        <td><a class="black-link" href="{% url 'jobs:job' child.pk %}">{{ child.cpu }}</a></td>
+                        <td><a class="black-link" href="{% url 'jobs:job' child.pk %}">{{ child.mem }}</a></td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="ui text small menu">
+        <div class="ui dropdown item">
+            <i class="ui check square outline icon"></i>{% trans 'Actions with selected jobs' %}
+            <i class="dropdown icon"></i>
+            <div class="menu">
+                <div id="compare_reports_btn" class="item"><i class="ui columns icon"></i>{% trans 'Compare reports' %}</div>
+                <!--<div id="download_selected_jobs" class="item {% if user.extended.role != '2' %} disabled{% endif %}"><i class="ui download icon"></i>{% trans 'Download' %}</div>
+                {# Only managers can upload trees (USER_ROLES[2][0]) #}
+                <div id="download_selected_trees" class="item {% if user.extended.role != '2' %} disabled{% endif %}"><i class="ui sitemap icon"></i>{% trans 'Download with children' %}</div>-->
+                <div id="show_remove_jobs_popup" class="item {% if user.extended.role != '2' %} disabled{% endif %}"><i class="ui remove icon"></i>{% trans 'Delete' %}</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="remove_jobs_popup" class="ui basic modal">
+        <div class="ui icon header">
+            <i class="warning sign icon"></i>
+            {% trans 'Are you sure' %}?
+        </div>
+        <div class="content">
+            <div class="ui center aligned grid">
+                <p>{% trans 'All versions and all data of the selected jobs will be deleted' %}! {% trans 'If any job has children they will also be deleted' %}!</p>
+            </div>
+        </div>
+        <div class="actions">
+            <div class="ui center aligned grid">
+                <button id="cancel_remove_jobs" type="button" class="ui blue basic inverted button">{% trans 'Cancel' %}</button>
+                <button id="delete_jobs_btn" type="button" class="ui red basic inverted button">{% trans 'Delete' %}</button>
+            </div>
+        </div>
+    </div>
+    <span id="error__no_jobs_to_download" hidden>{% trans 'Please select jobs you want to download' %}</span>
+    <span id="error__no_jobs_to_delete" hidden>{% trans 'Please select jobs you want to delete' %}</span>
+    <span id="error__no_jobs_to_compare" hidden>{% trans 'Please select jobs which reports you want to compare' %}</span>
+
+
+{% endif %}
+
+{# Data for javascript #}
+<input type="hidden" id="job_id" value="{{ job.id }}">
+<input type="hidden" id="job_version" value="{{ job.version }}">
+<input type="hidden" id="job_identifier" value="{{ job.identifier }}">
+<div hidden>
+    <span id="jstree_view_label">{% trans 'View' %}</span>
+    <span id="jstree_download_label">{% trans 'Download' %}</span>
+
+    <span id="warn__decide_job">{% trans 'All existing reports of this job will be deleted' %}!</span>
+    <span id="warn__remove_job">{% trans 'All versions and all data of this job will be deleted' %}!</span>
+    <span id="warn__clear_job">{% trans 'Job content will be cleared' %}!</span>
+    <span id="warn__collapse">{% trans 'There is no reverse of this action' %}!</span>
+    <span id="warn__has_children">{% trans 'The job has children, and all of them will be deleted' %}!</span>
+    <span id="warn__clear_files">{% trans 'Files of verification reports will be deleted' %}!</span>
+    <span id="warn__stop_decision">{% trans 'The job decision will be cancelled' %}!</span>
+</div>
+
+{# Modal with file content #}
+<div id="file_content_modal" class="ui dinamic large modal">
+    <div class="content">
+        <div class="ui grid">
+            <div class="fourteen wide column ui header center aligned" id="file_content_name"></div>
+            <div class="two wide column right aligned">
+                <button id="close_file_view" class="ui icon red button"><i class="remove icon"></i></button>
+            </div>
+        </div>
+        <div class="filecontent ui violet segment" id="file_content"></div>
+    </div>
+</div>
+
+{# Warning modal for job actions #}
+<div id="warn_modal" class="ui basic modal">
+    <div class="ui icon header">
+        <i class="warning sign icon"></i>
+        {% trans 'Are you sure' %}?
+    </div>
+    <div class="content">
+        <div class="ui center aligned grid"><p id="warn_text"></p></div>
+    </div>
+    <div class="actions">
+        <div class="ui center aligned grid">
+            <button id="warn_close_btn" type="button" class="ui blue basic inverted button">{% trans 'Cancel' %}</button>
+            <button id="warn_confirm_btn" type="button" class="ui red basic inverted button">{% trans 'Confirm' %}</button>
+        </div>
+    </div>
+</div>
+
+{# Upload reports modal #}
+{% if job_access.can_upload_reports %}
+    <div id="upload_reports_popup" class="ui modal">
+        <div class="header">{% trans 'Upload reports' %}</div>
+        <div class="content">
+            <p>{% trans "Choose reprots archive. Format of this archive is described in documentation. Old reports will be replaced." %}</p>
+            <div class="ui grid">
+                <div class="three wide column right aligned">
+                    <span class="ui violet button btn-file">{% trans 'Browse' %}<input id="upload_reports_file_input" type="file"></span>
+                </div>
+                <div class="eight wide column">
+                    <br>
+                    <span id="upload_reports_filename" class="italic" style="color: #7b7b7b">&nbsp;</span>
+                </div>
+            </div>
+        </div>
+        <div class="actions">
+            <button id="upload_reports_start" type="button" class="ui positive button">{% trans 'Upload' %}</button>
+            <button id="upload_reports_cancel" type="button" class="ui blue button">{% trans 'Cancel' %}</button>
+        </div>
+    </div>
+{% endif %}
+
+<span id="stop_autorefresh" hidden>{% trans 'Stop page autorefresh' %}</span>
+<span id="start_autorefresh" hidden>{% trans 'Start page autorefresh' %}</span>
+<span id="error__autoupdate_off" hidden>{% trans 'Page autoupdate is turned off' %}</span>
+
+{% endblock %}

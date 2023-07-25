@@ -1,0 +1,56 @@
+{% comment "License" %}
+% CVV is a continuous verification visualizer.
+% Copyright (c) 2023 ISP RAS (http://www.ispras.ru)
+% Ivannikov Institute for System Programming of the Russian Academy of Sciences
+%
+% Copyright (c) 2018 ISP RAS (http://www.ispras.ru)
+% Ivannikov Institute for System Programming of the Russian Academy of Sciences
+%
+% Licensed under the Apache License, Version 2.0 (the "License");
+% you may not use this file except in compliance with the License.
+% You may obtain a copy of the License at
+%
+%    http://www.apache.org/licenses/LICENSE-2.0
+%
+% Unless required by applicable law or agreed to in writing, software
+% distributed under the License is distributed on an "AS IS" BASIS,
+% WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+% See the License for the specific language governing permissions and
+% limitations under the License.
+{% endcomment %}
+
+{% load i18n %}
+
+<div class="ui grid">
+    <div class="seven wide column">
+        <input id="view_data_{{ view.type }}__columns" value="multiselect" type="hidden">
+        <label for="view_{{ view.type }}__columns" class="bold-text center aligned">{% trans 'Selected columns' %}</label>
+        <select id="view_{{ view.type }}__columns" style="height: 200px;" multiple="multiple">
+            {% for col in selected_columns %}
+                <option title="{{ col.title }}" value="{{ col.value }}">{{ col.title }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="one wide column">
+        <div style="margin-top: 75px;" class="ui vertical basic icon purple buttons">
+            <button id="view_move_columns_up_{{ view.type }}" type="button" class="ui button"><i class="arrow up icon"></i></button>
+            <button id="view_move_columns_down_{{ view.type }}" type="button" class="ui button"><i class="arrow down icon"></i></button>
+        </div>
+    </div>
+    <div class="one wide column">
+        <div style="margin-top: 75px;" class="ui vertical basic icon purple buttons right aligned right floated">
+            <button id="view_remove_column_btn_{{ view.type }}" type="button" class="ui basic purple icon button"><i class="arrow right icon"></i></button>
+            <button id="view_add_column_btn_{{ view.type }}" type="button" class="ui purple basic icon button"><i class="arrow left icon"></i></button>
+        </div>
+    </div>
+    <div class="seven wide column">
+        <label for="view_available_columns_{{ view.type }}" class="bold-text">{% trans 'Available columns' %}</label>
+        <div class="ui field fluid action input">
+            <select id="view_available_columns_{{ view.type }}" style="height: 200px" multiple="multiple">
+                {% for col in available_columns %}
+                    <option title="{{ col.title }}" value="{{ col.value }}">{{ col.title }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+</div>

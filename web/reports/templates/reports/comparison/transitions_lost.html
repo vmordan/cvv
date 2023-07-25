@@ -1,0 +1,67 @@
+{% comment "License" %}
+%
+% CVV is a continuous verification visualizer.
+% Copyright (c) 2019-2023 ISP RAS (http://www.ispras.ru)
+% Ivannikov Institute for System Programming of the Russian Academy of Sciences
+%
+% Licensed under the Apache License, Version 2.0 (the "License");
+% you may not use this file except in compliance with the License.
+% You may obtain a copy of the License at
+%
+%    http://www.apache.org/licenses/LICENSE-2.0
+%
+% Unless required by applicable law or agreed to in writing, software
+% distributed under the License is distributed on an "AS IS" BASIS,
+% WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+% See the License for the specific language governing permissions and
+% limitations under the License.
+{% endcomment %}
+{% load i18n %}
+
+{% if lost_transitions_1 or lost_transitions_2 %}
+
+<td width="25%" style="text-align: right;">
+    {% if lost_transitions_1|length == 1 %}
+        <a class="black-link" href="{% url lost_url lost_transitions_1.0.id %}">{{lost_transitions_1.0.attrs}}</a>
+    {% elif lost_transitions_1|length == 0 %}
+        -
+    {% else %}
+    <div class="accordion">
+        <div class="title"><div class="black-link">{{lost_transitions_1|length}} {% trans 'elements' %}</div></div>
+        <div class="content">
+            <div class="ui list">
+                {% for lost in lost_transitions_1 %}
+                    <div class="item">
+                        <a class="black-link" href="{% url lost_url lost.id %}">{{lost.attrs}}</a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</td>
+<td style="vertical-align: middle; text-align: center;">
+    {{verdict_trans}}
+</td>
+<td width="25%" style="text-align: left">
+    {% if lost_transitions_2|length == 1 %}
+        <a class="black-link" href="{% url lost_url lost_transitions_2.0.id %}">{{lost_transitions_2.0.attrs}}</a>
+    {% elif lost_transitions_2|length == 0 %}
+        -
+    {% else %}
+    <div class="accordion">
+        <div class="title"><div class="black-link">{{lost_transitions_2|length}} {% trans 'elements' %}</div></div>
+        <div class="content">
+            <div class="ui list">
+                {% for lost in lost_transitions_2 %}
+                    <div class="item">
+                        <a class="black-link" href="{% url lost_url lost.id %}">{{lost.attrs}}</a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</td>
+
+{% endif %}

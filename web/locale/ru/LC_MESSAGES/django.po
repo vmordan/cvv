@@ -1,0 +1,4573 @@
+#
+# Copyright (c) 2018 ISP RAS (http://www.ispras.ru)
+# Ivannikov Institute for System Programming of the Russian Academy of Sciences
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-04-21 14:50+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: web/utils.py:101
+#, python-brace-format
+msgid "Please keep the file size under {0} (the current file size is {1})"
+msgstr ""
+"Пожалуйста, не загружайте файлы размером больше {0} (текущий размер файла - "
+"{1})"
+
+#: web/vars.py:6
+msgid "Raw"
+msgstr "Без обработки"
+
+#: web/vars.py:7
+msgid "Human-readable"
+msgstr "Удобочитаемый"
+
+#: web/vars.py:12
+msgid "You don't have an access to this page"
+msgstr "У Вас нет прав на данную страницу"
+
+#: web/vars.py:13
+msgid "Can't populate without Manager and service user"
+msgstr ""
+"Наполнение базы данных невозможно без Руководителя и служебного пользователя"
+
+#: web/vars.py:14
+msgid "You don't have an access to this job"
+msgstr "У Вас нет прав на данное задание"
+
+#: web/vars.py:15
+msgid "You don't have an access to one of the selected jobs"
+msgstr "У Вас нет прав для одного из отмеченных заданий"
+
+#: web/vars.py:16 jobs/views.py:351 jobs/views.py:373 jobs/views.py:448
+#: jobs/views.py:508 jobs/views.py:763 service/utils.py:905
+msgid "The job was not found"
+msgstr "Задание не было найдено"
+
+#: web/vars.py:17 jobs/views.py:509 jobs/views.py:638 tools/utils.py:200
+msgid "One of the selected jobs was not found"
+msgstr "Одно из отмеченных заданий не было найдено"
+
+#: web/vars.py:18 marks/views.py:135
+msgid "The report was not found"
+msgstr "Отчет не был найден"
+
+#: web/vars.py:19
+msgid "Couldn't visualize the error trace"
+msgstr "Не удалось визуализировать трассу ошибки"
+
+#: web/vars.py:20
+msgid "The comparison cache was not found or was corrupted"
+msgstr "Кэш сравнения не был найден или был поврежден"
+
+#: web/vars.py:21
+msgid "You don't have an access to compare these jobs"
+msgstr "У Вас нет прав сравнивать данные задания"
+
+#: web/vars.py:22 tools/views.py:103
+msgid "The problem was not found"
+msgstr "Проблема не была найдена"
+
+#: web/vars.py:23
+msgid "The tag was not found"
+msgstr "Тег не был найден"
+
+#: web/vars.py:24 marks/views.py:147 marks/views.py:405 marks/views.py:446
+msgid "The mark was not found"
+msgstr "Оценка не была найдена"
+
+#: web/vars.py:25 marks/views.py:137
+msgid "You don't have an access to create new marks"
+msgstr "У Вас нет прав создавать новые оценки"
+
+#: web/vars.py:26
+msgid "You don't have an access to delete this mark"
+msgstr "У Вас нет прав удалить данную оценку"
+
+#: web/vars.py:35 web/vars.py:60
+#: tools/templates/tools/ManagerPanel.html:12 tools/views.py:28
+#: tools/views.py:77 tools/views.py:96 tools/views.py:123 tools/views.py:142
+#: tools/views.py:156
+msgid "No access"
+msgstr "Нет доступа"
+
+#: web/vars.py:36 users/notifications.py:226
+msgid "Producer"
+msgstr "Постановщик"
+
+#: web/vars.py:37 users/notifications.py:227
+msgid "Manager"
+msgstr "Руководитель"
+
+#: web/vars.py:38 web/vars.py:62 users/notifications.py:226
+msgid "Expert"
+msgstr "Эксперт"
+
+#: web/vars.py:39
+msgid "Service user"
+msgstr "Служебный пользователь"
+
+#: web/vars.py:43
+msgid "Verification of Linux kernel modules"
+msgstr "Верификация модулей ядра Linux"
+
+#: web/vars.py:44
+msgid "Validation on Linux kernel modules"
+msgstr "Валидация на модулях ядра Linux"
+
+#: web/vars.py:45
+msgid "Verification of commits in Linux kernel Git repositories"
+msgstr "Верификация коммитов в Git-репозиториях ядра Linux"
+
+#: web/vars.py:46
+msgid "Validation on commits in Linux kernel Git repositories"
+msgstr "Валидация на коммитах в Git-репозиториях ядра Linux"
+
+#: web/vars.py:47
+msgid "Verification of C programs"
+msgstr "Верификация Си-программ"
+
+#: web/vars.py:48
+msgid "Validation on C programs"
+msgstr "Валидация на Си-программах"
+
+#: web/vars.py:52 reports/templates/reports/comparison.html.py:23
+#: reports/templates/reports/comparison.html:30
+msgid "Total safe"
+msgstr "Доказана корректность"
+
+#: web/vars.py:53 reports/templates/reports/comparison.html.py:24
+#: reports/templates/reports/comparison.html:42
+msgid "Found all unsafes"
+msgstr "Найдены все предупрeждения об ошибках"
+
+#: web/vars.py:54 reports/templates/reports/comparison.html.py:25
+#: reports/templates/reports/comparison.html:54
+msgid "Found not all unsafes"
+msgstr "Найдены не все предупрeждения об ошибках"
+
+#: web/vars.py:55 web/vars.py:146 web/vars.py:153 web/vars.py:159
+#: web/vars.py:168 jobs/utils.py:55 jobs/utils.py:63
+#: reports/comparison.py:517 reports/templates/reports/comparison.html.py:26
+#: reports/templates/reports/comparison.html:66
+#: reports/templates/reports/report_leaf.html:5 reports/utils.py:36
+msgid "Unknown"
+msgstr "Неизвестно"
+
+#: web/vars.py:56 reports/templates/reports/comparison.html.py:27
+#: reports/templates/reports/comparison.html:78
+msgid "Unmatched"
+msgstr "Нет соответствия"
+
+#: web/vars.py:61 users/notifications.py:226
+msgid "Observer"
+msgstr "Обозреватель"
+
+#: web/vars.py:63
+msgid "Observer and Operator"
+msgstr "Обозреватель и оператор"
+
+#: web/vars.py:64
+msgid "Expert and Operator"
+msgstr "Эксперт и оператор"
+
+#: web/vars.py:68
+msgid "Not solved"
+msgstr "Не решено"
+
+#: web/vars.py:69 web/vars.py:372
+msgid "Pending"
+msgstr "Ожидает"
+
+#: web/vars.py:70
+msgid "Is solving"
+msgstr "Решается"
+
+#: web/vars.py:71
+msgid "Solved"
+msgstr "Решено"
+
+#: web/vars.py:72 reports/templates/reports/ReportMain.html.py:33
+msgid "Failed"
+msgstr "Провалено"
+
+#: web/vars.py:73
+msgid "Corrupted"
+msgstr "Повреждено"
+
+#: web/vars.py:74 web/vars.py:376
+msgid "Cancelled"
+msgstr "Отменено"
+
+#: web/vars.py:133
+msgid "Created"
+msgstr "Созданная"
+
+#: web/vars.py:134
+msgid "Preset"
+msgstr "Предустановленная"
+
+#: web/vars.py:135
+msgid "Uploaded"
+msgstr "Загруженная на сервер"
+
+#: web/vars.py:139
+msgid "Unreported"
+msgstr "Не сообщена"
+
+#: web/vars.py:140
+msgid "Reported"
+msgstr "Сообщена"
+
+#: web/vars.py:141
+msgid "Fixed"
+msgstr "Исправлена"
+
+#: web/vars.py:142
+msgid "Rejected"
+msgstr "Отклонена"
+
+#: web/vars.py:147 web/vars.py:160
+#: reports/templates/reports/ReportData.html:12
+msgid "Bug"
+msgstr "Ошибка"
+
+#: web/vars.py:148 web/vars.py:161
+msgid "Target bug"
+msgstr "Целевая ошибка"
+
+#: web/vars.py:149 web/vars.py:162
+msgid "False positive"
+msgstr "Ложное сообщение об ошибке"
+
+#: web/vars.py:154 web/vars.py:169 jobs/utils.py:54
+msgid "Incorrect proof"
+msgstr "Некорректное доказательство"
+
+#: web/vars.py:155 web/vars.py:170
+msgid "Missed target bug"
+msgstr "Пропуск целевой ошибки"
+
+#: web/vars.py:163 web/vars.py:171 jobs/utils.py:56 jobs/utils.py:64
+msgid "Incompatible marks"
+msgstr "Несовместимые оценки"
+
+#: web/vars.py:164 web/vars.py:172 jobs/JobTableProperties.py:580
+#: jobs/JobTableProperties.py:585 jobs/ViewJobData.py:175 jobs/utils.py:57
+#: jobs/utils.py:65 reports/comparison.py:526
+msgid "Without marks"
+msgstr "Нет оценок"
+
+#: web/vars.py:358
+msgid "Urgent"
+msgstr "Наибольший"
+
+#: web/vars.py:359
+msgid "High"
+msgstr "Высокий"
+
+#: web/vars.py:360
+msgid "Low"
+msgstr "Низкий"
+
+#: web/vars.py:361
+msgid "Idle"
+msgstr "Наименьший"
+
+#: web/vars.py:365
+msgid "User occupied"
+msgstr "Занятый пользователем"
+
+#: web/vars.py:373
+msgid "Processing"
+msgstr "Решается"
+
+#: web/vars.py:375 templates/error.html.py:5
+msgid "Error"
+msgstr "Ошибка"
+
+#: web/vars.py:400
+msgid "Balance"
+msgstr "Баланс"
+
+#: web/vars.py:401
+msgid "Requirements"
+msgstr "Требования"
+
+#: web/vars.py:402
+msgid "Program fragments"
+msgstr "Фрагменты программ"
+
+#: web/vars.py:406
+msgid "Sequentially"
+msgstr "Последовательно"
+
+#: web/vars.py:407
+msgid "Slowly"
+msgstr "Медленно"
+
+#: web/vars.py:408
+msgid "Quickly"
+msgstr "Быстро"
+
+#: web/vars.py:409
+msgid "Very quickly"
+msgstr "Очень быстро"
+
+#: web/vars.py:413
+msgid "Briefly"
+msgstr "Кратко"
+
+#: web/vars.py:414
+msgid "In detail"
+msgstr "Детально"
+
+#: web/vars.py:415
+msgid "Paranoidly"
+msgstr "Параноидально"
+
+#: web/vars.py:419
+msgid "Production"
+msgstr "Производство"
+
+#: web/vars.py:420
+msgid "Development"
+msgstr "Разработка"
+
+#: web/vars.py:421
+msgid "Paranoid development"
+msgstr "Параноидальная разработка"
+
+#: web/views.py:34 jobs/utils.py:286 jobs/utils.py:493 marks/utils.py:801
+#: marks/utils.py:992 marks/views.py:204 reports/etv.py:384
+#: service/utils.py:942 tools/views.py:25 tools/views.py:66 tools/views.py:74
+#: tools/views.py:93 tools/views.py:120 tools/views.py:140 users/views.py:320
+msgid "Unknown error"
+msgstr "Неизвестная ошибка"
+
+#: jobs/Download.py:258 jobs/Download.py:286 jobs/Download.py:298
+#: jobs/Download.py:316
+msgid "The job archive is corrupted"
+msgstr "Архив задания поврежден"
+
+#: jobs/Download.py:267
+#, fuzzy
+#| msgid "Saving folder failed"
+msgid "Creating job's file failed"
+msgstr "Сохранение папки провалилось"
+
+#: jobs/Download.py:288
+msgid "The job format is not supported"
+msgstr "Формат задания не поддерживается"
+
+#: jobs/Download.py:290
+msgid "The job class does not equal to the parent class"
+msgstr "Класс задания не совпадает с классом родителя"
+
+#: jobs/Download.py:292
+msgid "The job status is wrong"
+msgstr "Статус задания некорректный"
+
+#: jobs/Download.py:358
+msgid "One of the reports was not uploaded"
+msgstr "Один из отчетов не был загружен на сервер"
+
+#: jobs/JobTableProperties.py:27 jobs/JobTableProperties.py:41
+#: jobs/templates/jobs/editJob.html:21 jobs/utils.py:48
+msgid "Title"
+msgstr "Название"
+
+#: jobs/JobTableProperties.py:28 jobs/JobTableProperties.py:42
+#: jobs/JobTableProperties.py:828 jobs/utils.py:49 marks/tables.py:23
+#: marks/templates/marks/EditMark.html:58
+#: marks/templates/marks/EditUnknownMark.html:56
+#: marks/templates/marks/ViewMark.html:39
+#: marks/templates/marks/filters.html:150
+#: reports/templates/reports/ReportMain.html:21
+#: reports/templates/reports/report_leaf.html:17
+#: reports/templates/reports/report_list.html:16
+#: reports/templates/reports/report_unsafe.html:15
+msgid "Author"
+msgstr "Автор"
+
+#: jobs/JobTableProperties.py:28 users/forms.py:85
+msgid "Last name"
+msgstr "Фамилия"
+
+#: jobs/JobTableProperties.py:29 users/templates/users/showProfile.html.py:28
+msgid "Date"
+msgstr "Дата"
+
+#: jobs/JobTableProperties.py:30 jobs/JobTableProperties.py:44
+#: jobs/templates/jobs/viewJob.html:135 jobs/utils.py:51
+msgid "Decision status"
+msgstr "Статус решения"
+
+#: jobs/JobTableProperties.py:31 reports/templates/reports/ReportMain.html:76
+#: reports/templates/reports/ReportMain.html:86
+msgid "Start date"
+msgstr "Дата начала работы"
+
+#: jobs/JobTableProperties.py:32
+#: reports/templates/reports/AttrsFilters.html:23
+#: reports/templates/reports/ReportMain.html:78
+msgid "Finish date"
+msgstr "Дата завершения работы"
+
+#: jobs/JobTableProperties.py:43
+msgid "Last change date"
+msgstr "Дата последнего изменения"
+
+#: jobs/JobTableProperties.py:45 jobs/templates/jobs/jobData.html.py:74
+#: jobs/templates/jobs/viewJobFilters.html:28
+#: jobs/templates/jobs/viewJobFilters.html:95 jobs/utils.py:69
+msgid "Consumed resources"
+msgstr "Потребленные ресурсы"
+
+#: jobs/JobTableProperties.py:45 jobs/JobTableProperties.py:46
+#: jobs/templates/jobs/viewJobFilters.html:60
+#: jobs/templates/jobs/viewJobFilters.html:101
+#: reports/templates/reports/AttrsFilters.html:49
+#: reports/templates/reports/UnknownsFilters.html:30
+#: tools/templates/tools/ManagerPanel.html:23
+msgid "Component name"
+msgstr "Название компонента"
+
+#: jobs/JobTableProperties.py:46 jobs/templates/jobs/jobData.html.py:7
+#: jobs/templates/jobs/viewJobFilters.html:22
+#: jobs/templates/jobs/viewJobFilters.html:44 jobs/utils.py:67
+#: reports/views.py:131 templates/base.html.py:49
+msgid "Unknowns"
+msgstr "Проблемы в компонентах"
+
+#: jobs/JobTableProperties.py:47 jobs/templates/jobs/viewJobFilters.html.py:77
+msgid "Problem name"
+msgstr "Название проблемы"
+
+#: jobs/JobTableProperties.py:48 jobs/templates/jobs/viewJob.html.py:65
+#: jobs/utils.py:75 marks/tables.py:26 marks/templates/marks/EditMark.html:49
+#: marks/templates/marks/EditUnknownMark.html:43
+#: marks/templates/marks/ViewMark.html:24
+#: marks/templates/marks/filters.html:41
+msgid "Format"
+msgstr "Формат"
+
+#: jobs/JobTableProperties.py:49 jobs/utils.py:80
+msgid "Priority"
+msgstr "Приоритет"
+
+#: jobs/JobTableProperties.py:586 jobs/JobTableProperties.py:600
+#: jobs/JobTableProperties.py:608 jobs/ViewJobData.py:130 jobs/utils.py:58
+#: jobs/utils.py:66 jobs/utils.py:68 jobs/utils.py:70
+msgid "Total"
+msgstr "Всего"
+
+#: jobs/templates/jobs/base.html:5 templates/base.html.py:41
+#: tools/templates/tools/ManagerPanel.html:68
+msgid "Jobs"
+msgstr "Задания"
+
+#: jobs/templates/jobs/comparison.html:11
+#: reports/templates/reports/comparison.html:16
+msgid "Job files comparison"
+msgstr "Сравнение файлов заданий"
+
+#: jobs/templates/jobs/comparison.html:17
+msgid "Comparison of files of jobs"
+msgstr "Сравнение файлов заданий"
+
+#: jobs/templates/jobs/comparison.html:19
+#: reports/templates/reports/comparison.html:4
+msgid "Job reports comparison"
+msgstr "Сравнение отчетов заданий"
+
+#: jobs/templates/jobs/comparison.html:24
+msgid "Files without differences"
+msgstr "Файлы без отличий"
+
+#: jobs/templates/jobs/comparison.html:43
+msgid "Files with differences"
+msgstr "Файлы с отличиями"
+
+#: jobs/templates/jobs/comparison.html:63
+msgid "Unmatched files"
+msgstr "Несоответствующие файлы"
+
+#: jobs/templates/jobs/comparison.html:92
+msgid "Jobs do not have files"
+msgstr "У заданий нет файлов"
+
+#: jobs/templates/jobs/createJob.html:5
+msgid "Job Copying"
+msgstr "Копирование задания"
+
+#: jobs/templates/jobs/editJob.html:5 marks/templates/marks/EditMark.html:118
+#: marks/templates/marks/EditUnknownMark.html:116
+msgid "You can choose one of the previous versions"
+msgstr "Вы можете выбрать оду из предыдущих версий"
+
+#: jobs/templates/jobs/editJob.html:11
+msgid "or change the job"
+msgstr "или изменить задание"
+
+#: jobs/templates/jobs/editJob.html:27 jobs/templates/jobs/showJob.html:5
+msgid "Parent identifier"
+msgstr "Идентификатор родителя"
+
+#: jobs/templates/jobs/editJob.html:35 jobs/templates/jobs/editJob.html:36
+#: jobs/templates/jobs/showJob.html:15
+#: marks/templates/marks/CreateMark.html:41
+#: marks/templates/marks/CreateMark.html:173
+#: marks/templates/marks/CreateMark.html:230
+#: marks/templates/marks/MarkAddData.html:52
+#: marks/templates/marks/MarkUnknownData.html:15
+#: marks/templates/marks/MarkUnknownData.html:18
+#: marks/templates/marks/ViewMark.html:203
+msgid "Description"
+msgstr "Описание"
+
+#: jobs/templates/jobs/editJob.html:46
+msgid "Role for all users"
+msgstr "Роль для всех пользователей"
+
+#: jobs/templates/jobs/editJob.html:57
+msgid "Add role to user"
+msgstr "Добавить роль для пользователя"
+
+#: jobs/templates/jobs/editJob.html:64 jobs/templates/jobs/filesTree.html:171
+#: jobs/templates/jobs/tree.html:98 marks/templates/marks/Tags.html.py:28
+msgid "Add"
+msgstr "Добавить"
+
+#: jobs/templates/jobs/editJob.html:97
+msgid "Change comment"
+msgstr "Комментарий к изменению"
+
+#: jobs/templates/jobs/editJob.html:99 jobs/templates/jobs/viewJob.html:130
+#: marks/templates/marks/EditMark.html:76
+#: marks/templates/marks/EditMark.html:139
+#: marks/templates/marks/EditUnknownMark.html:74
+#: marks/templates/marks/EditUnknownMark.html:135
+#: marks/templates/marks/ViewMark.html:57
+msgid "Comment"
+msgstr "Комментарий"
+
+#: jobs/templates/jobs/editJob.html:103
+#: jobs/templates/jobs/startDecision.html:66 jobs/templates/jobs/tree.html:346
+#: marks/templates/marks/CreateMark.html:114
+#: marks/templates/marks/CreateMark.html:190
+#: marks/templates/marks/CreateMark.html:250
+#: marks/templates/marks/EditMark.html:140
+#: marks/templates/marks/EditUnknownMark.html:136
+#: templates/viewButtons.html:13 users/templates/users/edit-profile.html:82
+#: users/templates/users/notifications.html:35
+msgid "Save"
+msgstr "Сохранить"
+
+#: jobs/templates/jobs/editJob.html:105 jobs/templates/jobs/filesTree.html:74
+#: jobs/templates/jobs/filesTree.html:96
+#: jobs/templates/jobs/filesTree.html:120
+#: jobs/templates/jobs/filesTree.html:134
+#: jobs/templates/jobs/filesTree.html:168
+#: jobs/templates/jobs/filesTree.html:195 jobs/templates/jobs/tree.html:408
+#: jobs/templates/jobs/viewJob.html:193 jobs/templates/jobs/viewJob.html:210
+#: jobs/templates/jobs/viewJob.html:227
+#: jobs/templates/jobs/viewVersions.html:18
+#: jobs/templates/jobs/viewVersions.html:32
+#: marks/templates/marks/CreateMark.html:113
+#: marks/templates/marks/CreateMark.html:189
+#: marks/templates/marks/CreateMark.html:249
+#: marks/templates/marks/EditMark.html:158
+#: marks/templates/marks/EditUnknownMark.html:155
+#: marks/templates/marks/MarkList.html:71
+#: marks/templates/marks/markVersions.html:18
+#: marks/templates/marks/markVersions.html:33 templates/base.html.py:92
+#: templates/base.html:117
+msgid "Cancel"
+msgstr "Отменить"
+
+#: jobs/templates/jobs/editJob.html:126 jobs/utils.py:498
+#: marks/templates/marks/EditMark.html:145
+#: marks/templates/marks/EditUnknownMark.html:142 marks/utils.py:177
+msgid "Change comment is required"
+msgstr "Требуется написать комментарий к изменению"
+
+#: jobs/templates/jobs/editJob.html:127
+msgid "Title is required"
+msgstr "Требуется указать название"
+
+#: jobs/templates/jobs/filesTree.html:7 jobs/templates/jobs/filesTree.html:54
+msgid "New folder"
+msgstr "Новая папка"
+
+#: jobs/templates/jobs/filesTree.html:11
+#: jobs/templates/jobs/filesTree.html:144
+msgid "New file"
+msgstr "Новый файл"
+
+#: jobs/templates/jobs/filesTree.html:15 jobs/templates/jobs/filesTree.html:84
+#: jobs/templates/jobs/filesTree.html:99
+#: tools/templates/tools/ManagerPanel.html:24
+msgid "Rename"
+msgstr "Переименовать"
+
+#: jobs/templates/jobs/filesTree.html:19
+msgid "Move file"
+msgstr "Переместить файл"
+
+#: jobs/templates/jobs/filesTree.html:23
+msgid "Replace file"
+msgstr "Заменить файл"
+
+#: jobs/templates/jobs/filesTree.html:27
+#: jobs/templates/jobs/filesTree.html:137 jobs/templates/jobs/tree.html:364
+#: jobs/templates/jobs/tree.html.py:409 jobs/templates/jobs/viewJob.html:48
+#: jobs/templates/jobs/viewJob.html:194
+#: jobs/templates/jobs/viewVersions.html:17
+#: jobs/templates/jobs/viewVersions.html:33
+#: marks/templates/marks/EditMark.html:26
+#: marks/templates/marks/EditMark.html:159
+#: marks/templates/marks/EditUnknownMark.html:28
+#: marks/templates/marks/EditUnknownMark.html:156
+#: marks/templates/marks/MarkList.html:72
+#: marks/templates/marks/markVersions.html:17
+#: marks/templates/marks/markVersions.html:34 templates/viewButtons.html:33
+#: tools/templates/tools/ManagerPanel.html:25
+#: tools/templates/tools/ManagerPanel.html:47
+msgid "Delete"
+msgstr "Удалить"
+
+#: jobs/templates/jobs/filesTree.html:30 jobs/templates/jobs/showJob.html:21
+msgid "Files"
+msgstr "Файлы"
+
+#: jobs/templates/jobs/filesTree.html:58
+msgid "Folder name"
+msgstr "Название папки"
+
+#: jobs/templates/jobs/filesTree.html:64
+msgid "Subfolder of"
+msgstr "Подпапка"
+
+#: jobs/templates/jobs/filesTree.html:66
+#: jobs/templates/jobs/filesTree.html:112
+#: jobs/templates/jobs/filesTree.html:160
+msgid "Root"
+msgstr "Корневая папка"
+
+#: jobs/templates/jobs/filesTree.html:77
+msgid "Create"
+msgstr "Создать"
+
+#: jobs/templates/jobs/filesTree.html:88
+msgid "New name"
+msgstr "Новое название"
+
+#: jobs/templates/jobs/filesTree.html:106
+#: jobs/templates/jobs/filesTree.html:123
+msgid "Move"
+msgstr "Переместить"
+
+#: jobs/templates/jobs/filesTree.html:106
+msgid "to"
+msgstr "в"
+
+#: jobs/templates/jobs/filesTree.html:130
+msgid "will be deleted. Do you want to continue?"
+msgstr "будет удален(а). Вы хотите продолжить?"
+
+#: jobs/templates/jobs/filesTree.html:149
+#: jobs/templates/jobs/filesTree.html:187
+#: jobs/templates/jobs/startDecision.html:20 templates/base.html.py:82
+#: templates/base.html:107
+msgid "Browse"
+msgstr "Выбрать файл"
+
+#: jobs/templates/jobs/filesTree.html:152
+#: jobs/templates/jobs/filesTree.html:185
+#: tools/templates/tools/ManagerPanel.html:72
+msgid "Name"
+msgstr "Название"
+
+#: jobs/templates/jobs/filesTree.html:158
+msgid "Upload to folder"
+msgstr "Загрузить в папку"
+
+#: jobs/templates/jobs/filesTree.html:178
+#: jobs/templates/jobs/filesTree.html:198
+msgid "Replace"
+msgstr "Заменить"
+
+#: jobs/templates/jobs/filesTree.html:219
+msgid "Name is required"
+msgstr "Требуется указать название"
+
+#: jobs/templates/jobs/filesTree.html:220
+msgid "One of the files was not uploaded"
+msgstr "Один из файлов не был загружен на сервер"
+
+#: jobs/templates/jobs/filesTree.html:221
+msgid "The folder can't be replaced with the file"
+msgstr "Папка не может быть заменена на файл"
+
+#: jobs/templates/jobs/filesTree.html:222
+msgid "Choose the file you want to replace"
+msgstr "Укажите файл, который Вы хотите заменить"
+
+#: jobs/templates/jobs/filesTree.html:223
+msgid "You can't move folders, please choose the file you want to move"
+msgstr ""
+"Вы не можете переместить папки, пожалуйста, укажите файл, который Вы хотите "
+"переместить"
+
+#: jobs/templates/jobs/filesTree.html:224
+msgid "Please choose the file you want to move"
+msgstr "Пожалуйста, укажите файл, который Вы хотите переместить"
+
+#: jobs/templates/jobs/filesTree.html:225
+msgid "Please choose the file"
+msgstr "Пожалуйста, выберете файл"
+
+#: jobs/templates/jobs/filesTree.html:226
+msgid "Please choose the file or the folder you want to rename"
+msgstr "Пожалуйста, укажите файл или папку, которую Вы хотите переименовать"
+
+#: jobs/templates/jobs/filesTree.html:227
+msgid "Please choose the file or the folder you want to delete"
+msgstr "Пожалуйста, укажите файл или папку, которую Вы хотите удалить"
+
+#: jobs/templates/jobs/filesTree.html:228
+msgid "Names with non-ASCII characters must be less than 30 characters"
+msgstr ""
+"Названия, в которых используются не ASCII символы, должны быть меньше 30 "
+"символов"
+
+#: jobs/templates/jobs/jobData.html:33
+#: jobs/templates/jobs/viewJobFilters.html:12 jobs/utils.py:59
+#: jobs/utils.py:73 reports/views.py:120 reports/views.py:124
+#: templates/base.html:48
+msgid "Unsafes"
+msgstr "Предупреждения об ошибках"
+
+#: jobs/templates/jobs/jobData.html:51
+#: jobs/templates/jobs/viewJobFilters.html:17 jobs/utils.py:52
+#: jobs/utils.py:72 reports/views.py:109 reports/views.py:113
+#: templates/base.html:50
+msgid "Safes"
+msgstr "Доказательства корректности"
+
+#: jobs/templates/jobs/jobData.html:75
+msgid "Wall time, CPU time and maximum memory size"
+msgstr ""
+"Астрономическое время, процессорное время и максимальный объем оперативной "
+"памяти"
+
+#: jobs/templates/jobs/jobData.html:94
+#: jobs/templates/jobs/viewJobFilters.html:33
+#: jobs/templates/jobs/viewJobFilters.html:38
+#: jobs/templates/jobs/viewJobFilters.html:119 jobs/utils.py:71
+#: marks/templates/marks/Tags.html:4
+msgid "Tags"
+msgstr "Теги"
+
+#: jobs/templates/jobs/jobData.html:98
+#: jobs/templates/jobs/viewJobFilters.html:38 reports/comparison.py:477
+#: reports/templates/reports/report_unsafe.html:5
+msgid "Unsafe"
+msgstr "Предупреждение об ошибке"
+
+#: jobs/templates/jobs/jobData.html:113
+#: jobs/templates/jobs/viewJobFilters.html:33 reports/comparison.py:497
+#: reports/templates/reports/report_leaf.html:5
+msgid "Safe"
+msgstr "Доказательство корректности"
+
+#: jobs/templates/jobs/jobRunHistory.html:9
+msgid "History of decisions"
+msgstr "История решений"
+
+#: jobs/templates/jobs/jobRunHistory.html:25
+msgid "Download configuration file"
+msgstr "Загрузить конфигурационный файл"
+
+#: jobs/templates/jobs/startDecision.html:106
+msgid "Memory size"
+msgstr "Объем оперативной памяти"
+
+#: jobs/templates/jobs/startDecision.html:106
+#: jobs/templates/jobs/startDecision.html:128 jobs/utils.py:380
+msgid "GB"
+msgstr "ГБ"
+
+#: jobs/templates/jobs/startDecision.html:117
+msgid "Number of CPU cores"
+msgstr "Количество ядер процессора"
+
+#: jobs/templates/jobs/startDecision.html:128
+msgid "Disk memory size"
+msgstr "Объем дисковой памяти"
+
+#: jobs/templates/jobs/startDecision.html:139
+msgid "CPU model"
+msgstr "Модель процессора"
+
+#: jobs/templates/jobs/startDecision.html:239
+#: jobs/templates/jobs/viewJob.html:211 jobs/templates/jobs/viewJob.html:228
+msgid "Start"
+msgstr "Начать"
+
+#: jobs/templates/jobs/tree.html:5 templates/base.html.py:42
+msgid "Jobs Tree"
+msgstr "Дерево заданий"
+
+#: jobs/templates/jobs/tree.html:14 marks/templates/marks/filters.html:10
+msgid "Columns"
+msgstr "Столбцы"
+
+#: jobs/templates/jobs/tree.html:21
+msgid "Selected columns"
+msgstr "Выбранные столбцы"
+
+#: jobs/templates/jobs/tree.html:40
+msgid "Available columns"
+msgstr "Доступные столбцы"
+
+#: jobs/templates/jobs/tree.html:52
+msgid "Add order by"
+msgstr "Добавить сортировку по"
+
+#: jobs/templates/jobs/tree.html:86 marks/templates/marks/filters.html:74
+msgid "Filters"
+msgstr "Фильтры"
+
+#: jobs/templates/jobs/tree.html:92
+msgid "Add filter by"
+msgstr "Добавить фильтр по"
+
+#: jobs/templates/jobs/tree.html:111 jobs/templates/jobs/tree.html.py:131
+#: jobs/templates/jobs/tree.html:217 jobs/templates/jobs/tree.html.py:242
+#: jobs/templates/jobs/tree.html:267 jobs/templates/jobs/tree.html.py:287
+#: jobs/templates/jobs/tree.html:312 jobs/templates/jobs/treeTmp.html.py:25
+#: jobs/templates/jobs/treeTmp.html:43 jobs/templates/jobs/treeTmp.html:121
+#: jobs/templates/jobs/treeTmp.html:143 jobs/templates/jobs/treeTmp.html:165
+#: jobs/templates/jobs/treeTmp.html:183 jobs/templates/jobs/treeTmp.html:206
+#: jobs/templates/jobs/viewJobFilters.html:64
+#: jobs/templates/jobs/viewJobFilters.html:81
+#: jobs/templates/jobs/viewJobFilters.html:105
+#: jobs/templates/jobs/viewJobFilters.html:124
+#: jobs/templates/jobs/viewJobFilters.html:141
+#: marks/templates/marks/filters.html:85
+#: marks/templates/marks/filters.html:110
+#: marks/templates/marks/filters.html:132
+#: marks/templates/marks/filters.html:154
+#: marks/templates/marks/filters.html:177
+#: marks/templates/marks/filters.html:199
+#: reports/templates/reports/AttrsFilters.html:54
+#: reports/templates/reports/AttrsFilters.html:78
+#: reports/templates/reports/ListFilters.html:41
+#: reports/templates/reports/UnknownsFilters.html:35
+#: reports/templates/reports/UnknownsFilters.html:59
+msgid "is"
+msgstr "совпадает с"
+
+#: jobs/templates/jobs/tree.html:112 jobs/templates/jobs/tree.html.py:218
+#: jobs/templates/jobs/tree.html:243 jobs/templates/jobs/tree.html.py:268
+#: jobs/templates/jobs/treeTmp.html:26 jobs/templates/jobs/treeTmp.html:122
+#: jobs/templates/jobs/treeTmp.html:144 jobs/templates/jobs/treeTmp.html:166
+#: jobs/templates/jobs/viewJobFilters.html:65
+#: jobs/templates/jobs/viewJobFilters.html:82
+#: jobs/templates/jobs/viewJobFilters.html:106
+#: jobs/templates/jobs/viewJobFilters.html:125
+#: jobs/templates/jobs/viewJobFilters.html:142
+#: marks/templates/marks/filters.html:111
+#: marks/templates/marks/filters.html:178
+#: reports/templates/reports/AttrsFilters.html:55
+#: reports/templates/reports/AttrsFilters.html:79
+#: reports/templates/reports/ListFilters.html:42
+#: reports/templates/reports/UnknownsFilters.html:36
+#: reports/templates/reports/UnknownsFilters.html:60
+msgid "starts with"
+msgstr "начинается с"
+
+#: jobs/templates/jobs/tree.html:113 jobs/templates/jobs/tree.html.py:219
+#: jobs/templates/jobs/tree.html:244 jobs/templates/jobs/tree.html.py:269
+#: jobs/templates/jobs/treeTmp.html:27 jobs/templates/jobs/treeTmp.html:123
+#: jobs/templates/jobs/treeTmp.html:145 jobs/templates/jobs/treeTmp.html:167
+#: jobs/templates/jobs/viewJobFilters.html:66
+#: jobs/templates/jobs/viewJobFilters.html:83
+#: jobs/templates/jobs/viewJobFilters.html:107
+#: jobs/templates/jobs/viewJobFilters.html:126
+#: jobs/templates/jobs/viewJobFilters.html:143
+#: reports/templates/reports/AttrsFilters.html:56
+#: reports/templates/reports/UnknownsFilters.html:37
+msgid "contains"
+msgstr "содержит"
+
+#: jobs/templates/jobs/tree.html:158 jobs/templates/jobs/treeTmp.html.py:67
+msgid "older"
+msgstr "не ранее"
+
+#: jobs/templates/jobs/tree.html:159 jobs/templates/jobs/treeTmp.html.py:68
+msgid "younger"
+msgstr "не позднее"
+
+#: jobs/templates/jobs/tree.html:163 jobs/templates/jobs/treeTmp.html.py:72
+msgid "than"
+msgstr "чем"
+
+#: jobs/templates/jobs/tree.html:172 jobs/templates/jobs/treeTmp.html.py:79
+msgid "minutes"
+msgstr "минут"
+
+#: jobs/templates/jobs/tree.html:173 jobs/templates/jobs/treeTmp.html.py:80
+msgid "hours"
+msgstr "часов"
+
+#: jobs/templates/jobs/tree.html:174 jobs/templates/jobs/treeTmp.html.py:81
+msgid "days"
+msgstr "дней"
+
+#: jobs/templates/jobs/tree.html:175 jobs/templates/jobs/treeTmp.html.py:82
+msgid "weeks"
+msgstr "недель"
+
+#: jobs/templates/jobs/tree.html:311 jobs/templates/jobs/treeTmp.html:205
+msgid "not greater than"
+msgstr "не больше чем"
+
+#: jobs/templates/jobs/tree.html:313 jobs/templates/jobs/treeTmp.html:207
+msgid "not less than"
+msgstr "не меньше чем"
+
+#: jobs/templates/jobs/tree.html:341 jobs/templates/jobs/tree.html.py:361
+#: templates/viewButtons.html:17 templates/viewButtons.html.py:30
+msgid "Show"
+msgstr "Показать"
+
+#: jobs/templates/jobs/tree.html:345 templates/viewButtons.html.py:12
+msgid "New view name"
+msgstr "Название нового представления"
+
+#: jobs/templates/jobs/tree.html:356 jobs/templates/jobs/tree.html.py:389
+#: jobs/templates/jobs/viewJobFilters.html:5 jobs/views.py:89
+#: marks/templates/marks/filters.html:5
+#: reports/templates/reports/AttrsFilters.html:5
+#: reports/templates/reports/ListFilters.html:5
+#: reports/templates/reports/UnknownsFilters.html:5
+#: templates/viewButtons.html:23
+msgid "Default"
+msgstr "По умолчанию"
+
+#: jobs/templates/jobs/tree.html:362 templates/viewButtons.html.py:31
+msgid "Make preferred"
+msgstr "Сделать предпочитаемым"
+
+#: jobs/templates/jobs/tree.html:363 templates/viewButtons.html.py:32
+msgid "Update"
+msgstr "Обновить"
+
+#: jobs/templates/jobs/tree.html:373
+msgid "Compare reports"
+msgstr "Сравнить отчеты"
+
+#: jobs/templates/jobs/tree.html:377
+msgid "Download selected jobs"
+msgstr "Загрузить отмеченные задания"
+
+#: jobs/templates/jobs/tree.html:381
+msgid "Delete selected jobs"
+msgstr "Удалить отмеченные задания"
+
+#: jobs/templates/jobs/tree.html:389 jobs/templates/jobs/viewJobFilters.html:5
+#: marks/templates/marks/filters.html:5
+#: reports/templates/reports/AttrsFilters.html:5
+#: reports/templates/reports/ListFilters.html:5
+#: reports/templates/reports/UnknownsFilters.html:5
+msgid "View"
+msgstr "Представление"
+
+#: jobs/templates/jobs/tree.html:389 jobs/templates/jobs/viewJobFilters.html:5
+#: marks/templates/marks/filters.html:5
+#: reports/templates/reports/AttrsFilters.html:5
+#: reports/templates/reports/ListFilters.html:5
+#: reports/templates/reports/UnknownsFilters.html:5
+msgid "unsaved"
+msgstr "не сохранено"
+
+#: jobs/templates/jobs/tree.html:399 jobs/templates/jobs/viewJob.html:184
+#: jobs/templates/jobs/viewJob.html:201 jobs/templates/jobs/viewJob.html:218
+#: jobs/templates/jobs/viewVersions.html:23
+#: marks/templates/marks/EditMark.html:149
+#: marks/templates/marks/EditUnknownMark.html:146
+#: marks/templates/marks/MarkList.html:62
+#: marks/templates/marks/markVersions.html:24
+msgid "Are you sure"
+msgstr "Вы уверены"
+
+#: jobs/templates/jobs/tree.html:403
+msgid "All versions and all data of the selected jobs will be deleted"
+msgstr "Все версии и все данные отмеченных заданий будут удалены"
+
+#: jobs/templates/jobs/tree.html:414
+msgid "Please select jobs you want to download"
+msgstr "Пожалуйста, отметьте задание, которые Вы хотите загрузить"
+
+#: jobs/templates/jobs/tree.html:415
+msgid "Please select jobs you want to delete"
+msgstr "Пожалуйста, отметьте задания, которые Вы хотите удалить"
+
+#: jobs/templates/jobs/tree.html:416
+msgid "Please select jobs which reports you want to compare"
+msgstr "Пожалуйста, отметьте задания, у которых Вы хотите сравнить отчеты"
+
+#: jobs/templates/jobs/treeTable.html:42
+msgid "All"
+msgstr "Всего"
+
+#: jobs/templates/jobs/treeTable.html:48
+msgid "All for checked"
+msgstr "Всего для отмеченных"
+
+#: jobs/templates/jobs/treeTable.html:57
+msgid "List of jobs is empty, please populate them or change the view"
+msgstr ""
+"Список заданий пустой, пожалуйста, наполните базу данных или измените "
+"представление"
+
+#: jobs/templates/jobs/viewJob.html:10 marks/tables.py:25
+#: reports/templates/reports/ReportMain.html:26
+#: reports/templates/reports/report_leaf.html:12
+#: reports/templates/reports/report_list.html:12
+#: reports/templates/reports/report_unsafe.html:10 users/views.py:185
+msgid "Job"
+msgstr "Задание"
+
+#: jobs/templates/jobs/viewJob.html:19
+msgid "Make copy"
+msgstr "Создать копию"
+
+#: jobs/templates/jobs/viewJob.html:23 marks/templates/marks/EditMark.html:18
+#: marks/templates/marks/EditUnknownMark.html:20
+#: marks/templates/marks/ViewMark.html:16
+msgid "Download"
+msgstr "Сохранить"
+
+#: jobs/templates/jobs/viewJob.html:27
+msgid "Start decision"
+msgstr "Начать решение"
+
+#: jobs/templates/jobs/viewJob.html:31
+msgid "Start decision with default values"
+msgstr "Начать решение с настройками по умолчанию"
+
+#: jobs/templates/jobs/viewJob.html:36
+msgid "Stop decision"
+msgstr "Остановить решение"
+
+#: jobs/templates/jobs/viewJob.html:40
+msgid "Edit"
+msgstr "Редактировать"
+
+#: jobs/templates/jobs/viewJob.html:44 marks/templates/marks/EditMark.html:22
+#: marks/templates/marks/EditUnknownMark.html:24
+msgid "Delete versions"
+msgstr "Удалить версии"
+
+#: jobs/templates/jobs/viewJob.html:61 jobs/utils.py:77
+#: reports/templates/reports/ReportData.html:33
+msgid "Class"
+msgstr "Класс"
+
+#: jobs/templates/jobs/viewJob.html:69 jobs/utils.py:74 jobs/utils.py:78
+#: marks/templates/marks/EditMark.html:45
+#: marks/templates/marks/EditUnknownMark.html:39
+#: marks/templates/marks/ViewMark.html:20 templates/base.html.py:103
+#: tools/templates/tools/ManagerPanel.html:73
+msgid "Identifier"
+msgstr "Идентификатор"
+
+#: jobs/templates/jobs/viewJob.html:74
+msgid "Created by"
+msgstr "Создано"
+
+#: jobs/templates/jobs/viewJob.html:80
+msgid "Parents"
+msgstr "Родители"
+
+#: jobs/templates/jobs/viewJob.html:98
+#: reports/templates/reports/ReportMain.html:153
+msgid "Children"
+msgstr "Потомки"
+
+#: jobs/templates/jobs/viewJob.html:115 jobs/utils.py:50
+#: marks/templates/marks/EditMark.html:63
+#: marks/templates/marks/EditUnknownMark.html:61
+#: marks/templates/marks/ViewMark.html:44
+msgid "Last change"
+msgstr "Последнее изменение"
+
+#: jobs/templates/jobs/viewJob.html:188
+msgid "All versions and all data of this job will be deleted"
+msgstr "Все версии и все данные задания будут удалены"
+
+#: jobs/templates/jobs/viewJob.html:205 jobs/templates/jobs/viewJob.html:222
+msgid "All existing reports of this job will be deleted"
+msgstr "Все существующие отчеты задания будут удалены"
+
+#: jobs/templates/jobs/viewJobFilters.html:49
+msgid "Hide problems without marks"
+msgstr "Не показывать проблемы без оценок"
+
+#: jobs/templates/jobs/viewJobFilters.html:55
+#: jobs/templates/jobs/viewJobFilters.html:98
+msgid "Hide total"
+msgstr "Не показывать суммарное количество"
+
+#: jobs/templates/jobs/viewJobFilters.html:120
+msgid "Safe tag"
+msgstr "Тег доказательства корректности"
+
+#: jobs/templates/jobs/viewJobFilters.html:137
+msgid "Unsafe tag"
+msgstr "Тег предупреждения об ошибке"
+
+#: jobs/templates/jobs/viewVersions.html:27
+#: marks/templates/marks/markVersions.html:28
+msgid "You won't be able to restore deleted versions"
+msgstr "Вы не сможете восстановить удаляемые версии"
+
+#: jobs/templates/jobs/viewVersions.html:39
+#: jobs/templates/jobs/viewVersions.html:43
+#: marks/templates/marks/markVersions.html:40
+#: marks/templates/marks/markVersions.html:44
+msgid "No versions to delete (you can't remove first and last versions)"
+msgstr ""
+"Нет версий, которые можно удалить (Вы не можете удалить первую и последнюю "
+"версии)"
+
+#: jobs/templates/jobs/viewVersions.html:40
+#: jobs/templates/jobs/viewVersions.html:44
+#: marks/templates/marks/markVersions.html:41
+#: marks/templates/marks/markVersions.html:45 templates/Population.html:63
+#: templates/error.html.py:12
+msgid "OK"
+msgstr "Хорошо"
+
+#: jobs/utils.py:53
+msgid "Missed target bugs"
+msgstr "Пропуски целевых ошибок"
+
+#: jobs/utils.py:60
+msgid "Bugs"
+msgstr "Реальные ошибки"
+
+#: jobs/utils.py:61
+msgid "Target bugs"
+msgstr "Целевые ошибки"
+
+#: jobs/utils.py:62
+msgid "False positives"
+msgstr "Ложные сообщения об ошибках"
+
+#: jobs/utils.py:78
+msgid "Parent"
+msgstr "Родитель"
+
+#: jobs/utils.py:79
+msgid "Your role"
+msgstr "Ваша роль"
+
+#: jobs/utils.py:81
+msgid "Decision start date"
+msgstr "Дата начала решения"
+
+#: jobs/utils.py:82
+msgid "Decision finish date"
+msgstr "Дата завершения решения"
+
+#: jobs/utils.py:83
+msgid "Decision wall time"
+msgstr "Астрономическое время решения"
+
+#: jobs/utils.py:84 users/notifications.py:226
+msgid "Operator"
+msgstr "Оператор"
+
+#: jobs/utils.py:85
+msgid "Pending tasks"
+msgstr "Ожидающие задачи"
+
+#: jobs/utils.py:86
+msgid "Processing tasks"
+msgstr "Решающиеся задачи"
+
+#: jobs/utils.py:87
+msgid "Finished tasks"
+msgstr "Решенные задачи"
+
+#: jobs/utils.py:88
+msgid "Error tasks"
+msgstr "Проваленные задачи"
+
+#: jobs/utils.py:89
+msgid "Cancelled tasks"
+msgstr "Отмененные задачи"
+
+#: jobs/utils.py:90
+msgid "Total tasks"
+msgstr "Всего задач"
+
+#: jobs/utils.py:91
+msgid "Progress of job decision"
+msgstr "Прогресс решения задания"
+
+#: jobs/utils.py:92
+msgid "Number of task decisions"
+msgstr "Количество решений задач"
+
+#: jobs/utils.py:257 jobs/utils.py:261
+msgid "Saving folder failed"
+msgstr "Сохранение папки провалилось"
+
+#: jobs/utils.py:269 jobs/utils.py:303
+msgid "The file was not uploaded"
+msgstr "Файл не был загружен на сервер"
+
+#: jobs/utils.py:297
+msgid "You can't specify an empty name"
+msgstr "Вы не можете указать пустое имя"
+
+#: jobs/utils.py:305
+msgid "You can't use the same names in one folder"
+msgstr "Вы не можете использовать одни и те же имена в одной папке"
+
+#: jobs/utils.py:342 jobs/utils.py:580 jobs/utils.py:581 jobs/utils.py:590
+msgid "ms"
+msgstr "мс"
+
+#: jobs/utils.py:346
+msgid "s"
+msgstr "с"
+
+#: jobs/utils.py:351
+msgid "h"
+msgstr "ч"
+
+#: jobs/utils.py:371 jobs/utils.py:582
+msgid "B"
+msgstr "Б"
+
+#: jobs/utils.py:375
+msgid "KB"
+msgstr "КБ"
+
+#: jobs/utils.py:379
+msgid "MB"
+msgstr "МБ"
+
+#: jobs/utils.py:446
+msgid "The job title is required"
+msgstr "Требуется название задания"
+
+#: jobs/utils.py:448
+msgid "The job author is required"
+msgstr "Требуется автор задания"
+
+#: jobs/utils.py:457
+msgid "The parent or the job class is required"
+msgstr "Требуется родитель или класс задания"
+
+#: jobs/utils.py:495
+msgid "Change author is required"
+msgstr "Требуется автор изменения"
+
+#: jobs/utils.py:665 reports/comparison.py:198 reports/comparison.py:239
+msgid "The comparison cache was not found"
+msgstr "Кэш сравнения не был найден"
+
+#: jobs/views.py:62
+msgid "The default view was made preferred"
+msgstr ""
+"Представление, которое используется по умолчанию, было сделано предпочитаемым"
+
+#: jobs/views.py:63
+msgid "The default view is already preferred"
+msgstr ""
+"Представление, которое используется по умолчанию, уже является предпочитаемым"
+
+#: jobs/views.py:68 jobs/views.py:121 jobs/views.py:156
+msgid "The view was not found"
+msgstr "Представление не было найдено"
+
+#: jobs/views.py:74
+msgid "The preferred view was successfully changed"
+msgstr "Предпочитаемое представление было успешно изменено"
+
+#: jobs/views.py:90 jobs/views.py:96
+msgid "Please choose another view name"
+msgstr "Пожалуйста, выберете другое название представления"
+
+#: jobs/views.py:93 jobs/views.py:128
+msgid "The view name is required"
+msgstr "Требуется указать название представления"
+
+#: jobs/views.py:116
+msgid "You can't edit the default view"
+msgstr ""
+"Вы не можете редактировать представление, которое используется по умолчанию"
+
+#: jobs/views.py:134
+msgid "The view was successfully saved"
+msgstr "Представление было успешно сохранено"
+
+#: jobs/views.py:150
+msgid "You can't remove the default view"
+msgstr "Вы не можете удалить представление, которое используется по умолчанию"
+
+#: jobs/views.py:157
+msgid "The view was successfully removed"
+msgstr "Представление было успешно удалено"
+
+#: jobs/views.py:308 marks/views.py:71
+msgid "Current version"
+msgstr "Текущая версия"
+
+#: jobs/views.py:353
+msgid "You don't have access to delete versions"
+msgstr "У Вас нет прав удалить версии"
+
+#: jobs/views.py:359 marks/views.py:421
+msgid "Selected versions were successfully deleted"
+msgstr "Отмеченные версии были успешно удалены"
+
+#: jobs/views.py:360 marks/views.py:423
+msgid "Nothing to delete"
+msgstr "Нечего удалять"
+
+#: jobs/views.py:450
+msgid "You don't have an access to edit this job"
+msgstr "У Вас нет прав редактировать данное задание"
+
+#: jobs/views.py:456 jobs/views.py:485
+msgid "The job parent was not found"
+msgstr "Родитель задания не был найден"
+
+#: jobs/views.py:459
+msgid ""
+"Several parents match the specified identifier, please increase the length "
+"of the parent identifier"
+msgstr ""
+"Указанному идентификатору соответствуют несколько родителей, пожалуйста, "
+"увеличьте длину идентификатора родителя"
+
+#: jobs/views.py:464
+msgid "Parent can't be specified for root jobs"
+msgstr "Нельзя указывать родителя для корневых заданий"
+
+#: jobs/views.py:466
+msgid "The specified parent can't be set for this job"
+msgstr "Для этого задания не может быть установлен указанный родитель"
+
+#: jobs/views.py:469
+msgid "The parent identifier is required for this job"
+msgstr "Для этого задания требуется идентификатор родителя"
+
+#: jobs/views.py:471 marks/views.py:223
+msgid "Your version is expired, please reload the page"
+msgstr "Ваша версия устарела, пожалуйста, обновите страницу"
+
+#: jobs/views.py:487
+msgid "You don't have an access to create new jobs"
+msgstr "У Вас нет прав создавать новые задания"
+
+#: jobs/views.py:512
+msgid "You don't have an access to remove this job"
+msgstr "У Вас нет прав удалить данное задание"
+
+#: jobs/views.py:513
+msgid "You don't have an access to remove one of the selected jobs"
+msgstr "У Вас нет прав удалить одно из отмеченных заданий"
+
+#: jobs/views.py:551
+msgid "File uploading failed"
+msgstr "Загрузка файла на сервер провалилась"
+
+#: jobs/views.py:640
+msgid "You don't have an access to download one of the selected jobs"
+msgstr "У Вас нет прав загрузить одно из отмеченных заданий"
+
+#: jobs/views.py:653
+msgid "The parent identifier was not got"
+msgstr "Не был получен идентификатор родителя"
+
+#: jobs/views.py:659
+msgid "The parent with the specified identifier was not found"
+msgstr "Родитель с указанным идентификатором не был найден"
+
+#: jobs/views.py:665
+msgid "Too many jobs starts with the specified identifier"
+msgstr "Слишком много заданий начинаются с указанного идентификатора"
+
+#: jobs/views.py:674
+msgid "Archive extracting error"
+msgstr ""
+
+#: jobs/views.py:749 jobs/views.py:890 jobs/views.py:897
+msgid "The file was not found"
+msgstr "Файл не был найден"
+
+#: jobs/views.py:765
+msgid "You don't have an access to stop decision of this job"
+msgstr "У Вас нет прав остановить решение данного задания"
+
+#: jobs/views.py:852 reports/views.py:398
+msgid "One of the selected jobs was not found, please reload page"
+msgstr ""
+"Одно из отмеченных заданий не было найдено, пожалуйста, обновите страницу"
+
+#: jobs/views.py:854
+msgid "You can't compare the selected jobs"
+msgstr "Вы не можете сравнить отмеченные задания"
+
+#: marks/tables.py:17
+msgid "Number of reports"
+msgstr "Количество отчетов"
+
+#: marks/tables.py:18
+msgid "Change kind"
+msgstr "Тип изменения"
+
+#: marks/tables.py:19 marks/templates/marks/CreateMark.html.py:55
+#: marks/templates/marks/CreateMark.html:123
+#: marks/templates/marks/MarkAddData.html:26
+#: marks/templates/marks/ViewMark.html:97
+#: marks/templates/marks/ViewMark.html:145
+#: marks/templates/marks/filters.html:25
+#: marks/templates/marks/filters.html:126 reports/utils.py:21
+msgid "Verdict"
+msgstr "Вердикт"
+
+#: marks/tables.py:20 reports/utils.py:27
+msgid "Total verdict"
+msgstr "Итоговый вердикт"
+
+#: marks/tables.py:21 reports/utils.py:22
+msgid "Similarity"
+msgstr "Похожесть"
+
+#: marks/tables.py:22 marks/templates/marks/CreateMark.html.py:67
+#: marks/templates/marks/CreateMark.html:133
+#: marks/templates/marks/CreateMark.html:202
+#: marks/templates/marks/MarkAddData.html:38
+#: marks/templates/marks/MarkUnknownData.html:5
+#: marks/templates/marks/ViewMark.html:102
+#: marks/templates/marks/ViewMark.html:150
+#: marks/templates/marks/filters.html:30 marks/templates/marks/filters.html:79
+#: reports/templates/reports/ReportMain.html:30 reports/utils.py:23
+msgid "Status"
+msgstr "Статус"
+
+#: marks/tables.py:24 reports/templates/reports/base.html.py:5
+msgid "Report"
+msgstr "Отчет"
+
+#: marks/tables.py:28
+msgid "Number of associated leaf reports"
+msgstr "Количество привязанных листовых отчетов"
+
+#: marks/tables.py:29 marks/templates/marks/CreateMark.html.py:217
+#: marks/templates/marks/MarkUnknownData.html:28
+#: marks/templates/marks/ViewMark.html:190
+msgid "Problem"
+msgstr "Проблема"
+
+#: marks/tables.py:30 marks/templates/marks/EditUnknownMark.html.py:51
+#: marks/templates/marks/ViewMark.html:33
+#: marks/templates/marks/filters.html:19
+#: marks/templates/marks/filters.html:104
+#: reports/templates/reports/AttrsFilters.html:13
+#: reports/templates/reports/ReportData.html:32 reports/utils.py:25
+msgid "Component"
+msgstr "Компонент"
+
+#: marks/tables.py:31 marks/templates/marks/filters.html.py:47
+msgid "Problem pattern"
+msgstr "Шаблон проблемы"
+
+#: marks/tables.py:33 marks/templates/marks/EditMark.html.py:53
+#: marks/templates/marks/EditUnknownMark.html:47
+#: marks/templates/marks/ViewMark.html:28
+#: marks/templates/marks/filters.html:53
+#: marks/templates/marks/filters.html:193
+msgid "Source"
+msgstr "Источник"
+
+#: marks/tables.py:34
+msgid "Automatic association"
+msgstr "Автоматическая привязка"
+
+#: marks/tables.py:35
+msgid "Has non-automatic association"
+msgstr "Имеется неавтоматическая привязка"
+
+#: marks/tables.py:63
+msgid "Changed"
+msgstr "Изменена"
+
+#: marks/tables.py:64
+msgid "New"
+msgstr "Новая"
+
+#: marks/tables.py:65
+msgid "Deleted"
+msgstr "Удалена"
+
+#: marks/tables.py:373 marks/tables.py:774
+msgid "Comparison failed"
+msgstr "Сравнение провалилось"
+
+#: marks/tables.py:399 marks/tables.py:785 marks/tables.py:804
+#: users/templates/users/showProfile.html:16
+msgid "No"
+msgstr "Нет"
+
+#: marks/tables.py:402 marks/tables.py:788 marks/tables.py:802
+#: users/templates/users/showProfile.html:16
+msgid "Yes"
+msgstr "Да"
+
+#: marks/tables.py:554 reports/utils.py:292
+#, python-format
+msgid "%(all)s (%(broken)s are broken)"
+msgstr "%(all)s (%(broken)s сломаны)"
+
+#: marks/templates/marks/CreateMark.html:5
+#: reports/templates/reports/report_leaf.html:77
+#: reports/templates/reports/report_unsafe.html:107
+msgid "Create mark"
+msgstr "Создать оценку"
+
+#: marks/templates/marks/CreateMark.html:14
+msgid "Error traces conversion function"
+msgstr "Функция преобразования трасс ошибок"
+
+#: marks/templates/marks/CreateMark.html:27
+#: marks/templates/marks/MarkAddData.html:5
+#: marks/templates/marks/ViewMark.html:110
+msgid "Error traces comparison function"
+msgstr "Функция сравнения трасс ошибок"
+
+#: marks/templates/marks/CreateMark.html:83
+#: marks/templates/marks/CreateMark.html:148
+#: marks/templates/marks/MarkAddData.html:63
+#: marks/templates/marks/ViewMark.html:118
+#: marks/templates/marks/ViewMark.html:159
+#: reports/templates/reports/ReportMain.html:48
+#: reports/templates/reports/report_unsafe.html:51
+msgid "Attributes"
+msgstr "Атрибуты"
+
+#: marks/templates/marks/CreateMark.html:109
+#: marks/templates/marks/CreateMark.html:185
+#: marks/templates/marks/CreateMark.html:245
+#: marks/templates/marks/EditMark.html:133
+#: marks/templates/marks/EditUnknownMark.html:129
+msgid "Editable"
+msgstr "Возможно ли редактирование"
+
+#: marks/templates/marks/CreateMark.html:212
+#: marks/templates/marks/MarkUnknownData.html:23
+#: marks/templates/marks/ViewMark.html:186
+msgid "Pattern"
+msgstr "Шаблон"
+
+#: marks/templates/marks/CreateMark.html:222
+#: marks/templates/marks/MarkUnknownData.html:33
+msgid "Link to detailed description"
+msgstr "Ссылка на детальное описание"
+
+#: marks/templates/marks/CreateMark.html:252 marks/utils.py:119
+#: marks/utils.py:200
+msgid "The pattern is required"
+msgstr "Требуется шаблон"
+
+#: marks/templates/marks/CreateMark.html:253 marks/utils.py:129
+#: marks/utils.py:212
+msgid "The problem is required"
+msgstr "Требуется проблема"
+
+#: marks/templates/marks/EditMark.html:9
+#: marks/templates/marks/EditMark.html:36
+#: marks/templates/marks/ViewMark.html:10 reports/comparison.py:543
+#: users/views.py:229
+msgid "Unsafes mark"
+msgstr "Оценка предупреждений об ошибках"
+
+#: marks/templates/marks/EditMark.html:9
+#: marks/templates/marks/EditMark.html:38
+#: marks/templates/marks/ViewMark.html:10 reports/comparison.py:557
+#: users/views.py:208
+msgid "Safes mark"
+msgstr "Оценка доказательств корректности"
+
+#: marks/templates/marks/EditMark.html:83
+#: marks/templates/marks/EditUnknownMark.html:81
+#: marks/templates/marks/ViewMark.html:63
+msgid "Associated leaf reports"
+msgstr "Привязанные листовые отчеты"
+
+#: marks/templates/marks/EditMark.html:113
+#: marks/templates/marks/EditUnknownMark.html:111
+msgid "List of associated leaf reports is empty"
+msgstr "Список привязанных листовых отчетов пустой"
+
+#: marks/templates/marks/EditMark.html:153
+#: marks/templates/marks/EditUnknownMark.html:150
+msgid "All versions and all data of this mark will be deleted"
+msgstr "Все версии и все данные оценки будут удалены"
+
+#: marks/templates/marks/EditUnknownMark.html:9
+#: marks/templates/marks/EditUnknownMark.html:34
+#: marks/templates/marks/ViewMark.html:10 reports/comparison.py:569
+#: users/views.py:250
+msgid "Unknowns mark"
+msgstr "Оценка проблем в компонентах"
+
+#: marks/templates/marks/MarkList.html:4 marks/views.py:249
+msgid "Safe marks"
+msgstr "Оценки доказательств корректности"
+
+#: marks/templates/marks/MarkList.html:4 marks/views.py:248
+msgid "Unsafe marks"
+msgstr "Оценки предупреждений об ошибках"
+
+#: marks/templates/marks/MarkList.html:4 marks/views.py:250
+msgid "Unknown marks"
+msgstr "Оценки проблем в компонентах"
+
+#: marks/templates/marks/MarkList.html:12
+msgid "Delete selected marks"
+msgstr "Удалить отмеченные оценки"
+
+#: marks/templates/marks/MarkList.html:57
+msgid ""
+"List of marks of the given type is empty, please create them or change the "
+"view"
+msgstr ""
+"Список оценок данного типа пустой, пожалуйста, создайте их или измените "
+"представление"
+
+#: marks/templates/marks/MarkList.html:66
+msgid "All versions and all data of the selected marks will be deleted"
+msgstr "Все версии и все данные отмеченных оценок будут удалены"
+
+#: marks/templates/marks/MarkList.html:76
+msgid "Please select marks you want to delete"
+msgstr "Пожалуйста, отметьте оценки, которые Вы хотите удалить"
+
+#: marks/templates/marks/SaveMarkResult.html:3
+msgid "Changes in associations of marks with leaf reports"
+msgstr "Изменения привязки оценок к листовым отчетам"
+
+#: marks/templates/marks/SaveMarkResult.html:35
+msgid "No changes in associations of marks with leaf reports"
+msgstr "Изменения привязки оценок к листовым отчетам отсутствуют"
+
+#: marks/templates/marks/SaveMarkResult.html:38
+msgid "Continue editing"
+msgstr "Продолжить редактирование"
+
+#: marks/templates/marks/Tags.html:8
+msgid "Enter tag"
+msgstr "Введите тег"
+
+#: marks/templates/marks/Tags.html:18
+msgid "No tags to display"
+msgstr "Теги отсутствуют"
+
+#: marks/templates/marks/Tags.html:30
+msgid "The tag length must be not more than 15 characters"
+msgstr "Длина тега должна быть не более 15 символов"
+
+#: marks/templates/marks/base.html:5 reports/utils.py:20
+msgid "Mark"
+msgstr "Оценка"
+
+#: marks/templates/marks/filters.html:13
+msgid "The number of associated leaf reports"
+msgstr "Количество привязанных листовых отчетов"
+
+#: marks/templates/marks/filters.html:36
+msgid "Last change author"
+msgstr "Автор последнего изменения"
+
+#: marks/templates/marks/filters.html:56
+msgid "Order"
+msgstr "Порядок"
+
+#: marks/templates/marks/filters.html:60
+#: reports/templates/reports/ListFilters.html:8
+#: reports/templates/reports/UnknownsFilters.html:8
+msgid "Order by attribute"
+msgstr "Упорядочить по атрибуту"
+
+#: marks/templates/marks/filters.html:66
+#: marks/templates/marks/filters.html:171
+#: reports/templates/reports/AttrsFilters.html:41
+#: reports/templates/reports/AttrsFilters.html:72
+#: reports/templates/reports/ListFilters.html:26
+#: reports/templates/reports/ListFilters.html:35
+#: reports/templates/reports/UnknownsFilters.html:26
+#: reports/templates/reports/UnknownsFilters.html:53
+msgid "Enter the full name of the attribute"
+msgstr "Введите полное название атрибута"
+
+#: marks/templates/marks/filters.html:66
+#: marks/templates/marks/filters.html:171
+#: reports/templates/reports/AttrsFilters.html:41
+#: reports/templates/reports/AttrsFilters.html:72
+#: reports/templates/reports/ListFilters.html:26
+#: reports/templates/reports/ListFilters.html:35
+#: reports/templates/reports/UnknownsFilters.html:26
+#: reports/templates/reports/UnknownsFilters.html:53
+msgid "e.g."
+msgstr "например,"
+
+#: marks/templates/marks/filters.html:70
+msgid "Order by the number of associated leaf reports"
+msgstr "Упорядочить по количеству привязанных листовых отчетов"
+
+#: marks/templates/marks/filters.html:86
+#: marks/templates/marks/filters.html:133
+#: marks/templates/marks/filters.html:200
+msgid "is not"
+msgstr "не совпадает с"
+
+#: marks/templates/marks/filters.html:166
+#: reports/templates/reports/AttrsFilters.html:67
+#: reports/templates/reports/ListFilters.html:30
+#: reports/templates/reports/UnknownsFilters.html:48
+#: reports/templates/reports/comparison.html:97
+msgid "Value of attribute"
+msgstr "Значение атрибута"
+
+#: marks/utils.py:99 marks/views.py:188
+msgid "The error traces conversion function was not found"
+msgstr "Функция преобразования трасс ошибок не была найдена"
+
+#: marks/utils.py:104
+msgid "Error trace converting failed"
+msgstr "Преобразование трассы ошибки провалилось"
+
+#: marks/utils.py:114 marks/utils.py:193 marks/utils.py:819 marks/views.py:181
+msgid "The error traces comparison function was not found"
+msgstr "Функция сравнения трасс ошибок не была найдена"
+
+#: marks/utils.py:125 marks/utils.py:206
+msgid ""
+"The pattern is wrong, please refer to documentation on the standard Python "
+"library for processing reqular expressions"
+msgstr ""
+"Шаблон некорректный, пожалуйста, обратитесь к документации на стандартную "
+"библиотеку Python для работы с регулярными выражениями"
+
+#: marks/utils.py:131 marks/utils.py:214
+msgid "The problem length must be less than 15 characters"
+msgstr "Длина проблемы должна быть не более 15 символов"
+
+#: marks/utils.py:136
+msgid "Could not create a new mark since the similar mark exists already"
+msgstr "Не удалось создать новую оценку, поскольку существует похожая оценка"
+
+#: marks/utils.py:221
+msgid ""
+"Could not change the mark since it would be similar to the existing mark"
+msgstr ""
+"Не удалось изменить оценку, поскольку она стала бы похожа на существую оценку"
+
+#: marks/utils.py:822
+msgid "The mark format is not supported"
+msgstr "Формат оценки не поддерживается"
+
+#: marks/utils.py:839
+msgid "Could not upload the mark archive since the similar mark exists already"
+msgstr ""
+"Не удалось загрузить архив с оценкой, поскольку существует похожая оценка"
+
+#: marks/utils.py:909 marks/utils.py:912
+msgid "The attributes have wrong format"
+msgstr "Формат атрибутов некорректный"
+
+#: marks/utils.py:948 marks/utils.py:956 marks/utils.py:959 marks/utils.py:962
+#: marks/utils.py:966 marks/utils.py:971 marks/utils.py:973 marks/utils.py:975
+#: marks/utils.py:977
+msgid "The mark archive is corrupted"
+msgstr "Архив оценки поврежден"
+
+#: marks/utils.py:964
+msgid "The mark archive is corrupted: the pattern error trace is not found"
+msgstr "Архив оценки поврежден: не найдена шаблонная трасса ошибки"
+
+#: marks/views.py:149
+msgid "You don't have an access to this mark"
+msgstr "У Вас нет прав на данную оценку"
+
+#: marks/views.py:227 marks/views.py:410
+msgid "You don't have an access to edit this mark"
+msgstr "У Вас нет прав редактировать данную оценку"
+
+#: marks/views.py:313
+msgid "You don't have access to create new marks"
+msgstr "У Вас нет прав создавать новые оценки"
+
+#: marks/views.py:378
+msgid "You can't delete one of the selected mark"
+msgstr "Вы не можете удалить одну из отмеченных оценок"
+
+#: reports/comparison.py:282
+msgid "Required reports were not found"
+msgstr "Требуемые отчеты не были найдены"
+
+#: reports/comparison.py:455 reports/comparison.py:475
+#: reports/comparison.py:495 reports/comparison.py:515
+msgid "The report was not found, please recalculate the comparison cache"
+msgstr "Отчет не был найден, пожалуйста, пересчитайте кэш сравнения"
+
+#: reports/etv.py:381
+msgid "Could not find the corresponding unsafe"
+msgstr "Не удалось найти соответствующие предупреждение об ошибке"
+
+#: reports/etv.py:392
+msgid "Could not get the source file"
+msgstr "Не удалось получить файл с исходным кодом"
+
+#: reports/templates/reports/AttrsFilters.html:8
+msgid "Order by"
+msgstr "Упорядочить по"
+
+#: reports/templates/reports/AttrsFilters.html:18
+msgid "Attribute"
+msgstr "Атрибут"
+
+#: reports/templates/reports/AttrsFilters.html:47
+msgid "Only finished children will be shown"
+msgstr "Будут показаны только завершенные потомки"
+
+#: reports/templates/reports/ETV.html:21
+msgid "Play"
+msgstr "Играть"
+
+#: reports/templates/reports/ETV.html:26
+msgid "Play from the selected line"
+msgstr "Играть с выбранной строки"
+
+#: reports/templates/reports/ETV.html:31
+msgid "Play backward"
+msgstr "Играть назад"
+
+#: reports/templates/reports/ETV.html:36
+msgid "Play backward from the selected line"
+msgstr "Играть назад с выбранной строки"
+
+#: reports/templates/reports/ETV.html:40
+msgid "Play one line forward"
+msgstr "Играть одну строку вперед"
+
+#: reports/templates/reports/ETV.html:44
+msgid "Play one line backward"
+msgstr "Играть одну строку назад"
+
+#: reports/templates/reports/ETV.html:48
+msgid "Pause"
+msgstr "Остановить"
+
+#: reports/templates/reports/ETV.html:53
+msgid "second per a line"
+msgstr "секунда на строку"
+
+#: reports/templates/reports/ETV.html:54 reports/templates/reports/ETV.html:55
+#: reports/templates/reports/ETV.html:56 reports/templates/reports/ETV.html:57
+#: reports/templates/reports/ETV.html:58
+msgid "seconds per a line"
+msgstr "секунды на строку"
+
+#: reports/templates/reports/ETV.html:89
+msgid ""
+"Error trace assumptions are disabled (you can enable them in your settings)"
+msgstr ""
+"Предположения трассы ошибок отключены (Вы можете включить их в Ваших "
+"настройках)"
+
+#: reports/templates/reports/ETV.html:108
+msgid "Could not find the specified line"
+msgstr "Не удалось найти указанную строку"
+
+#: reports/templates/reports/ETV.html:109
+msgid "Please, select the line first"
+msgstr "Пожалуйста, сначала выберете строку"
+
+#: reports/templates/reports/ETV.html:110
+msgid "Play of the error trace was completed"
+msgstr "Проигрывание трассы ошибки завершено"
+
+#: reports/templates/reports/ETV_double.html:8
+#: reports/templates/reports/ETV_single.html:8
+msgid "Error trace"
+msgstr "Трасса ошибки"
+
+#: reports/templates/reports/ListFilters.html:26
+msgid "Leave empty for order by creation date"
+msgstr "Оставьте пустым для упорядочивания по дате создания"
+
+#: reports/templates/reports/ReportData.html:8
+msgid "Validation results"
+msgstr "Результаты валидации"
+
+#: reports/templates/reports/ReportData.html:13
+msgid "Before fix"
+msgstr "До исправления"
+
+#: reports/templates/reports/ReportData.html:14
+msgid "After fix"
+msgstr "После исправления"
+
+#: reports/templates/reports/ReportData.html:34
+#: reports/templates/reports/ReportMain.html:107
+msgid "Data"
+msgstr "Данные"
+
+#: reports/templates/reports/ReportMain.html:35
+msgid "In progress"
+msgstr "Выполняется"
+
+#: reports/templates/reports/ReportMain.html:37
+msgctxt "component status"
+msgid "Finished"
+msgstr "Завершился"
+
+#: reports/templates/reports/ReportMain.html:42
+msgid "Computer"
+msgstr "Компьютер"
+
+#: reports/templates/reports/ReportMain.html:80
+msgid "Duration"
+msgstr "Продолжительность"
+
+#: reports/templates/reports/ReportMain.html:83
+msgid "Creation date"
+msgstr "Дата создания"
+
+#: reports/templates/reports/ReportMain.html:92
+msgid "Maximum memory size"
+msgstr "Максимальный объем оперативной памяти"
+
+#: reports/templates/reports/ReportMain.html:116
+msgid "Log"
+msgstr "Лог"
+
+#: reports/templates/reports/ReportMain.html:121
+msgid "Download files"
+msgstr "Загрузить файлы"
+
+#: reports/templates/reports/ReportMain.html:180
+msgid "There is no children, please wait for them or change the view"
+msgstr "Потомков нет, пожалуйста, подождите их или измените представление"
+
+#: reports/templates/reports/ReportMain.html:184
+msgid "Statistics on component and its children"
+msgstr "Статистика по компоненту и его потомкам"
+
+#: reports/templates/reports/UnknownsFilters.html:26
+msgid "Leave empty for order by component"
+msgstr "Оставьте пустым для упорядочивания по компоненту"
+
+#: reports/templates/reports/comparison.html:14
+msgid "Comparison of reports of jobs"
+msgstr "Сравнение отчетов заданий"
+
+#: reports/templates/reports/comparison.html:111
+msgid "Show all (sub)components"
+msgstr "Показать все (под)компоненты"
+
+#: reports/templates/reports/comparison.html:116
+msgid "Show all attributes"
+msgstr "Показать все атрибуты"
+
+#: reports/templates/reports/comparison.html:120
+msgid "Search"
+msgstr "Найти"
+
+#: reports/templates/reports/comparison.html:127
+msgid "Please select to show all attributes"
+msgstr "Пожалуйста, выберете показ всех атрибутов"
+
+#: reports/templates/reports/etv_fullscreen.html:5
+msgid "Error Trace Fullscreen"
+msgstr "Полноэкранная Трасса ошибки"
+
+#: reports/templates/reports/report_leaf.html:45
+#: reports/templates/reports/report_unsafe.html:75
+msgid "Associated marks"
+msgstr "Привязанные оценки"
+
+#: reports/utils.py:26
+msgid "Number of associated marks"
+msgstr "Количество привязанных оценок"
+
+#: reports/views.py:107
+msgid "All safes"
+msgstr "Все доказательства корректности"
+
+#: reports/views.py:116
+msgid "Safes marked by"
+msgstr "Доказательства корректности с оценкой"
+
+#: reports/views.py:118
+msgid "All unsafes"
+msgstr "Все предупрeждения об ошибках"
+
+#: reports/views.py:127
+msgid "Unsafes marked by"
+msgstr "Предупреждения об ошибках с оценкой"
+
+#: reports/views.py:129
+msgid "All unknowns"
+msgstr "Все проблемы в компонентах"
+
+#: reports/views.py:133
+msgid "Unknowns without marks"
+msgstr "Проблемы в компонентах без оценок"
+
+#: reports/views.py:135
+msgid "Unknowns marked by"
+msgstr "Проблемы в компонентах с оценкой"
+
+#: reports/views.py:361
+msgid "The component log is huge and can not be showed but you can download it"
+msgstr ""
+"Лог компонента большой и не может быть показан, но Вы можете загрузить его"
+
+#: service/utils.py:247
+msgid "The job solving progress does not exist"
+msgstr "Прогресс решения задания не существует"
+
+#: service/utils.py:250
+msgid "Only pending and processing jobs can be stopped"
+msgstr "Только ожидающие и решающиеся задания могут быть остановлены"
+
+#: service/utils.py:908
+msgid "You don't have an access to start decision of this job"
+msgstr "У Вас нет прав начать решение данного задания"
+
+#: service/utils.py:954
+msgid "You didn't specify credentials for VerifierCloud"
+msgstr "Вы не указали идентификационную информацию для VerifierCloud"
+
+#: templates/Population.html:5 templates/base.html.py:57
+msgid "Population"
+msgstr "Наполнение базы данных"
+
+#: templates/Population.html:16
+msgid "A new Manager was created"
+msgstr "Был создан новый Руководитель"
+
+#: templates/Population.html:17 templates/Population.html.py:27
+#: users/templates/users/login.html:19
+msgid "Username"
+msgstr "Имя пользователя"
+
+#: templates/Population.html:18 templates/Population.html.py:28
+#: users/forms.py:20 users/templates/users/login.html.py:21
+msgid "Password"
+msgstr "Пароль"
+
+#: templates/Population.html:19
+msgid "Please save this data and give it to the user who will be the Manager"
+msgstr ""
+"Пожалуйста, сохранить эти данные и передайте их пользователю, который будет "
+"Руководителем"
+
+#: templates/Population.html:26
+msgid "A new service user was created"
+msgstr "Был создан новый служебный пользователь"
+
+#: templates/Population.html:29
+msgid "Please save this data and give it to the service user"
+msgstr ""
+"Пожалуйста, сохранить эти данные и передайте их служебному пользователю"
+
+#: templates/Population.html:37
+msgid "Error traces conversion and comparison functions were updated"
+msgstr "Были обновлены функции преобразования и сравнения трасс ошибок"
+
+#: templates/Population.html:42
+msgid "New root jobs were uploaded"
+msgstr "Были загружены новые корневые задания"
+
+#: templates/Population.html:47
+msgid "New preset jobs were uploaded"
+msgstr "Были загружены новые предустановленные задания"
+
+#: templates/Population.html:57
+msgid "New unknown marks were uploaded"
+msgstr "Были загружены новые оценки проблем в компонентах"
+
+#: templates/Population.html:61
+msgid "Nothing changed"
+msgstr "Ничего не изменилось"
+
+#: templates/Population.html:72
+msgid ""
+"Create the Manager with the specified username and jobs of all classes on "
+"behalf of that Manager"
+msgstr ""
+"Создать Руководителя с указанным именем и задания всех классов от имени "
+"данного Руководителя"
+
+#: templates/Population.html:74
+msgid "Manager username"
+msgstr "Имя Руководителя"
+
+#: templates/Population.html:80
+msgid "Create the service user with the specified username"
+msgstr "Создать служебного пользователя с указанным именем"
+
+#: templates/Population.html:82
+msgid "Service username"
+msgstr "Имя служебного пользователя"
+
+#: templates/Population.html:90
+msgid "Manager and service usernames must be different"
+msgstr "Имена Руководителя и служебного пользователя должны быть разными"
+
+#: templates/Population.html:94
+msgid "Manager and service usernames are required"
+msgstr "Требуется заполнить имена Руководителя и служебного пользователя"
+
+#: templates/Population.html:97
+msgid "Populate"
+msgstr "Наполнить базу данных"
+
+#: templates/base.html:15 users/templates/users/login.html.py:4
+#: users/templates/users/login.html:24
+msgid "Sign in"
+msgstr "Войти"
+
+#: templates/base.html:27
+msgid "Please wait"
+msgstr "Пожалуйста, подождите"
+
+#: templates/base.html:37
+msgid "Menu"
+msgstr "Меню"
+
+#: templates/base.html:44 templates/base.html.py:51 templates/base.html:91
+#: templates/base.html.py:116
+msgid "Upload"
+msgstr "Загрузить"
+
+#: templates/base.html:47
+msgid "Marks"
+msgstr "Оценки"
+
+#: templates/base.html:56
+msgid "Admin Tools"
+msgstr "Панель администатора"
+
+#: templates/base.html:60 tools/templates/tools/ManagerPanel.html.py:4
+msgid "Manager Tools"
+msgstr "Панель руководителя"
+
+#: templates/base.html:66 users/templates/users/edit-profile.html.py:5
+#: users/templates/users/edit-profile.html:15
+msgid "Settings"
+msgstr "Настройки"
+
+#: templates/base.html:67
+msgid "Sign Out"
+msgstr "Выйти"
+
+#: templates/base.html:69 users/templates/users/register.html.py:78
+msgid "Register"
+msgstr "Регистрация"
+
+#: templates/base.html:70
+msgid "Sign In"
+msgstr "Войти"
+
+#: templates/base.html:77
+msgid "Upload marks"
+msgstr "Загрузить оценки на сервер"
+
+#: templates/base.html:96
+msgid "Upload jobs"
+msgstr "Загрузить задания на сервер"
+
+#: templates/base.html:98
+msgid ""
+"Set parent identifier (keep in mind that job class will be inherited from "
+"parent). All file or folder names with non-ASCII characters will be "
+"truncated to 30 characters."
+msgstr ""
+"Задайте идентификатор родителя (помните, что класс задания будет унаследован "
+"от родителя). Все названия файлов и папок, в которых используются не ASCII "
+"символы, будут обрезаны до 30 символов."
+
+#: templates/base.html:120
+msgid "The parent identifier is required"
+msgstr "Требуется идентификатор родителя"
+
+#: templates/base.html:121
+msgid "No file is chosen"
+msgstr "Не выбран ни один файл"
+
+#: tools/templates/tools/ManagerPanel.html:17
+msgid "Components"
+msgstr "Компоненты"
+
+#: tools/templates/tools/ManagerPanel.html:32
+msgid "Delete all unused components"
+msgstr "Удалить все неиспользуемые компоненты"
+
+#: tools/templates/tools/ManagerPanel.html:34
+msgid "There are no components yet"
+msgstr "Компонентов еще нет"
+
+#: tools/templates/tools/ManagerPanel.html:40
+msgid "Problems"
+msgstr "Проблемы"
+
+#: tools/templates/tools/ManagerPanel.html:53
+msgid "Delete all unused problems"
+msgstr "Удалить все неиспользуемые проблемы"
+
+#: tools/templates/tools/ManagerPanel.html:55
+msgid "There are no problems yet"
+msgstr "Проблем еще нет"
+
+#: tools/templates/tools/ManagerPanel.html:62
+msgid "Remove unused files and DB rows"
+msgstr "Удалить неиспользуемые файлы и строки БД"
+
+#: tools/templates/tools/ManagerPanel.html:93
+msgid "Recalculate"
+msgstr "Пересчитать"
+
+#: tools/templates/tools/ManagerPanel.html:96
+msgid "All jobs"
+msgstr "Все задания"
+
+#: tools/templates/tools/ManagerPanel.html:100
+msgid "Leaf reports cache"
+msgstr "Кэш листовых отчетов"
+
+#: tools/templates/tools/ManagerPanel.html:101
+msgid "Safe marks cache"
+msgstr "Кэш оценок доказательств корректности"
+
+#: tools/templates/tools/ManagerPanel.html:102
+msgid "Unsafe marks cache"
+msgstr "Кэш оценок предупреждений об ошибках"
+
+#: tools/templates/tools/ManagerPanel.html:103
+msgid "Unknown marks cache"
+msgstr "Кэш оценок проблем в компонентах"
+
+#: tools/templates/tools/ManagerPanel.html:104
+msgid "Verdicts cache"
+msgstr "Кэш вердиктов"
+
+#: tools/templates/tools/ManagerPanel.html:105
+msgid "Resources cache"
+msgstr "Кэш ресурсов"
+
+#: tools/templates/tools/ManagerPanel.html:108
+msgid "All caches"
+msgstr "Все кэши"
+
+#: tools/utils.py:206
+msgid "Please select jobs to recalculate caches for them"
+msgstr "Пожалуйста, отметьте задания, для которых Вы хотите пересчитать кэши"
+
+#: tools/views.py:35
+msgid "The component was not found"
+msgstr "Компонент не был найден"
+
+#: tools/views.py:43
+msgid "The component is used and can't be deleted"
+msgstr "Компонент используется и не может быть удален"
+
+#: tools/views.py:46
+msgid "The component was successfully deleted"
+msgstr "Компонент был успешно удален"
+
+#: tools/views.py:52
+msgid "The component name should be greater than 0 and less than 16 symbols"
+msgstr "Название компонента должно быть больше 0 и меньше 16 символов"
+
+#: tools/views.py:57
+msgid "The specified component name is used already"
+msgstr "Указанное название компонента уже используется"
+
+#: tools/views.py:64
+msgid "The component was successfully renamed"
+msgstr "Компонент был успешно переименован"
+
+#: tools/views.py:85
+msgid "All unused components were deleted, please reload the page"
+msgstr ""
+"Все неиспользуемые компоненты были удалены, пожалуйста, обновите страницу"
+
+#: tools/views.py:109
+msgid "The problem is used and can't be deleted"
+msgstr "Проблема используется и не может быть удалена"
+
+#: tools/views.py:112
+msgid "The problem was successfully deleted"
+msgstr "Проблема была успешно удалена"
+
+#: tools/views.py:131
+msgid "All unused problems were deleted, please reload the page"
+msgstr ""
+"Все неиспользуемые проблемы были удалены, пожалуйста, обновите страницу"
+
+#: tools/views.py:146
+msgid "All unused files and DB rows were deleted"
+msgstr "Все неиспользуемые файлы и строки БД были удалены"
+
+#: tools/views.py:162
+msgid "Caches were successfully recalculated"
+msgstr "Кэши были успешно пересчитаны"
+
+#: users/forms.py:14 users/forms.py:21 users/forms.py:60
+msgid "Confirmation"
+msgstr "Подтверждение"
+
+#: users/forms.py:22 users/templates/users/showProfile.html.py:14
+msgid "Email"
+msgstr "Адрес электронной почты"
+
+#: users/forms.py:59
+msgid "New password"
+msgstr "Новый пароль"
+
+msgid "Passwords don't match"
+msgstr "Пароли не совпадают"
+
+#: users/forms.py:84
+msgid "The number of significant figures"
+msgstr "Количество значащих цифр"
+
+#: users/forms.py:86
+msgid "First name"
+msgstr "Имя"
+
+#: users/forms.py:87 users/templates/users/showProfile.html.py:19
+msgid "Language"
+msgstr "Язык"
+
+#: users/forms.py:88
+msgid "Data format"
+msgstr "Формат данных"
+
+#: users/forms.py:89
+msgid "Error trace assumptions"
+msgstr "Предположения трасс ошибок"
+
+#: users/notifications.py:14
+msgid "New job was created"
+msgstr "Создано новое задание"
+
+#: users/notifications.py:15
+msgid "Job was changed"
+msgstr "Задание было изменено"
+
+#: users/notifications.py:16
+msgid "Job was deleted"
+msgstr "Задание было удалено"
+
+#: users/notifications.py:17
+msgid "Job decision has started"
+msgstr "Началось решение задания"
+
+#: users/notifications.py:18
+msgid "Job decision has finished"
+msgstr "Решение задания завершилось"
+
+#: users/notifications.py:19
+msgid "New unsafe was found"
+msgstr "Обнаружено новое предупреждение об ошибке"
+
+#: users/notifications.py:20
+msgid "New unknown was found"
+msgstr "Обнаружена новая проблема в компоненте"
+
+#: users/notifications.py:21 users/notifications.py:42
+msgid "Mark was associated with leaf report"
+msgstr "Оценка были привязана к листовому отчету"
+
+#: users/notifications.py:22 users/notifications.py:43
+msgid "New mark was created"
+msgstr "Создана новая оценка"
+
+#: users/notifications.py:23 users/notifications.py:44
+msgid "Mark was changed"
+msgstr "Оценка была изменена"
+
+#: users/notifications.py:24 users/notifications.py:45
+msgid "Mark was deleted"
+msgstr "Оценка была удалена"
+
+#: users/notifications.py:29
+#, python-format
+msgid "The job <a href=\"%(url)s\">%(id)s</a> was created by %(user)s"
+msgstr "Пользователь %(user)s создал задание <a href=\"%(url)s\">%(id)s</a>"
+
+#: users/notifications.py:30
+#, python-format
+msgid "The job with identifier %(id)s was created by %(user)s"
+msgstr "Пользователь %(user)s создал задание с идентификатором %(id)s"
+
+#: users/notifications.py:33
+#, python-format
+msgid ""
+"The job <a href=\"%(url)s\">%(id)s</a> was changed by %(user)s: %(comm)s"
+msgstr ""
+"Пользователь %(user)s изменил задание <a href=\"%(url)s\">%(id)s</a>: "
+"%(comm)s"
+
+#: users/notifications.py:35
+#, python-format
+msgid "The job with identifier %(id)s was changed by %(user)s: %(comm)s"
+msgstr ""
+"Пользователь %(user)s изменил задание с идентификатором %(id)s: %(comm)s"
+
+#: users/notifications.py:37
+#, python-format
+msgid "The job with identifier %(id)s was deleted by %(user)s"
+msgstr "Пользователь %(user)s удалил задание с идентификатором %(id)s"
+
+#: users/notifications.py:38
+#, python-format
+msgid "Started decision of the job with identifier %(id)s"
+msgstr "Началось решение заданиея с идентификатором %(id)s"
+
+#: users/notifications.py:39
+#, python-format
+msgid "Finished decision of the job with identifier %(id)s"
+msgstr "Завершилось решение заданиея с идентификатором %(id)s"
+
+#: users/notifications.py:40
+#, python-format
+msgid "Found the new unsafe for the job with identifier %(id)s"
+msgstr ""
+"Обнаружено новое предупреждение об ошибке для задания с идентификатором "
+"%(id)s"
+
+#: users/notifications.py:41
+#, python-format
+msgid "Found the new unknown for the job with identifier %(id)s"
+msgstr ""
+"Обнаружена новая проблема в компоненте для задания с идентификатором %(id)s"
+
+#: users/notifications.py:214
+msgid "Jobs creation"
+msgstr "Создание заданий"
+
+#: users/notifications.py:215
+msgid "Changes of jobs"
+msgstr "Изменения заданий"
+
+#: users/notifications.py:216
+msgid "Jobs deletion"
+msgstr "Удаление заданий"
+
+#: users/notifications.py:217
+msgid "Start of job decisions"
+msgstr "Начало решения заданий"
+
+#: users/notifications.py:218
+msgid "Finish of job decisions"
+msgstr "Завершение решения заданий"
+
+#: users/notifications.py:219
+msgid "New unsafes"
+msgstr "Новые предупрждения об ошибках"
+
+#: users/notifications.py:220
+msgid "New unknowns"
+msgstr "Новые проблемы в компонентах"
+
+#: users/notifications.py:221
+msgid "Changes in correlation between marks and leaf reports"
+msgstr "Изменения в привязке оценок к листовым отчетам"
+
+#: users/notifications.py:222
+msgid "Marks creation"
+msgstr "Создание оценок"
+
+#: users/notifications.py:223
+msgid "Changes of marks"
+msgstr "Изменения оценок"
+
+#: users/notifications.py:224
+msgid "Marks deletion"
+msgstr "Удаление оценок"
+
+#: users/notifications.py:230
+msgid "I am"
+msgstr "Я"
+
+#: users/notifications.py:233
+msgid "Notify about my changes"
+msgstr "Уведомлять о моих изменениях"
+
+#: users/templates/users/edit-profile.html:47
+#: users/templates/users/register.html:53
+msgid "This setting is used just for the human-readable data format"
+msgstr "Данная настройка используется только для удобочитаемого формата данных"
+
+#: users/templates/users/edit-profile.html:60
+#: users/templates/users/register.html:68
+#: users/templates/users/showProfile.html:18
+msgid "Time zone"
+msgstr "Часовой пояс"
+
+#: users/templates/users/edit-profile.html:71
+msgid ""
+"This setting turns on visualization of error trace assumptions. This can "
+"take very much time for big error traces."
+msgstr ""
+"Данная настройка включает визуализацию предположений трасс ошибок. Это может "
+"потребовать очень много времени для больших трасс ошибок."
+
+#: users/templates/users/edit-profile.html:77
+msgid "VerifierCloud Credentials"
+msgstr "Идентификационная информация для VerifierCloud"
+
+#: users/templates/users/notifications.html:3
+msgid "Notifications"
+msgstr "Уведомления"
+
+#: users/templates/users/register.html:5
+msgid "Registration"
+msgstr "Регистрация"
+
+msgid "This field is required"
+msgstr "Обязательное поле"
+
+#: users/templates/users/showProfile.html:6
+msgid "Profile"
+msgstr "Учетная запись"
+
+#: users/templates/users/showProfile.html:16
+msgid "Administrator"
+msgstr "Администратор"
+
+#: users/templates/users/showProfile.html:17
+msgid "Role"
+msgstr "Роль"
+
+#: users/templates/users/showProfile.html:23
+msgid "Last Activity"
+msgstr "Последние действия"
+
+#: users/templates/users/showProfile.html:29
+msgid "Action Kind"
+msgstr "Вид действия"
+
+#: users/templates/users/showProfile.html:30
+msgid "Object Type"
+msgstr "Тип объекта"
+
+#: users/templates/users/showProfile.html:31
+msgid "Object Link"
+msgstr "Ссылка на объект"
+
+#: users/templates/users/showProfile.html:32
+msgid "Change Comment"
+msgstr "Комментарий к изменению"
+
+#: users/views.py:45
+msgid "Account has been disabled"
+msgstr "Учетная запись заблокирована"
+
+#: users/views.py:47
+msgid "Incorrect username or password"
+msgstr "Неправильное имя пользователя или пароль"
+
+#: users/views.py:174 users/views.py:197 users/views.py:218 users/views.py:239
+msgid "Creation"
+msgstr "Создание"
+
+#: users/views.py:177 users/views.py:200 users/views.py:221 users/views.py:242
+msgid "Modification"
+msgstr "Изменение"
+
+#: users/views.py:319
+msgid "Saved"
+msgstr "Сохранено"
+
+msgid "Continuous Verification Visualizer"
+msgstr "изуализатор результатов непрерывной верификации"
+
+msgid "Copy"
+msgstr "Дублировать"
+
+msgid "Statistics of"
+msgstr "Статистика по"
+
+msgid "Instances"
+msgstr "Число запусков"
+
+msgid "CPU time"
+msgstr "Процессорное время"
+
+msgid "Memory"
+msgstr "Память"
+
+msgid "Wall time"
+msgstr "Астрономическое время"
+
+msgid "Actions with selected jobs"
+msgstr "Групповые действия с отчетами"
+
+msgid "Download with children"
+msgstr "Сохранить поддерево отчетов"
+
+msgid "Web-interface for Continuous Verification system"
+msgstr "Web-интерфейс инструментария для ведения непрерывной верификации"
+
+msgid "Report is empty"
+msgstr "Пустой отчет"
+
+msgid "RAM"
+msgstr "Память"
+
+msgid "Back to the reports tree"
+msgstr "Вернуться к дереву отчетов"
+
+msgid "components tree"
+msgstr "дерево компонентов"
+
+msgid "min"
+msgstr "мин"
+
+msgid "Back to report"
+msgstr "Вернуться к отчету"
+
+msgid "Back to error trace"
+msgstr "Вернуться к трассе ошибки"
+
+msgid "List of all error traces"
+msgstr "Список всех трасс ошибок"
+
+msgid "List of unmarked error traces"
+msgstr "Список неразмеченных трасс ошибок"
+
+msgid "Rule specification"
+msgstr "Правило"
+
+msgid "Applied marks"
+msgstr "Примененные оценки"
+
+msgid "Create default mark"
+msgstr "Создать обычную оценку"
+
+msgid "Create extended mark"
+msgstr "Создать расширенную оценку"
+
+msgid "choose required tag from"
+msgstr "необходимо выбрать из"
+
+msgid "unsafe tags tree"
+msgstr "дерева тегов для предупреждений об ошибке"
+
+msgid "safe tags tree"
+msgstr "дерева тегов для доказательств корректности"
+
+msgid "Create tag"
+msgstr "Создать тег"
+
+msgid "Users can modify"
+msgstr "Пользователи, которые могут изменять тег"
+
+msgid "Users can create children"
+msgstr "Пользователи, которые могут создавать теги-потомки для данного"
+
+msgid "Create new root tag"
+msgstr "Создать новый корневой тег"
+
+msgid "Download tags"
+msgstr "Сохранить теги"
+
+msgid "Upload tags"
+msgstr "Загрузить теги"
+
+msgid "Upload jobs tree"
+msgstr "Загрузить дерево отчетов"
+
+msgid "Selected marks"
+msgstr "Групповые действия с оценками"
+
+msgid "Create child"
+msgstr "Создать потомка"
+
+msgid "Show mark"
+msgstr "Перейти к оценке"
+
+msgid "No changes with total expert evaluations or the view has filtered all results"
+msgstr "Изменений в применимости оценки к трассам ошибок нет"
+
+msgid "The list of associated reports is empty"
+msgstr "Список отчетов, к которым была применена оценка, пуст"
+
+msgid "Manually resolve"
+msgstr "Разрешить противоречие"
+
+msgid "There are no applied marks"
+msgstr "Примененных оценок нет"
+
+msgid "Confirm"
+msgstr "Подтвердить применение"
+
+msgid "Unconfirm"
+msgstr "Отменить применение"
+
+msgid "Automatic"
+msgstr "Применена автоматически"
+
+msgid "Confirmed"
+msgstr "Подтверждена вручную"
+
+msgid "Unconfirmed"
+msgstr "Отменена вручную"
+
+msgid "Full screen mode"
+msgstr "Полноэкранный режим"
+
+msgid "Converted error trace"
+msgstr "Трасса ошибки после применения функции преобразования"
+
+msgid ""
+"Functions call tree, in which each leaf is a model function. "
+"Model function is a function, which contains property checks. "
+"This conversion function is used by default."
+msgstr "Дерево вызовов функций, в котором каждый лист является модельной функцией. Модельной называется такая функция, которая содержит проверку требования. Данная функция преобразования используется по умолчанию."
+
+msgid "Functions call tree. This conversion function is more accurate, than model functions."
+msgstr "Дерево вызовов функций. Данная функция преобразования более точная, чем функция model functions."
+
+msgid "Error trace conditions. Usually this conversion function is more accurate, than call tree."
+msgstr "Условия трассы ошибок. Обычно данная функция преобразования более точная, чем  функция call tree."
+
+msgid "Error trace assignments. Usually this conversion function is more accurate, than call tree."
+msgstr "Присваивания трассы ошибок. Обычно данная функция преобразования более точная, чем  функция call tree."
+
+msgid "Description of property checks (both passed and violated). The accuracy of this conversion function depends on corresponding descriptions."
+msgstr "Описания проверок требований (как прошедшие проверку, так и нарушенные). Точность данной функции преобразования зависит от данных описаний."
+
+msgid "Full error trace. This is the most accurate conversion function."
+msgstr "Вся трасса ошибки. Данная функция преобразования является самой точной."
+
+msgid ""
+"Edited error trace and compared error trace is exactly the same sequence of elements. "
+"This conversion function is used by default."
+msgstr "Редактированная трасса ошибки полностью совпадает со сравниваемой трассой ошибки как последовательность элементов. "
+"Данная функция сравнения используется по умолчанию."
+
+msgid "Edited error trace is included in compared error trace as a whole sequence."
+msgstr "Редактированная трасса ошибки включается в сравниваемую трассу ошибки в виде подпоследовательности."
+
+msgid ""
+"Edited error trace is included in compared error trace as a whole sequence with error location "
+"(compared error trace ends with edited error trace)."
+msgstr "Редактированная трасса ошибки включается в сравниваемую трассу ошибки в виде подпоследовательности с учетом метки ошибки (сравниваемая трасса ошибки заканчивается редактированной трассой ошибки)."
+
+msgid "All elements of the edited error trace are included into compared error trace."
+msgstr "Все элементы редактированной трассы ошибки включаются в сравниваемую трассу ошибки."
+
+msgid "All elements of the edited error trace are included into compared error trace in the same order."
+msgstr "Все элементы редактированной трассы ошибки включаются в сравниваемую трассу ошибки в том же порядке."
+
+msgid "Skip error traces comparison (therefore mark will be applied based on attributes comparison only)."
+msgstr "Не выполнять сравнение трасс (таким образом, оценка будет применяться только на основе сравнения значений атрибутов)."
+
+msgid "Similarity threshold"
+msgstr "Порог похожести"
+
+msgid "Details"
+msgstr "Подробнее"
+
+msgid "Show list"
+msgstr "Показать список"
+
+msgid "Show tags"
+msgstr "Показать теги"
+
+msgid "Show problems"
+msgstr "Показать проблемы"
+
+msgid "Show/Hide"
+msgstr "Показать/спрятать"
+
+msgid "Without tags"
+msgstr "Без тегов"
+
+msgid "element"
+msgstr "элемент"
+
+msgid "elements"
+msgstr "элемента(-ов)"
+
+msgid "There is no proof description for this safe"
+msgstr "Доказательства корректности нет"
+
+msgid "Regular expression"
+msgstr "Регулярное выражение"
+
+msgid "Control"
+msgstr "Управление"
+
+msgid "Choose existed tags"
+msgstr "Выбрать существующий тег"
+
+msgid "Create new tag"
+msgstr "Создать новый тег"
+
+msgid "in percents"
+msgstr "в процентах"
+
+msgid "Jaccard index of threads sets"
+msgstr "Мера Жаккара для множеств потоков"
+
+msgid "Parent components"
+msgstr "Компоненты-родители"
+
+msgid "Conversion function arguments"
+msgstr "Параметры функции преобразования"
+
+msgid "Input additional model function names separated by comma and press Enter"
+msgstr "Введите имена дополнительных модельных функций и введите Enter"
+
+msgid "Arguments"
+msgstr "Параметры"
+
+msgid "Change initial error trace for this mark"
+msgstr "Изменить исходную трассу ошибки для оценки"
+
+msgid "Apply only to current report"
+msgstr "Применять к трассам только из анализируемого отчета"
+
+msgid "List of all safes"
+msgstr "Список всех доказательств корректности"
+
+msgid "List of all unknowns"
+msgstr "Список всех проблем в компонентах"
+
+msgid "Apply"
+msgstr "Применить"
+
+msgid "Progress of mark application"
+msgstr "Прогресс применения оценки"
+
+msgid "Mark identifier"
+msgstr "Идентификатор оценки"
+
+msgid "Wall time of mark application"
+msgstr "Астрономическое время применения оценки"
+
+msgid "Number of successful applications"
+msgstr "Число успешных применений"
+
+msgid "Optimizations"
+msgstr "Оптимизации"
+
+msgid "use carefully"
+msgstr "используйте осторожно"
+
+msgid "Do not recalculate mark application cache"
+msgstr "Не пересчитывать кэш применения оценки"
+
+msgid "Optimizations for all marks were resolved"
+msgstr "Оптимизации для всех оценок были отменены"
+
+msgid "Download all marks"
+msgstr "Сохранить все оценки"
+
+msgid "Upload all marks"
+msgstr "Загрузить оценки на сервер"
+
+msgid "Resolve optimizations for all marks"
+msgstr "Отменить оптимизации для всех оценок"
+
+msgid "Delete all marks before upload"
+msgstr "Удалить все старые оценки перед загрузкой"
+
+msgid "Cache of instances of components"
+msgstr "Кэш компонентов"
+
+msgid "Remove call log that is older than 30 days"
+msgstr "Удалить внутренние логи, созданные более 30 дней назад"
+
+msgid "Unsafe-incomplete"
+msgstr "Предупреждения об ошибках (потенциально не все)"
+
+msgid "Unsafe-incompletes"
+msgstr "Предупреждения об ошибках (потенциально не все)"
+
+msgid "Compare by attributes"
+msgstr "Сравнивать по атрибутам"
+
+msgid "Select attributes values"
+msgstr "Ограничить значения атрибутов"
+
+msgid "Show the same transitions"
+msgstr "Показать переходы для вердиктов одного типа"
+
+msgid "Show reports without common attributes"
+msgstr "Показать отчеты без общих атрибутов"
+
+msgid "Error trace clustering"
+msgstr "Кластеризация трасс ошибок"
+
+msgid "Apply automatic clustering of error traces without marks"
+msgstr "Автоматически кластеризовать трассы ошибок без оценок"
+
+msgid "Warning"
+msgstr "Внимание"
+
+msgid "this operation *will* require a lot of time"
+msgstr "данная операция занимает *много* времени"
+
+msgid "Failures before verifier"
+msgstr "Падения до запуска верификации"
+
+msgid "no common attributes"
+msgstr "без общих атрибутов"
+
+msgid "compared elements by attributes"
+msgstr "сравниваемых элементов с общими атрибутами"
+
+msgid "Full launch CPU time"
+msgstr "Процессорное время всего запуска"
+
+msgid "Full launch wall time"
+msgstr "Астрономичесок время всего запуска"
+
+msgid "Full launch memory usage"
+msgstr "Оперативная память, использованная на весь запуск"
+
+msgid "error traces"
+msgstr "трасс ошибок"
+
+msgid "Error traces"
+msgstr "Трассы ошибок"
+
+msgid "clusters"
+msgstr "кластеров"
+
+msgid "lost"
+msgstr "потеряно"
+
+msgid "new"
+msgstr "найдено новых"
+
+msgid "common"
+msgstr "общие"
+
+msgid "Statistics"
+msgstr "Статистика"
+
+msgid "Automatic marks application"
+msgstr "Автоматически примененные оценки - АПО"
+
+msgid "Auto"
+msgstr "АПО"
+
+msgid "launches"
+msgstr "запусков"
+
+msgid "Origin"
+msgstr "Источник"
+
+msgid "trace"
+msgstr "трасса"
+
+msgid "Show results for"
+msgstr "Показать результат для"
+
+msgid "Different clusters"
+msgstr "Различных кластеров"
+
+msgid "Clusters with different number of error traces"
+msgstr "Кластеров с разным числом трасс ошибок"
+
+msgid "All clusters"
+msgstr "Всех кластеров"
+
+msgid "Error trace clusters"
+msgstr "Кластеры трасс ошибок"
+
+msgid "speedup"
+msgstr "ускорение"
+
+msgid "Missing results due to different attributes"
+msgstr "Потерянные результаты из-за несоответствия атрибутов"
+
+msgid "Additional model functions"
+msgstr "Дополнительные модельные функции"
+
+msgid "Filtered functions"
+msgstr "Функции для фильтрации"
+
+msgid "Add property checks description"
+msgstr "Добавить описания проверок требований"
+
+msgid "Add error label description"
+msgstr "Добавить описания меток ошибок"
+
+msgid "Do not consider property checks description"
+msgstr "Не учитывать описания проверок требований"
+
+msgid "add only location of property checks (without description)"
+msgstr "добавить только места проверок требований (без описаний)"
+
+msgid "Logs were successfully cleared"
+msgstr "Логи успешно очищены"
+
+msgid "unused converted error traces of"
+msgstr "неиспользуемых преобразованных трасс ошибок из"
+
+msgid "have been deleted"
+msgstr "было удалено"
+
+msgid "converted error traces have been deleted"
+msgstr "преобразованных трасс ошибок было удалено"
+
+msgid "Job attributes view cache is empty"
+msgstr "Кэш отображения атрибутов отчетов пуст"
+
+msgid "cached records were successfully deleted"
+msgstr "записей кэша было удалено"
+
+msgid "Actions with marks"
+msgstr "Действия с оценками"
+
+msgid "Safe DB cleaning"
+msgstr "Безопасная очистка БД"
+
+msgid "Unsafe DB cleaning (do *not* use!)"
+msgstr "Небезопасная очистка БД (*не* использовать!)"
+
+msgid "Remove unused converted error traces"
+msgstr "Удалить неиспользуемые преобразованные трассы ошибок"
+
+msgid "Clear all converted error traces"
+msgstr "Удалить все преобразованные трассы ошибок"
+
+msgid "Clear job attributes views"
+msgstr "Удалить отображения атрибутов оценок"
+
+msgid "Adjust description"
+msgstr "Изменить описание"
+
+msgid "Different attributes"
+msgstr "Различающиеся атрибуты"
+
+msgid "Common attributes"
+msgstr "Общие атрибуты"
+
+msgid "Show different attributes"
+msgstr "Показать различающиеся атрибуты"
+
+msgid "overall speedup"
+msgstr "общее ускорение"
+
+msgid "Overall"
+msgstr "Всего"
+
+msgid "by functions"
+msgstr "по функциям"
+
+msgid "by lines"
+msgstr "по строкам"
+
+msgid "By property"
+msgstr "По требованиям"
+
+msgid "Select source file to see its coverage"
+msgstr "Выберите файл с исходным кодом для отображения его покрытия"
+
+msgid "was not computed"
+msgstr "не было вычислено"
+
+msgid "Coverage type"
+msgstr "Тип покрытия"
+
+msgid "Maximal potential coverage"
+msgstr "Максимально возможное покрытие"
+
+msgid "Covered by all properties"
+msgstr "Покрыто по всем требованиям"
+
+msgid "Property"
+msgstr "Требование"
+
+msgid "average speedup"
+msgstr "среднее ускорение"
+
+msgid "Actions with tags"
+msgstr "Действия с тэгами"
+
+msgid "Show unsafe marks"
+msgstr "Показать оценки предупреждений об ошибках"
+
+msgid "Show safe marks"
+msgstr "Показать оценки доказательств корректности"
+
+msgid "Show unknown marks"
+msgstr "Показать оценки проблем в компонентах"
+
+msgid "Show unsafe tags tree"
+msgstr "Показать дерево тегов предупреждений об ошибке"
+
+msgid "Show safe tags tree"
+msgstr "Показать дерево тегов доказательств корректности"
+
+msgid "Download unsafe tags"
+msgstr "Сохранить теги предупреждений об ошибке"
+
+msgid "Download safe tags"
+msgstr "Сохранить теги доказательств корректности"
+
+msgid "Upload unsafe tags"
+msgstr "Загрузить теги предупреждений об ошибке"
+
+msgid "Upload safe tags"
+msgstr "Загрузить теги доказательств корректности"
+
+msgid "Recalculate caches"
+msgstr "Пересчитать кэши"
+
+msgid "Verification launches"
+msgstr "Запуски инструмента верификации"
+
+msgid "Share"
+msgstr "Поделиться"
+
+msgid "Hide"
+msgstr "Скрыть"
+
+msgid "Show default"
+msgstr "Отменить"
+
+msgid "Verifiers"
+msgstr "Верификатор"
+
+msgid "Show _MENU_ rows"
+msgstr "Показывать _MENU_ строк"
+
+msgid "Display from _START_ to _END_ of _TOTAL_ rows"
+msgstr "Показано от _START_ до _END_ из _TOTAL_ строк"
+
+msgid "Nothing is found"
+msgstr "Ничего не найдено"
+
+msgid "filtered of _MAX_ rows"
+msgstr "отфильровано из _MAX_ строк"
+
+msgid "Next"
+msgstr "Следующая"
+
+msgid "Previous"
+msgstr "Предыдущая"
+
+msgid "all"
+msgstr "все"
+
+msgid "shared"
+msgstr "общий"
+
+msgid "One of the selected jobs wasn't found or wasn't decided"
+msgstr "Один из заданных отчетов пуст"
+
+msgid "Association change kind"
+msgstr "Результат применения"
+
+msgid "Error trace edit"
+msgstr "Редактирование трассы ошибки"
+
+msgid "Modify error trace element"
+msgstr "Модификация элемента трассы"
+
+msgid "Property check description"
+msgstr "Описание проверки требования"
+
+msgid "Error label description"
+msgstr "Описание метки ошибки"
+
+msgid "Toggle functions from call stack"
+msgstr "Отобразить/скрыть функции из стека на метке ошибки"
+
+msgid "Toggle all functions"
+msgstr "Отобразить/скрыть все функции"
+
+msgid "Toggle notes code"
+msgstr "Отобразить/скрыть код проверок"
+
+msgid "Toggle hidden notes"
+msgstr "Отобразить/скрыть проверки, находящиеся вне стека функций на метке ошибки"
+
+msgid "Remove edited error trace"
+msgstr "Удалить отредактированную трассу ошибки"
+
+msgid "Attention: all changes will be lost!"
+msgstr "Внимание: все изменения будут потеряны!"
+
+msgid "Association type"
+msgstr "Тип применения оценки"
+
+msgid "Use edited error trace"
+msgstr "Использовать отредактированную трассу ошибки"
+
+msgid "Required object does not exist"
+msgstr "Требуемый объект не существует"
+
+msgid "Upload edited error trace"
+msgstr "Загрузить отредактированную трассу ошибки"
+
+msgid "Cannot parse edited error trace"
+msgstr "Не распознан формат отредактированной трассы ошибки"
+
+msgid "Common components problems comparison"
+msgstr "Сравнение общих проблем в компонентах"
+
+msgid "Show common components problems comparison"
+msgstr "Показать сравнение общих проблем в компонентах"
+
+msgid "Different problems"
+msgstr "Различные проблемы"
+
+msgid "Different or unmarked problems"
+msgstr "Различные или неразмеченные проблемы"
+
+msgid "All problems"
+msgstr "Все проблемы"
+
+msgid "Common component problems"
+msgstr "Общие проблемы в компонентах"
+
+msgid "selected"
+msgstr "выбрано"
+
+msgid "Download error trace internal representation"
+msgstr "Сохранить внутреннее представление трассы"
+
+msgid "Download standalone trace"
+msgstr "Сохранить трассу в автономном режиме"
+
+msgid "Add reports for comparison"
+msgstr "Добавить отчеты для сравнения"
+
+msgid "Page"
+msgstr "Страница"
+
+#: templates/help/comparison.html:24
+msgid ""
+"This page presents configurable comparison of 2 verification reports by "
+"different criterias."
+msgstr "На данной странице представлено настраиваемое сравнение двух верификационных отчётов по разным критериям."
+
+#: templates/help/comparison.html:26 templates/help/unsafe_mark.html:29
+msgid "Required theoretical information"
+msgstr "Требуемая теоретическая информация"
+
+#: templates/help/comparison.html:28
+msgid ""
+"The verification report consists of several verification tool launches, and "
+"each launch contains the following data"
+msgstr "Верификационный отчёт состоит из нескольких запусков инструмента верификации, при этом каждый запуск содержит следующие данные"
+
+#: templates/help/comparison.html:32
+#, python-format
+msgid ""
+"Verification results, each result can be %(safes_trans)s, %(unsafes_trans)s, "
+"or %(unknowns_trans)s.\n"
+"Each launch may contain several results"
+msgstr "Результаты верификации (%(safes_trans)s, %(unsafes_trans)s или %(unknowns_trans)s). Каждый запуск может содержать несколько подобных результатов"
+
+#: templates/help/comparison.html:36
+msgid "Consumed resources by verification tool"
+msgstr "Потреблённые инструментом верификации ресурсы"
+
+#: templates/help/comparison.html:39
+msgid ""
+"Attributes, which makes this launch unique (e.g., what and where is being "
+"verified).\n"
+"Note, that some launch results may contain additional attributes, which make "
+"them unique in comparison with other results"
+msgstr "Атрибуты, которые позволяют выделить данный запуск (например, указывая, какое свойство и где проверяется). Стоит отметить, что некоторые результаты, относящиеся к запуску, могут иметь дополнительные атрибуты, которые обеспечивают их уникальность среди других результатов данного запуска"
+
+#: templates/help/comparison.html:44
+msgid ""
+"In order to compare reports we choose some \"core\" attributes (can be "
+"adjusted in the Settings),\n"
+"divide all verification results by so called compared elements with chosen "
+"attributes (each object has the same values of those attributes)\n"
+"and then compare such elements with the same attribute values by different "
+"criterias.\n"
+"Note, that compared elements may match verification launches or not."
+msgstr "Для сравнения отчётов выбираются \"ядровые\" атрибуты (задаются в настройках), далее все результаты верификации разбиваются на так называемые сравниваемые элементы (каждый элемент имеет одинаковые значения выбранных атрибутов), после чего производится сравнение данных элементов по различным критериям. Стоит отметить, что сравниваемые элементы могут как совпадать с запусками инструмента, так и не совпадать."
+
+#: templates/help/comparison.html:49
+msgid "Comparison criterias"
+msgstr "Критерии сравнения"
+
+#: templates/help/comparison.html:53
+msgid ""
+"comparison of overall information on verification launches (number of "
+"launches and compared elements)"
+msgstr "сравнение общей информации о запусках инструмента верификации (число запусков и сравниваемых элементов)"
+
+#: templates/help/comparison.html:57
+msgid ""
+"set of attributes values for all verification launches (values for compared "
+"elements are highlighted)"
+msgstr "множество значений атрибутов для всех запусков инструмента верификации (значения для сравниваемых элементов подсвечены)"
+
+#: templates/help/comparison.html:61
+msgid ""
+"components problems, which happened before verification launches and thus "
+"potentially could affect them"
+msgstr "проблемы в компонентах, произошедшие до запуска инструмента верификации и тем самым способные повлиять на запуски"
+
+#: templates/help/comparison.html:65
+msgid ""
+"elements, which are not compared (they are shown for each verdict type, "
+"which is specified in the Settings)"
+msgstr "элементы, которые не сравниваются (показываются для результатов каждого типа, указанного в настройках)"
+
+#: templates/help/comparison.html:69
+msgid ""
+"comparison of none-\"core\" attributes values for compared elements (for "
+"each additional attribute specified in the Settings)"
+msgstr "сравнение значений атрибутов, которые не являются \"ядровыми\", для сравниваемых элементов (для каждого дополнительного атрибута, заданного в настройках)"
+
+#: templates/help/comparison.html:75
+msgid ""
+"comparison of consumed resources (by compared elements only and by all "
+"verification launches)"
+msgstr "сравнение потреблённых ресурсов (для сравниваемых элементов отдельно и для всех запусков инструмента верификации)"
+
+#: templates/help/comparison.html:78
+msgid "Results transitions"
+msgstr "Переходы результатов верификации"
+
+#: templates/help/comparison.html:79
+msgid ""
+"the next four sections contain verification results transitions from some results type to other types.\n"
+"These sections require, that each compared element consist of either:"
+msgstr "следующие четыре секции содержат переходы результатов верификации для каждого вердикта. Для данных секций требуется, чтобы каждый сравниваемый элемент состоял из:"
+
+#: templates/help/comparison.html:83
+#, python-format
+msgid ""
+"only one result type %(safe_trans)s (and thus the element has overall result "
+"%(safe_trans)s) or"
+msgstr "только одного результата %(safe_trans)s (при этом общий вердикт для элемента также будет %(safe_trans)s), или"
+
+#: templates/help/comparison.html:86
+#, python-format
+msgid ""
+"only one result type %(unknowns_trans)s (and thus the element has overall "
+"result %(unknowns_trans)s) or"
+msgstr "только одного результата вида %(unknowns_trans)s (при этом общий вердикт для элемента также будет вида %(unknowns_trans)s), или"
+
+#: templates/help/comparison.html:89
+#, python-format
+msgid ""
+"one or more results of type %(unsafe_trans)s (and thus element has overall "
+"result %(unsafe_trans)s) or"
+msgstr "одного или нескольких результатов %(unsafe_trans)s (при этом общий вердикт для элемента также будет %(unsafe_trans)s), или"
+
+#: templates/help/comparison.html:92
+#, python-format
+msgid ""
+"one or more results of type %(unsafe_trans)s and one result type "
+"%(unknowns_trans)s (and thus element has overall result "
+"%(unsafe_incomplete_trans)s)"
+msgstr "одного или нескольких результатов %(unsafe_trans)s и одного результата вида "
+"%(unknowns_trans)s (при этом общий вердикт будет "
+"'%(unsafe_incomplete_trans)s')"
+
+#: templates/help/comparison.html:95
+#, python-format
+msgid ""
+"Note, that transitions to the same result type (e.g., %(unsafe_trans)s->"
+"%(unsafe_trans)s) can be accessed via the Settings."
+msgstr "Для отображения переходов в тот же вердикт (например, %(unsafe_trans)s->"
+"%(unsafe_trans)s) необходимо скорректировать настройки."
+
+#: templates/help/comparison.html:99
+#, python-format
+msgid ""
+"comparison of error traces, which are in the same compared elements (can be "
+"enabled in the Settings).\n"
+"First, all error traces for each compared element are divided into clusters "
+"(equivalence of two error traces is defined on the page "
+"%(unsafe_mark_page)s),\n"
+"then all clusters are compared for each compared element. Each cluster represents either "
+"already existed mark (see page %(marks_page)s) or automatically applied "
+"mark.\n"
+"New and lost clusters are highlighted"
+msgstr "сравнение трасс ошибок, которые относятся к одним и тем же сравниваемых элементам (может быть включено в настройках). "
+"Сначала все трассы ошибок для каждого сравниваемого элемента разбиваются на кластеры "
+"(эквивалентность двух трасс ошибок определяется на странице %(unsafe_mark_page)s), "
+"затем сравниваются полученные кластеры для каждого сравниваемого элемента. Каждый кластер представляют собой либо существующую оценку (см. страницу %(marks_page)s), "
+"либо автоматически применённую оценку. "
+"Новые и потерянные кластеры подсвечены"
+
+#: templates/help/comparison.html:106
+#, python-format
+msgid ""
+"comparison of common %(unknowns_trans)s results. 2 elements with result "
+"%(unknown_trans)s are considered equivalent,\n"
+"if they have the same set of applied marks (see page %(marks_page)s)"
+msgstr "сопоставление результатов вида %(unknowns_trans)s для сравниваемых элементов. Два элемента вида %(unknown_trans)s считаются эквивалентными, если к ним применены одни и те же оценки, (см. страницу %(marks_page)s)"
+
+#: templates/help/comparison.html:115
+msgid "adjustment of \"core\" attributes"
+msgstr "задание \"ядровых\" атрибутов"
+
+#: templates/help/comparison.html:119
+msgid ""
+"restriction of attribute values (elements with unselected values will be "
+"excluded from comparison)"
+msgstr "ограничение множества значений атрибута (элементы, для которых значения атрибутов исключены из множества, сравниваться не будут)"
+
+#: templates/help/comparison.html:123
+msgid ""
+"enables the same transitions in results transition section for specified "
+"results type"
+msgstr "включает переходы в тот же вердикт для заданного типа результата"
+
+#: templates/help/comparison.html:127
+msgid ""
+"enables section missing results due to different attributes for specified "
+"results type"
+msgstr "включает секцию с потерянными результатами для указанного типа результата"
+
+#: templates/help/comparison.html:131
+#, python-format
+msgid ""
+"enables error trace clustering. Arguments for performing comparison of two "
+"error traces are defined on the page %(unsafe_mark_page)s.\n"
+"Argument \"show results for\" determines, which clusters should be "
+"displayed.\n"
+"Note, this option may require a lot of time for some arguments and big "
+"number of error traces"
+msgstr "включает кластеризацию трасс ошибок. Аргументы сравнениях трасс ошибок определены на странице %(unsafe_mark_page)s. Аргумент \"Показать результат для\" определяет, какие кластеры будут отображены. Необходимо учесть, что данная опция может потребовать много времени при определённых настройках или большом числе трасс ошибок"
+
+#: templates/help/comparison.html:137
+#, python-format
+msgid ""
+"enables comparison of common %(unknowns_trans)s results and determines, "
+"which results should be displayed"
+msgstr "включает сравнение общих результатов вида %(unknowns_trans)s и определяет, какие результаты должны быть показаны"
+
+#: templates/help/comparison.html:141
+msgid ""
+"adds or removes reports for comparison. Note, that reports are added into "
+"some pool, from which they can be selected later.\n"
+"You cannot remove currently compared report"
+msgstr "добавляет или удаляет отчёты для сравнения. При этом отчёты добавляются в некий пул, откуда впоследствии могут быть выбраны. Нельзя удалить сравниваемый на данный момент отчет"
+
+#: templates/help/comparison.html:152
+msgid "swap compared reports"
+msgstr "поменять местами сравниваемые отчёты"
+
+#: templates/help/comparison.html:160
+msgid ""
+"choose report for comparison on the current position (available if more than "
+"2 reports selected for comparison)"
+msgstr "выбрать отчёт для сравнения на данной позиции (опция доступна если в пуле находится более двух отчётов для сравнения)"
+
+#: templates/help/comparison.html:164
+msgid "apply settings to adjust comparison criterias"
+msgstr "применить настройки для изменения критериев сравнения"
+
+#: templates/help/comparison.html:168
+msgid "apply default settings for comparison criterias"
+msgstr "применить настройки по умолчанию для критериев сравнения"
+
+#: templates/help/comparison.html:168
+msgid "Compared reports change"
+msgstr "Замена сравниваемых отчётов"
+
+#: templates/help/comparison.html:168
+msgid "Settings control"
+msgstr "Управление настройками"
+
+#: templates/help/comparison.html:180
+msgid ""
+"The user selects required reports, adjusts comparison criterias via Settings "
+"if needed, and compares values."
+msgstr "Пользователь выбирает требуемые отчёты для сравнения, настраивает критерии сравнения при необходимости и сопоставляет значения."
+
+#: templates/help/error_trace_edit.html:24
+#, python-format
+msgid ""
+"This page allows to edit representation of error trace (which is displayed "
+"on the %(unsafe_page)s page).\n"
+"By default error trace is shown as functions call stack with "
+"property checks descriptions and\n"
+"error location descriptions. Therefore, error trace edition includes "
+"changing, adding or removing such descriptions."
+msgstr "Данная страница позволяет редактировать представление трассы ошибки (которое отображено на странице %(unsafe_page)s). По умолчанию трасса ошибки представлена в виде стека вызовов функций, в который добавлены описания проверок проверяемых свойств и метки ошибок (нарушений проверяемых свойств). Таким образом, редактирование трассы ошибок представляет собой изменений, добавление и удаление подобных описаний."
+
+#: templates/help/error_trace_edit.html:32
+#, python-format
+msgid ""
+"Error trace representation and its views are the same as in the "
+"%(unsafe_page)s page"
+msgstr "Отображение трассы ошибок и ее представления описаны на странице %(unsafe_page)s"
+
+#: templates/help/error_trace_edit.html:33
+msgid "Error trace edit control"
+msgstr "Управление редактированием трассы ошибок"
+
+#: templates/help/error_trace_edit.html:38
+#, python-format
+msgid "discard any changes on this page and return to the %(unsafe_page)s page"
+msgstr "отменить изменения, выполненные на данной странице, и вернуться на страницу %(unsafe_page)s"
+
+#: templates/help/error_trace_edit.html:44
+msgid "apply changes to the error trace"
+msgstr "применить изменения трассы ошибок"
+
+#: templates/help/error_trace_edit.html:50
+#, python-format
+msgid ""
+"discard all previous changes to the error page (original error trace will be "
+"presented after this on the %(unsafe_page)s page).\n"
+"WARNING: all changes to this error trace will be lost after performing this "
+"action"
+msgstr "отменить все ранее применённые изменения трассы ошибок (т. е. на странице %(unsafe_page)s будет показана оригинальная трасса ошибок). ВНИМАНИЕ: все изменения трассы ошибок будут потеряны после выполнения данного действия"
+
+#: templates/help/error_trace_edit.html:53
+msgid "Error trace element edit"
+msgstr "Редактирование элемента трассы ошибок"
+
+#: templates/help/error_trace_edit.html:56
+msgid "remove corresponding note or warning"
+msgstr "удалить соответствующие описание проверки проверяемого свойства или метки ошибки"
+
+#: templates/help/error_trace_edit.html:65
+msgid "Change visual representation of error trace"
+msgstr "Изменить визуальное отображение трассы ошибки"
+
+#: templates/help/error_trace_edit.html:66
+msgid ""
+"In order to remove note or warning use 'remove' action on corresponding "
+"line. In order to add new note or warning or edit existing\n"
+"right click on corresponding line number, input any text and press OK. After "
+"all changes are done, use action "
+msgstr "Для того чтобы удалить описание проверяемого свойства или метки ошибки необходимо использовать действие 'удалить' на соответствующие строке. Для того чтобы добавить новое или отредактировать существующее описание проверяемого свойства или метки ошибки необходимо использовать нажать правой кнопкой мыши на соответствующем номере строки кода, ввести текст и нажать Хорошо. После внесения всех требуемых изменений необходимо использовать действие "
+
+
+#: templates/help/header.html:32
+msgid "General information"
+msgstr "Общая информация"
+
+#: templates/help/header.html:35
+msgid "Actions"
+msgstr "Действия"
+
+#: templates/help/header.html:38
+msgid "Main use cases"
+msgstr "Основные сценарии работы"
+
+#: templates/help/job.html:24
+msgid ""
+"This page presents overall information about verification report and allows "
+"to the users to select specific data for further analysis"
+msgstr "Данная страница представляет общую информацию о верификационном отчёте и позволяет пользователю выбрать интересующий раздел для дальнейшего анализа"
+
+#: templates/help/job.html:25
+msgid "Presented information blocks"
+msgstr "Представленные разделы"
+
+#: templates/help/job.html:29
+msgid "Verification results"
+msgstr "Результаты верификации"
+
+#: templates/help/job.html:32
+msgid "provide access to each result type on the pages"
+msgstr "предоставляют доступ к вердиктам на страницах"
+
+#: templates/help/job.html:33
+msgid ""
+"This block includes some common filters (e.g., \"False alarms\" for unsafes)"
+msgstr "Данный блок включает базовые фильтры (например, \"Ложные сообщения об ошибках\" для Предупреждений об ошибках)"
+
+#: templates/help/job.html:36
+msgid "by the whole verification process and its components"
+msgstr "всем процессом верификации и его отдельными компонентами"
+
+#: templates/help/job.html:39
+msgid "can be used to filter results"
+msgstr "могут быть использованы для фильтрации результата"
+
+#: templates/help/job.html:42
+msgid ""
+"short description of children reports in accordance with reports hierarchy, presented on the page %(jobs_page)s\n"
+"(for inner tree nodes only)"
+msgstr "короткое описание отчётов-потомков в соответствии с иерархией отчётов, представленной на странице %(jobs_page)s (отображается только для внутренних узлов дерева)"
+
+#: templates/help/job.html:50
+msgid "Filter by attributes"
+msgstr "Фильтрация по атрибутам"
+
+#: templates/help/job.html:53
+msgid "apply selected attributes values to filter verification results"
+msgstr "применить выбранные атрибуты для фильтрации результатов верификации"
+
+#: templates/help/job.html:57
+msgid "cancel applied before attributes filter"
+msgstr "отменить ранее применённую фильтрацию по атрибутам"
+
+#: templates/help/job.html:66
+msgid "Mark all error traces"
+msgstr "Разметка трасс ошибок"
+
+#: templates/help/job.html:67
+msgid ""
+"The user filters results by required attributes (by default no filter is applied), analyses each unsafe result\n"
+"from the given list in order to determine, whether it corresponds to a real bug in a program or to false alarm (see page %(unsafe_page)s)"
+msgstr "Пользователь фильтрует результат по нужным атрибутам (по умолчанию фильтрация не применена), затем анализирует каждое предупреждение об ошибке чтобы определить, соответствует ли оно реальной ошибке в коде программы или нет (см. страницу %(unsafe_page)s)"
+
+#: templates/help/job.html:68 templates/help/job.html:73
+msgid "see page"
+msgstr "см. страницу"
+
+#: templates/help/job.html:71
+msgid "Mark all component failures"
+msgstr "Разметка проблем в компонентах"
+
+#: templates/help/job.html:72
+msgid ""
+"The user analyses each unknown result from the given list in order "
+"to determine the cause of the problem"
+msgstr "Пользователь анализирует каждую проблему в компонентах для определения ее причины"
+
+#: templates/help/jobs_tree.html:24
+#, python-format
+msgid ""
+"This page presents all verification jobs as a tree.\n"
+"Inner tree nodes form hierarchical structure, whereas leaf nodes contain "
+"reports on solved verification jobs.\n"
+"Detailed description of reports is presented on the page %(job_page)s.\n"
+"This page can be accessed from any page via"
+msgstr "На данной странице представлены все верификационные задания в виде дерева. "
+"Внутренние узлы дерева формируют иерархическую структуру, в то время как листья содержат отчёты о решённых заданиях. "
+"Подробное описание отчётов находится на странице %(job_page)s. Для перехода на данную страницу выберите"
+#: templates/help/jobs_tree.html:35
+#, python-format
+msgid ""
+"%(group_actions_trans)s -> %(compare_reports_trans)s -\n"
+"compares several solved verification jobs (leaf tree nodes). Results will be "
+"presented on the page %(comparison_page)s."
+msgstr ""
+"%(group_actions_trans)s -> %(compare_reports_trans)s - сравнить несколько "
+"решённых верификационных заданий (листовых вершин дерева). Результаты будут "
+"представлены на странице %(comparison_page)s."
+
+#: templates/help/jobs_tree.html:45
+msgid "Analyse verification report"
+msgstr "Проанализировать верификационный отчет"
+
+#: templates/help/jobs_tree.html:46
+#, python-format
+msgid ""
+"The user finds required node by its name and continues its analysis on the "
+"page %(job_page)s."
+msgstr "Пользователь находит нужный отчёт по названию и продолжает его анализ на странице %(job_page)s."
+
+#: templates/help/jobs_tree.html:50
+#, python-format
+msgid ""
+"The user selects required solved verification jobs (leaf tree nodes) and "
+"chooses action %(compare_reports_trans)s.\n"
+"Note, that comparison cannot be performed on inner tree nodes."
+msgstr ""
+"Пользователь выбирает требуемые решённые верификационные задания (листовые "
+"вершины дерева) и выбирает действие %(compare_reports_trans)s. Данная "
+"операция не применима к внутренним узлам дерева."
+
+#: templates/help/main.html:21
+msgid "Help"
+msgstr "Справка"
+
+#: templates/help/main.html:43
+msgid "Content"
+msgstr "Содержание"
+
+#: templates/help/main.html:48
+msgid "Representation of error trace with applied marks"
+msgstr "Представление трассы ошибки и применённые к ней оценки"
+
+#: templates/help/main.html:59
+msgid "Form for editing representation of error trace"
+msgstr "Форма для редактирования трассы ошибки"
+
+#: templates/help/main.html:67
+msgid "Extended unsafe marks"
+msgstr "Расширенный режим редактирования оценок для трасс ошибок"
+
+#: templates/help/main.html:76
+msgid "Detailed report on solved verification job"
+msgstr "Детальный отчёт о решённом верификационном задании"
+
+#: templates/help/main.html:84
+msgid "Comparison of verification reports"
+msgstr "Сравнение верификационных отчетов"
+
+#: templates/help/main.html:92
+msgid "Component problem description with applied marks"
+msgstr "Описание проблем компонентов и применённые к ним оценки"
+
+#: templates/help/main.html:101
+msgid "Correctness proof with applied marks"
+msgstr "Доказательство корректности и применённые к нему оценки"
+
+#: templates/help/main.html:108 templates/help/main.html:116
+msgid "Pages"
+msgstr "Страницы"
+
+#: templates/help/main.html:110
+msgid "List of all marks for specified result"
+msgstr "Список всех оценок для выбранного вердикта"
+
+#: templates/help/main.html:118
+msgid "Tags tree for specified result"
+msgstr "Дерево тегов для выбранного вердикта"
+
+#: templates/help/main.html:126
+msgid "All verification jobs in structured view"
+msgstr "Все верификационные задания в структурированном виде"
+
+#: templates/help/main.html:140
+msgid "Choose page from content"
+msgstr "Выберите страницу"
+
+#: templates/help/marks.html:24 templates/help/unknown.html:24
+msgid ""
+"This page shows tool log (either verification system component or verifier) "
+"in case of failure\n"
+"and applied marks. Marks are applied by regular expression to logs and "
+"attributes."
+msgstr "Данная страница показывает лог инструмента (либо компонента системы верификации, либо верификатора) и применённые оценки. Оценки применены по регулярным выражениям к логам и атрибутам."
+
+#: templates/help/marks.html:31 templates/help/unknown.html:31
+msgid "Marks control"
+msgstr "Управление оценками"
+
+#: templates/help/marks.html:34 templates/help/unknown.html:34
+msgid "create new mark with default attributes values"
+msgstr "создать новую оценку с базовыми атрибутами"
+
+#: templates/help/marks.html:38 templates/help/unknown.html:38
+msgid ""
+"create new mark with ability to test regular expressions and to change "
+"attributes values"
+msgstr "создать новую оценку с возможностью тестировать применимость регулярных выражений и менять множество атрибутов"
+
+#: templates/help/marks.html:46 templates/help/unknown.html:46
+msgid "edit mark description (without changing mark attributes)"
+msgstr "редактировать описание оценки (без изменения атрибутов)"
+
+#: templates/help/marks.html:50 templates/help/unknown.html:50
+msgid "edit mark description (including attributes)"
+msgstr "редактировать описание оценки (с возможностью менять атрибуты)"
+
+#: templates/help/marks.html:54 templates/help/unknown.html:54
+#: templates/help/unsafe.html:112
+msgid "confirm, that this automatic mark application was correct"
+msgstr "подтвердить, что автоматическое применение оценки было верным"
+
+#: templates/help/marks.html:58 templates/help/unknown.html:58
+#: templates/help/unsafe.html:116
+msgid "unconfirm this automatic mark application"
+msgstr "отменить автоматическое применение оценки"
+
+#: templates/help/marks.html:67 templates/help/safe.html:38
+#: templates/help/unknown.html:67
+msgid "Create new mark"
+msgstr "Создать новую оценку"
+
+#: templates/help/marks.html:68 templates/help/unknown.html:68
+msgid ""
+"The user analyses the given log, finds the cause of the problem, creates "
+"regular expression,\n"
+"which should be applied to the problem cause, adds description of the "
+"problem and creates new mark. If the user intends to changes mark "
+"attributes\n"
+"extended mark should be created."
+msgstr "Пользовать изучает данный лог, находит причину проблемы, создаёт регулярное выражение, которое применяется к описанию причины проблемы, добавляет описание оценки и создаёт новую оценку. Если необходимо изменить множество атрибутов, по которым оценка будет применяться, то необходимо воспользоваться созданием расширенной оценки."
+
+#: templates/help/marks_list.html:24
+#, python-format
+msgid ""
+"This page shows list of all marks for specified results (%(safes_trans)s, "
+"%(unsafes_trans)s or %(unknowns_trans)s).\n"
+"Required mark can be found in the table by attributes values or other "
+"parameters (such as verdict, tag, status, etc.).\n"
+"Specified mark description contains list of all results, for which mark was "
+"applied, and option to edit or delete the mark.\n"
+"This page can be accessed from any page via"
+msgstr "На данной странице показаны списки всех оценок для выбранного вердикта (%(safes_trans)s, %(unsafes_trans)s или %(unknowns_trans)s). Требуемая оценка может быть найдена в таблице по значению атрибутов или другим параметрам (вердикт, статус, теги и т. д.). Страница с описанием оценки включает в себя список всех результатов верификации, к которым она была применена, а также возможность редактировать или удалить оценку. Данная страница доступна из"
+
+#: templates/help/marks_list.html:36
+msgid "delete selected marks (if the user has permissions for this)"
+msgstr "удалить выбранные оценки (если у пользователя есть право на удаление)"
+
+#: templates/help/marks_list.html:45
+msgid "Edit mark"
+msgstr "Редактирование оценки"
+
+#: templates/help/marks_list.html:46
+#, python-format
+msgid ""
+"The user finds required marks (e.g., with no results) and edits or removes "
+"them.\n"
+"The process of editing marks can be found on the pages %(unsafe_page)s, "
+"%(unknown_page)s and %(safe_page)s."
+msgstr "Пользователь находит нужную оценку (например, которая не применена ни к одному результату), редактирует или удаляет её. Процесс редактирования оценок описан на страницах %(unsafe_page)s, %(unknown_page)s и %(safe_page)s."
+
+#: templates/help/safe.html:24
+msgid ""
+"This page shows correctness proof and applied marks.\n"
+"Note, that currently correctness proof are not given by the verifier in any readable form and thus cannot be presented.\n"
+"Therefore, any information about correctness proof is presented in attributes, and marks are applied only by comparing selected attributes values."
+msgstr "Данная страница показывает доказательство корректности и применённые к нему оценки. Однако поскольку на данный момент доказательства корректности не выдаются верификатором в понятном для человека виде, то они не отображаются. Следовательно, любая информация о данном доказательстве корректности может быть помещена только в атрибуты, и применение оценки производится сопоставлением значений атрибутов."
+
+#: templates/help/safe.html:31
+#, python-format
+msgid "Similar to the %(unknown_page)s page"
+msgstr "Аналогично странице %(unknown_page)s"
+
+#: templates/help/safe.html:39
+msgid ""
+"If the given correctness proof is invalid (e.g., a real bug is missing or "
+"coverage value is suspicious),\n"
+"the user creates new mark (extended if compared set of attributes should be changed)."
+msgstr "Если данное доказательство корректности неверно (например, пропущена реальная ошибка или значение покрытия кода подозрительно), пользователь создаёт новую оценку (расширенную, если потребуется изменить множество сравниваемых атрибутов)."
+
+#: templates/help/tags_tree.html:24
+#, python-format
+msgid ""
+"This page shows all tags for specified results (%(safes_trans)s or "
+"%(unsafes_trans)s) as a tree structure.\n"
+"Each tag is used to group similar results (e.g., to specify reason of false "
+"alarm).\n"
+"This page can be accessed from any page via"
+msgstr "На данной странице показаны все теги для выбранного вердикта (%(safes_trans)s или "
+"%(unsafes_trans)s) в виде дерева. Каждый тег должен некоторым образом объединять похожие результаты (например, для указания причины ложного сообщения об ошибке). Страница доступна из"
+
+#: templates/help/tags_tree.html:35
+msgid "create new root element in the tags tree"
+msgstr "создать новый корневой элемент в дереве тегов"
+
+#: templates/help/tags_tree.html:38
+msgid "Tags tree element control"
+msgstr "Управление элементами дерева тегов"
+
+#: templates/help/tags_tree.html:41
+msgid "remove tags tree element"
+msgstr "удалить элемент дерева тегов"
+
+#: templates/help/tags_tree.html:45
+msgid "edit the given element"
+msgstr "редактировать выбранный элемент"
+
+#: templates/help/tags_tree.html:49
+msgid "create new child tag for the given element"
+msgstr "создать новый тег, являющийся потомком для выбранного элемента"
+
+#: templates/help/tags_tree.html:59
+msgid ""
+"The user creates new tag either as a children of existing tag or as a root "
+"element.\n"
+"After that the tag will be available on creating or editing marks."
+msgstr "Пользователь создаёт новый тег в качестве либо потомка одного из существующих тегов, либо корневого элемента дерева. После этого тег будет доступен при создании или редактировании оценок."
+
+#: templates/help/unknown.html:42
+msgid ""
+"show mark description with all unknown results, for which this mark was "
+"applied, with ability to edit or delete it"
+msgstr "показать описание оценки со всеми проблемами в компонентах, к которым данная оценка была применена, с возможностью редактирования и удаления"
+
+#: templates/help/unsafe.html:24
+#, python-format
+msgid ""
+"Each result %(unsafe_trans)s contains an error trace, which is a path in a "
+"program from the entry point to the checked property violation.\n"
+"This page displays representation of the error trace for the given result "
+"%(unsafe_trans)s in human-readable form.\n"
+"The main purpose of this page is to allow to the user to analyse this error "
+"trace to understand the reason of this violation."
+msgstr "Каждый результат вида %(unsafe_trans)s содержит трассу ошибки – путь в программе из точки входа до нарушения проверяемого требования. Данная страница показывает представление трассы ошибки в удобном для анализа виде. Главная цель страницы – предоставить возможность пользователю проанализировать трассу ошибки для того, чтобы понять причину нарушения проверяемого требования."
+
+#: templates/help/unsafe.html:32
+msgid "Error trace views"
+msgstr "Представления трассы ошибки"
+
+#: templates/help/unsafe.html:32
+msgid "show/hide all function bodies from call stack"
+msgstr "показать/спрятать операторы функций из стека при достижении метки ошибки"
+
+#: templates/help/unsafe.html:32
+msgid "show/hide all functions bodies"
+msgstr "показать/спрятать операторы всех функций"
+
+#: templates/help/unsafe.html:32
+msgid "show/hide code lines, which are replaced by properties checks descriptions"
+msgstr "показать/спрятать строки кода, которые замещены описаниями проверок требований"
+
+#: templates/help/unsafe.html:32
+msgid "show/hide hidden properties checks descriptions, which are located outside function call stack"
+msgstr "показать/спрятать скрытые описания проверок требований, которые находятся вне стека функций при достижении метки ошибки"
+
+#: templates/help/unsafe.html:58
+msgid ""
+"Error trace control"
+msgstr "Управление трассой ошибки"
+
+#: templates/help/unsafe.html:63
+msgid "switch to full-screen mode (error trace without applied marks)"
+msgstr "перейти в полноэкранный режим (будет показана только трасса ошибки без применённых оценок)"
+
+#: templates/help/unsafe.html:69
+msgid ""
+"download archive with error trace in html view (as presented on this page) "
+"for standalone usage"
+msgstr "скачать архив с трассой ошибки (аналогично представлению на данной странице) для использования в автономном режиме"
+
+#: templates/help/unsafe.html:73
+msgid "download internal representation of error trace (json format)"
+msgstr "скачать внутреннее представление трассы ошибки (в формате json)"
+
+#: templates/help/unsafe.html:79
+msgid ""
+"upload internal representation of error trace (json format), which will be "
+"presented instead of original error trace"
+msgstr "загрузить на сервер внутреннее представление трассы ошибки (в формате json), которое далее будет представлено вместо отображаемой трассы"
+
+#: templates/help/unsafe.html:85
+#, python-format
+msgid ""
+"edit error trace on the page %(error_trace_edit_page)s (change "
+"representation of error trace)"
+msgstr "редактировать трассу ошибки на странице %(error_trace_edit_page)s (т. е. измененить текущее представление трассы ошибки)"
+
+#: templates/help/unsafe.html:91
+msgid "create new mark with default settings"
+msgstr "создать новую оценку с базовыми настройками"
+
+#: templates/help/unsafe.html:95
+#, python-format
+msgid ""
+"create new mark with adjusted settings on the page %(unsafe_mark_page)s "
+"(note, this is for advanced users only)"
+msgstr "создать новую оценку с изменёнными настройками на странице %(unsafe_mark_page)s (для продвинутых пользователей)"
+
+#: templates/help/unsafe.html:99
+#, python-format
+msgid ""
+"show mark description with all error traces, for which the mark was "
+"applied,\n"
+"with ability to edit (on the %(unsafe_mark_page)s page) or removed it"
+msgstr "показать описание оценки со всеми трассами ошибок, к которым она была успешно применена, и возможностью редактирования (см. страницу %(unsafe_mark_page)s) и удаления"
+
+#: templates/help/unsafe.html:104
+msgid "edit mark description, which does not affect its application"
+msgstr "редактировать описание оценки (не влияет на применимость оценки)"
+
+#: templates/help/unsafe.html:108
+#, python-format
+msgid ""
+"fully edit mark on the %(unsafe_mark_page)s page, which may change its "
+"application"
+msgstr "редактировать настройки оценки, которые влияют на её применимость (см. страницу %(unsafe_mark_page)s)"
+
+#: templates/help/unsafe.html:120
+#, python-format
+msgid ""
+"create new tag, which will be used for this mark (see page %(tags_page)s)"
+msgstr "создать новый тег, который будет использован для данной оценки (см. страницу %(tags_page)s)"
+
+msgid "Some actions requires corresponding permissions for the user"
+msgstr "Некоторые действия требуют наличия соответствующих прав у пользователя"
+
+#: templates/help/unsafe.html:130
+#, python-format
+msgid ""
+"The user analyses this error trace and determines, whether it corresponds to "
+"real bug or to false alarm.\n"
+"Then the user chooses action \"Create default mark\", specifies verdict (bug/"
+"false alarm/unknown), current status and description,\n"
+"chooses tags to group this error trace (see page %(tags_page)s) and presses "
+"\"Save\". After that a table will be shown with\n"
+"all error traces from current report, for which created mark was "
+"successfully applied. The user should check each trace in order to\n"
+"understand, whether this application was correct or not (ideally, one and "
+"only one mark should be applied to each error trace).\n"
+"If at least one application is incorrect, then the user should use some way "
+"for extended mark creation."
+msgstr "Пользователь анализирует трассу ошибки и определяет, соответствует ли она реальной ошибке в коде программы или нет. Далее пользователь выбирает действие \"Создать обычную оценку\", указывает вердикт (ошибка, ложное сообщение об ошибке или неизвестно), текущий статус и описание, выбирает теги (см. страницу %(tags_page)s) и нажимает \"Сохранить\". "
+"После этого будет представлена таблица со всеми трассами ошибок из анализируемого отчёта, для которых оценка была успешно применена. "
+"Пользователь обязан проверить каждую трассу для того, чтобы определить, корректно или нет данное применение оценки (в идеале одна и только одна оценка должна быть применена для каждой трассы). Если хотя бы одно применение неверно, необходимо использовать более сложные способы создания оценки."
+
+#: templates/help/unsafe.html:138
+msgid "Create mark by edited trace"
+msgstr "Создать оценку по редактированной трассе ошибки"
+
+#: templates/help/unsafe.html:139
+#, python-format
+msgid ""
+"The user could not create required default mark and there is a suggestion, "
+"which element should be added to the trace\n"
+"or removed from the trace, so its mark would satisfy the users needs. The "
+"user removes previously created mark, edits the error trace\n"
+"(see page %(error_trace_edit_page)s) by adding or removing required "
+"elements, then creates a new default mark with selected option\n"
+"\"Use edited error trace\". If the new mark still does not meet the user "
+"requirements, the user should create extended mark."
+msgstr "Пользователь не смог создать требуемую обычную оценку и после небольшого анализа предположил, какой элемент должен быть либо добавлен в трассу, либо удалён из неё, чтобы оценка удовлетворяла требованиям. "
+"Пользователь удаляет обычную оценку, редактирует трассу ошибки (см. страницу %(error_trace_edit_page)s) путём добавления или удаления нужных элементов, затем создаёт новую обычную оценку, при этом выбирая опцию \"Использовать отредактированную трассу ошибки\". Если новая оценка все равно не удовлетворяет требованиям пользователя, необходимо создать расширенную оценку."
+
+#: templates/help/unsafe.html:145
+msgid "Create or edit extended mark (advanced users only)"
+msgstr "Создать или редактировать расширенную оценку (для продвинутых пользователей)"
+
+#: templates/help/unsafe.html:146
+#, python-format
+msgid ""
+"The user chooses action \"Create extended mark\" or \"Edit\" for already "
+"created mark and then iteratively\n"
+"adjusts settings until this mark meets the requirements according to "
+"instructions (see page %(unsafe_mark_page)s)"
+msgstr "Пользователь выбирает действие \"Создать расширенную оценку\" или \"Редактировать\" для уже созданной оценки и итеративно настраивает параметры оценки, пока она полностью не удовлетворит требованиям пользователя в соответствии с инструкцией (см. страницу %(unsafe_mark_page)s)"
+
+#: templates/help/unsafe.html:150
+msgid "Adjust mark description"
+msgstr "Изменить описание оценки"
+
+#: templates/help/unsafe.html:151
+msgid ""
+"The user intends to adjust mark without changing its application,\n"
+"chooses action \"Adjust mark description\" and changes mark verdict, status, "
+"tags or description."
+msgstr "Если требуется скорректировать оценку без изменения её применимости, пользователь выбирает действие \"Изменить описание\" и меняет вердикт оценки, статус, теги или описание."
+
+#: templates/help/unsafe.html:155
+msgid "Resolve a problem with incompatible marks"
+msgstr "Разрешить проблему несовместимых оценок"
+
+#: templates/help/unsafe.html:156
+msgid ""
+"If several marks were applied to some error trace, then at least one of them "
+"is incorrect. The user should either edit marks,\n"
+"until only one of them is applied to the given error trace (see third use case) or (as a "
+"temporary solution) manually \"unconfirm\" some marks.\n"
+"This will not affect other error traces, which are marked incorrectly, but "
+"will remove \"Incompatible marks\" verdict for this error trace."
+msgstr "Если несколько оценок применены к одной и той же трассе, то как минимум одна из них является некорректной. Пользователь либо редактирует оценки до тех пор, пока только одна из них не будет успешно применяться к трассе (см. третий сценарий), либо (в качестве временного решения) вручную отменяет применение некоторых оценок. "
+"Подобное решение не затронет другие трассы ошибок, к которым также некорректно были применены данные оценки, однако удалит вердикт \"Несовместимые оценки\" для данной трассы ошибки."
+
+#: templates/help/unsafe.html:161
+msgid "Save error trace for standalone usage"
+msgstr "Сохранить трассу ошибки для автономного использования"
+
+#: templates/help/unsafe.html:162
+msgid ""
+"If current error trace should be demonstrated outside of this web-interface, "
+"the user chooses action\n"
+"\"Download standalone trace\". Resulting archive contains html version of "
+"error trace with required resources."
+msgstr "Если трасса ошибки должны быть представлена за рамками данного web-интерфейса, то пользователь выбирает действие \"Сохранить трассу в автономном режиме\". Полученный архив будет содержать трассу ошибки в виде html с требуемыми ресурсами."
+
+#: templates/help/unsafe.html:166
+msgid "Edit error trace"
+msgstr "Редактировать трассу ошибки"
+
+#: templates/help/unsafe.html:167
+msgid ""
+"In order to improve error trace visualization, the user can change, add or remove displayed messages\n"
+"on the error trace by choosing action \"Edit\". Also edited error trace can be used in a standalone mode or\n"
+"for more accurate mark creation. The user can save changes of the error trace with help of action \"Download error trace internal representation\"\n"
+"(in internal representation), which can be uploaded later to display instead of this or other error trace with help of action\n"
+"\"Upload edited error trace\"."
+msgstr "Для того чтобы улучшить визуализацию трассы ошибки пользователь может изменить, добавить или удалить отображаемые сообщения в трассе с помощью действия \"Редактировать\". "
+"Помимо этого, отредактированная трасса ошибки может быть использована в автономном режиме или для создания более точной оценки. Пользователь может сохранить изменения в трассе посредством действия \"Сохранить внутреннее представление трассы\", которое в дальнейшем может быть загружено для отображения вместо данной или любой другой трассы ошибки действием \"Загрузить отредактированную трассу ошибки\"."
+
+#: templates/help/unsafe_mark.html:24
+msgid ""
+"This page allows to adjust settings for unsafe mark in order to meet the "
+"user requirements.\n"
+"Usually this page should be used, if unsafe mark with default settings does "
+"not meet the requirements, i.e.\n"
+"either it is applied to traces, which correspond to other bugs, or there are "
+"trace, which correspond to the same bug,\n"
+"but the mark was not applied to them."
+msgstr "Данная страница позволяет изменить настройки оценки для трассы ошибки, чтобы она стала удовлетворять требованиям пользователя. "
+"Обычно данная страница используется, если оценка с базовыми настройками не удовлетворяет данным требованиям, т. е. либо она применяется к трассам, которые соответствуют разным ошибкам, либо не применяется ко всем трассам, которые соответствуют одной и той же ошибке."
+
+#: templates/help/unsafe_mark.html:30
+msgid ""
+"Internal representation of an error trace is a sequence of elements, each element contains "
+"the following data:"
+msgstr "Во внутреннем представлении трасса ошибки – это последовательность элементов, каждый из которых содержит следующие данные:"
+
+#: templates/help/unsafe_mark.html:33
+msgid "type (function call, assignment, assumption, etc.)"
+msgstr "тип (вызов функции, присваивание, проверка условия и т. д.)"
+
+#: templates/help/unsafe_mark.html:36
+msgid "link to the source code (file name, line number)"
+msgstr "ссылка на исходный код (имя файла, номер строки)"
+
+#: templates/help/unsafe_mark.html:39
+msgid "thread identifier (for multi-threaded error traces)"
+msgstr "идентификатор потока (для многопоточных трасс ошибок)"
+
+#: templates/help/unsafe_mark.html:42
+msgid "(optional) property checks descriptions (both passed and violated)"
+msgstr "(опционально) описание проверок требований (как успешно прошедшие, так и нарушенные)"
+
+#: templates/help/unsafe_mark.html:48
+msgid ""
+"Error traces are called <b>equivalent</b> if they correspond to the same bug "
+"(or to the same reason of false alarm).\n"
+"In order to compare error trace under analysis %(t1)s with some other error "
+"trace %(t2)s the <code>is_equivalent(%(t1)s, %(t2)s)</code>\n"
+"function is suggested:"
+msgstr ""
+"Трассы ошибок называются <b>эквивалентными</b>, если они соответствуют одной "
+"и той же ошибке в программе (или одной и той же причине ложного сообщения об "
+"ошибке). Для того чтобы сравнивать анализируемую трассу ошибки "
+"%(t1)s с некоторой другой трассой %(t2)s предлагается функция <code>is_equivalent(%(t1)s, %(t2)s)</code>:"
+
+#: templates/help/unsafe_mark.html:54
+msgid "In case of one-threaded error trace this function is simplified into:"
+msgstr "Если трасса ошибки состоит из одного потока, то данная функция упрощается:"
+
+#: templates/help/unsafe_mark.html:58
+msgid ""
+"Conversion function <code>conversion(t, args)</code> removes nonessential "
+"error trace elements,\n"
+"<code>args</code> are optional parameters.\n"
+"Comparison function <code>comparison(t<sub>1</sub>, t<sub>2</sub>)</code> "
+"determines, how two error traces are compared (as sequences).\n"
+"If an error trace consists of multiple threads, then it returns the number "
+"of equivalent threads.\n"
+"Function <code>manual(t)</code> corresponds to the user changes in an error "
+"trace\n"
+"(e.g., the user may remove some elements in addition to conversion "
+"function).\n"
+"In case of multi-threaded error trace, function <code>similarity(n)</code> "
+"evaluates similarity of 2 error traces based on the number of equivalent "
+"threads,\n"
+"which should be greater or equal to the given <code>similarity_threshold</"
+"code> value in order to consider traces to be equivalent.\n"
+"Therefore, unsafe mark is determined by the following parameters "
+"<code>conversion, args, comparison, similarity, similarity_threshold</code>."
+"<br>\n"
+"Note, that traces are considered to be equivalent with respect to the given "
+"parameters. If they are meaningless, this comparison means nothing."
+msgstr "Функция преобразования <code>conversion(t, args)</code> удаляет несущественные элементы трассы, <code>args</code> – необязательные параметры. "
+"Функция сравнения <code>comparison(t<sub>1</sub>, t<sub>2</sub>)</code> определяет, как две трассы должны сравниваться (в виде последовательности). Если трассы ошибки многопоточные, то функция сравнения возвращает число совпавших потоков. "
+"Функция <code>manual(t)</code> отражает пользовательские изменения трассы (например, пользователь может удалить некоторые элементы трассы после применения функции преобразования). "
+"В случе многопоточных трасс ошибок функция <code>similarity(n)</code> оценивает похожесть двух трасс на основе числа совпавших потоков. Для того чтобы трассы были признаны эквивалентными, полученное значение похожести должно превышать заданное пороговое значение <code>similarity_threshold</code>. "
+"Таким образом, оценка трассы ошибки определяется следующими параметрами: <code>conversion, args, comparison, similarity, similarity_threshold</code>.<br>"
+"Стоит отметить, что эквивалентность трасс определяется с точностью до заданных параметров. Если параметры заданы некорректно, то реальная эквивалентность или её отсутствие не гарантируется."
+
+#: templates/help/unsafe_mark.html:75
+msgid "Parameters"
+msgstr "Параметры"
+
+#: templates/help/unsafe_mark.html:79
+msgid ""
+"Default mark creation parameters (verdict, status, tags, description). They "
+"do not affect mark application."
+msgstr "Параметры, характерные для создания обычной оценки (вердикт, статус, теги, описание). Не влияют на применимость оценки. "
+
+#: templates/help/unsafe_mark.html:83
+msgid ""
+"this error trace will be compared with other traces, which have the same "
+"selected attributes with the same values.\n"
+"In order to use some attribute for comparison first select it, then choose required comparison operator and input attribute value.\n"
+"In case of comparison for equality, inequality or by regular expression (RE) you can input several values, separated by commas.\n"
+"In case of numeric comparison operators both user value and all values for that attribute should be numbers."
+msgstr "трасса ошибки будет сравниваться с трассами, для которых выбранные атрибуты имеют указанные значения. "
+"Для того чтобы использовать некоторый атрибут для сравнения, необходимо его отметить, затем выбрать оператор, в соответствии с которым его значения будут сравниваться со значениями других подобных атрибутов, и ввести значение для сравнения. "
+"Если выбрано сравнение на равенство, неравенство или по регулярному выражению (RE), то можно ввести несколько значений через запятую. "
+"Если выбрано сравнение чисел, то как введённое пользователем значение, так и все значения данного атрибута должны быть числами."
+
+#: templates/help/unsafe_mark.html:87
+msgid ""
+"allows to choose function <code>conversion(t)</code> from the predefined "
+"list.\n"
+"Each function comes with description. By default function <code>model "
+"functions</code> is used (model function is a function, which\n"
+"contains property check)."
+msgstr "позволяет выбрать функцию <code>conversion(t)</code> из предопределённого списка. Для каждой функции дано описание. По умолчанию используется функция <code>model "
+"functions</code> (модельной называется функция, которая содержит проверки требования)."
+
+#: templates/help/unsafe_mark.html:92
+msgid "allows to specify additional parameters <code>args</code>"
+msgstr "позволяет задать параметры <code>args</code>"
+
+#: templates/help/unsafe_mark.html:96
+msgid ""
+"remove specified function calls from error trace (function names should be "
+"separated by commas)"
+msgstr "удалить указанные функции из трассы ошибки (имена функций должны быть указаны через запятую)"
+
+#: templates/help/unsafe_mark.html:100
+msgid ""
+"specify functions, which should be considered as model even if they does not "
+"contain property checks (function names should be separated by commas)"
+msgstr "задать функции, которые будут считаться модельными, даже если они не содержат проверок требований (имена функций должны быть указаны через запятую)"
+
+#: templates/help/unsafe_mark.html:104
+msgid "add passed property checks descriptions"
+msgstr "добавить описания успешно пройденных проверок требований"
+
+#: templates/help/unsafe_mark.html:108
+msgid "add property violation descriptions"
+msgstr "добавить описания нарушений требований"
+
+#: templates/help/unsafe_mark.html:114
+msgid ""
+"allows to choose function <code>comparison(t<sub>1</sub>, t<sub>2</sub>)</"
+"code> from the predefined list.\n"
+"Each function comes with description. By default function <code>equal</code> "
+"is used."
+msgstr "позволяет выбрать функцию <code>comparison(t<sub>1</sub>, t<sub>2</sub>)</code> из предопределённого списка. Для каждой функции дано описание. По умолчанию используется функция <code>equal</code>."
+
+#: templates/help/unsafe_mark.html:119
+#, python-format
+msgid ""
+"allows to choose <code>similarity_threshold</code> for the "
+"<code>similarity(n)</code> function.\n"
+"Currently the <code>similarity(n)</code> function is Jaccard index. By "
+"default value 100%% is used (error traces have the same number of threads\n"
+"and they are equal)."
+msgstr "позволяет задать значение порога <code>similarity_threshold</code> для функции <code>similarity(n)</code>. На данный момент в качестве функции <code>similarity(n)</code> используется мера Жаккара. По умолчанию используется значение 100%% (т. е. трассы ошибок должны состоять из одинакового числа эквивалентных потоков)."
+
+#: templates/help/unsafe_mark.html:130
+msgid ""
+"allows to speed up the process of marks application by applying mark only to "
+"the current report\n"
+"('Apply only to current report'). Use optimizations only as a last resort, "
+"because such marks may be lost for future reports,\n"
+"which wastes all efforts of creating the mark."
+msgstr "позволяет ускорить процесс применения оценки путём ограничения области применимости до текущего отчёта (опция 'Применять к трассам только из анализируемого отчёта'). Необходимо использовать оптимизации только в крайнем случае, поскольку подобные оценки могут быть потеряны для будущих отчётов, что сводит на нет все усилия по их созданию."
+
+#: templates/help/unsafe_mark.html:136
+#, python-format
+msgid ""
+"allows to change initial (%(t1)s) error trace for this mark (only on "
+"editing).\n"
+"This may change converted error trace (e.g., swap %(t1)s and %(t2)s in the "
+"<code>is_equivalent(%(t1)s, %(t2)s)</code> function)\n"
+"and thus drastically change mark application."
+msgstr "позволяет изменить исходную (%(t1)s) трассу ошибки для данной оценки (только во время редактирования). Действие может поменять трассу ошибки после применения функции преобразования (т. е. в функции <code>is_equivalent(%(t1)s, %(t2)s)</code> аргументы %(t1)s и %(t2)s поменяются местами), а следовательно, существенно изменить применимость оценки."
+
+#: templates/help/unsafe_mark.html:125
+msgid ""
+"allows to manually change error trace after applying conversion function to "
+"it\n"
+"(<code>manual</code> function)."
+msgstr "позволяет пользователю вручную внести изменения в трассу ошибки после применения функции преобразования (т. е. соответствует функции <code>manual</code>)."
+
+#: templates/help/unsafe_mark.html:125
+msgid ""
+"The general schema of extended unsafe mark creation is the following:"
+msgstr "Общая схема создания расширенной оценки трассы ошибки выглядит следующим образом:"
+
+#: templates/help/unsafe_mark.html:125
+msgid ""
+"Therefore, the user iteratively increases (scenario 1) or reduces (scenario 2) accuracy of the mark,\n"
+"until it is applied to error traces, which corresponds to the same bug."
+msgstr "Таким образом, пользователь итеративно повышает (сценарий 1) или понижает (сценарий 2) точность оценки, пока она не будет применима только к трассам, которые соответствуют одной и той же ошибке."
+
+#: templates/help/unsafe_mark.html:148
+msgid "The mark is applied to an error trace, which corresponds to other bugs"
+msgstr "Оценка применима к трассе ошибки, которая соответствует другой ошибке"
+
+#: templates/help/unsafe_mark.html:149
+msgid ""
+"The user finds out, which elements are missing in converted error trace, but "
+"can be used to distinguish 2 traces,\n"
+"then chooses more accurate conversion function or changes conversion "
+"function arguments\n"
+"(e.g., by adding new model functions or property checks description), until the required "
+"elements show up in the converted error trace.\n"
+"After saving this mark, the user must check all other error traces, for "
+"which mark was applied, in order to make sure, that none of them\n"
+"corresponds to the other bug. If this is not the case, the operation should "
+"be repeated, taking into account new error trace, which correspond to other "
+"bug.\n"
+"Note, if the mark is too accurate, it may not be applied to some traces, "
+"which correspond to the same bug (see the second scenario)."
+msgstr ""
+"Пользователь определяет, каких элементов не хватает в трассе ошибки после применения функции преобразования, но которые могли бы быть использованы для разделения двух трасс ошибок, "
+"затем выбирает более точную функцию преобразования или изменяет её аргументы (например, добавляя дополнительные модельные функции или описания проверок требований) до тех пор, "
+"пока требуемые элементы не появятся в трассе ошибки после применения функции преобразования. "
+"После сохранения оценки пользователь должен проверить все трассы ошибок, к которым оценка была применена, для того чтобы удостовериться в том, что ни одна из них не соответствует другим ошибкам. "
+"Если это не так, данная операция должна быть повторена, принимая во внимание новую трассу ошибки, которая соответствует другой ошибке. "
+"Стоит отметить, что если оценка слишком точная, то она может быть применена не ко всем трассам, которые соответствуют той же ошибке (см. сценарий 2)."
+
+#: templates/help/unsafe_mark.html:157
+msgid ""
+"There is a trace, which corresponds to the same bug, but the mark was "
+"not applied to it"
+msgstr "Существует трасса ошибки, соответствующая той же ошибке, но оценка не была применена к ней"
+
+#: templates/help/unsafe_mark.html:158
+msgid ""
+"The user finds out, which elements distinguishes 2 equivalent error traces,\n"
+"then chooses less accurate conversion function, changes conversion function "
+"arguments\n"
+"(e.g., by excluding some functions or property checks description) or removes some "
+"elements from the error trace manually\n"
+"until the required elements are removed from the converted error trace. In "
+"case of manual changes, the user should also change\n"
+"comparison function to check elements for inclusion instead of equivalence.\n"
+"After saving this mark, the user must check all other error traces, for "
+"which mark was applied, in order to make sure, that none of them\n"
+"corresponds to the other bug (see the first scenario), and there is no error "
+"trace, which correspond to the same bug and for which this mark was not "
+"applied.\n"
+"If this is not the case, the operation should be repeated, taking into "
+"account new error trace, which correspond to the same bug."
+msgstr ""
+"Пользователь определяет, какие элементы разделяют две эквивалентные трассы, "
+"затем выбирает менее точную функцию преобразования, изменяет её аргументы (например, исключая из трассы некоторые функции или описания проверок требований) или "
+"удаляет требуемые элементы непосредственно из трассы ошибки вручную "
+"до тех пор, пока требуемые элементы не удалятся из трассы ошибки после применения функции преобразования. "
+"В случае ручных изменений необходимо также поменять функцию сравнения на включение элементов. "
+"После сохранения оценки пользователь должен проверить все трассы ошибок, к которым оценка была применена, для того чтобы удостовериться в том, что ни одна из них не соответствует другим ошибкам (см. сценарий 1), "
+"и не существует трасс ошибок, соответствующих той же ошибке, для которых данная оценка не была применена. "
+"Если это не так, данная операция должна быть повторена, принимая во внимание новую трассу ошибки, которая соответствует той же ошибке."
+
+msgid ""
+"This web-interface displays results for continuous verification (CV) system"
+msgstr "Данный web-интерфейс отображает результаты системы непрерывной верификации CV"
+
+msgid ""
+"Useful links"
+msgstr "Полезные ссылки"
+
+msgid ""
+"CV is based on ideas of the LDV project"
+msgstr "система CV  основа на идеях проекта LDV"
+
+msgid ""
+"CV extends Klever web-interface for the continuous verification needs"
+msgstr "система CV расширяет web-интерфейс системы верификации Klever для нужд непрерывной верификации"
+
+msgid ""
+"verifier engine"
+msgstr "инструмент верификации"
+
+msgid "Mark cannot be applied to the initial error trace"
+msgstr "Оценка не применима к исходной трассе ошибки"
+
+msgid "Mark cannot be applied to the selected attributes"
+msgstr "Оценка не применима к выбранным атрибутам"
+
+msgid "Coverage"
+msgstr "Покрытие"
+
+msgid "Show function bodies"
+msgstr "Показать тело функций"
+
+msgid "Line coverage"
+msgstr "Покрытие строк"
+
+msgid "Function coverage"
+msgstr "Покрытие функций"
+
+msgid "Launcher"
+msgstr "Запуск заданий"
+
+msgid "Launch"
+msgstr "Запустить"
+
+msgid "Stop"
+msgstr "Остановить"
+
+msgid "Job settings"
+msgstr "Ностройки задачи"
+
+msgid "Job name"
+msgstr "Название задачи"
+
+msgid "Job configuration"
+msgstr "Конфигурация задачи"
+
+msgid "Select"
+msgstr "Выберите"
+
+msgid "Specific configuration file"
+msgstr "Заданный конфигурационный файл"
+
+msgid "Job description"
+msgstr "Описание задачи"
+
+msgid "Launch settings"
+msgstr "Настройки запуска"
+
+msgid "CPU time per one verification task (in seconds)"
+msgstr "Процессорное время (в с.)"
+
+msgid "Memory limit per one verification task (in GB)"
+msgstr "Ограничение по памяти (в Гб)"
+
+msgid "Launch priority"
+msgstr "Приоритет запуска"
+
+msgid "CPU time for printing statistics (in seconds)"
+msgstr "Процессорное время на статистику (в с.)"
+
+msgid "This time will be taken from the main CPU time limit for auxiliary tasks (such as printing coverage)"
+msgstr "Данное время будет вычтено из основного ограничения на процессорное время для вспомогательных операций (таких как вывод покрытия)"
+
+msgid "CPU cores per one verification task"
+msgstr "Ограничение на число ядер"
+
+msgid "Sources commit"
+msgstr "Коммит репозитория исходников"
+
+msgid "Other"
+msgstr "Другая"
+
+msgid "Parent job identifier or name"
+msgstr "Идентификатор родительского задания"
+
+msgid "Developer settings"
+msgstr "Настройки разработчика"
+
+msgid "Property type"
+msgstr "Тип проверяемого свойства"
+
+msgid "Tool"
+msgstr "Инструмент"
+
+msgid "Reuse source directory"
+msgstr "Переиспользовать исходники"
+
+msgid "Reuse installed tools"
+msgstr "Переиспользовать установленные инструменты"
+
+msgid "Preset configuration file"
+msgstr "Заданный конфигурационный файл"
+
+msgid "Exceeded max number of processed jobs"
+msgstr "Превышено максимальное количество запущенных заданий"
+
+msgid "Job with specified identifier does not exist"
+msgstr "Задание с указанным идентификатором не существует"
+
+msgid "Job name was not specified"
+msgstr "Название задания не указано"
+
+msgid "Parent id was not specified"
+msgstr "Идентификатор родительского задания не указан"
+
+msgid "Job configuration was not selected"
+msgstr "Конфигурация задания не выбрана"
+
+msgid "You need to choose file with specific configuration"
+msgstr "Необходимо выбрать файл с конфигурацией"
+
+msgid "CPU time (s)"
+msgstr "Процессорное время (с)"
+
+msgid "Wall time (s)"
+msgstr "Астрономическое время (с)"
+
+msgid "Memory usage (Mb)"
+msgstr "Память (Мб)"
+
+msgid "Compared resources"
+msgstr "Сравниваемые ресурсы"
+
+msgid "Quantile plot"
+msgstr "Квантиль"
+
+msgid "Number of solved tasks with the given value"
+msgstr "Число решенных задач при заданном ограничении"
+
+msgid "N-th fastest tasks"
+msgstr "N наиболее быстрых задач"
+
+msgid "Scatter plot"
+msgstr "Точечная диаграмма"
+
+msgid "Number of tasks"
+msgstr "Число задач"
+
+msgid "Correctness witness"
+msgstr "Доказательство корректности"
+
+msgid "Toggle top level elements"
+msgstr "Отобразить/скрыть содержимое элементов верхнего уровня"
+
+msgid "Toggle all elements"
+msgstr "Отобразить/скрыть содержимое всех элементов"
+
+msgid "Download standalone proof"
+msgstr "Сохранить доказательство в автономном режиме"
+
+msgid "Download proof internal representation"
+msgstr "Сохранить внутреннее представление доказательства"
+
+msgid "Reports tree"
+msgstr "Дерево отчетов"
+
+msgid "Configuration"
+msgstr "Конфигурация"
+
+msgid "Long line"
+msgstr "Длинная строка"
+
+msgid "Upload one mark"
+msgstr "Загрузить одну оценку на сервер"

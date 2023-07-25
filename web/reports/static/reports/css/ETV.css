@@ -1,0 +1,267 @@
+/*
+ * CVV is a continuous verification visualizer.
+ * Copyright (c) 2023 ISP RAS (http://www.ispras.ru)
+ * Ivannikov Institute for System Programming of the Russian Academy of Sciences
+ *
+ * Copyright (c) 2018 ISP RAS (http://www.ispras.ru)
+ * Ivannikov Institute for System Programming of the Russian Academy of Sciences
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * ee the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+.ETV_source_code {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 35px;
+    bottom: 0;
+    line-height: normal;
+    font-size: 12px;
+    border-top: 1px solid #red;
+}
+#ETV_error_trace {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    line-height: normal;
+    font-size: 12px;
+    font-family: monospace;
+    overflow: auto;
+    white-space: nowrap;
+    border-top: 1px solid red;
+    top: 35px;
+}
+
+#ETV_assumes {
+    position: absolute;
+    padding: 5px;
+    height: 100%;
+    width: 100%;
+    font-family: monospace;
+    line-height: normal;
+    font-size: 12px;
+    overflow-x: auto;
+    overflow-y: auto;
+}
+.ETVTitleBlock {
+    height: 50px;
+    white-space: nowrap;
+    overflow-x: hidden;
+}
+
+#etv {
+    height: 70vh;
+    position: relative;
+}
+
+.fullscreen {
+    height: 90vh!important;
+}
+
+#etv-source {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 54.7%;
+    height: 100%;
+    background-color: #f5ffff;
+}
+#etv-divider {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 45%;
+    width: 0.3%;
+    background-color: red;
+    cursor: move;
+}
+#etv-divider-safe {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 45%;
+    width: 0.3%;
+    background-color: green;
+    cursor: move;
+}
+#etv-divider-2 {
+    position: absolute;
+    right: 0;
+    top: 70%;
+    height: 0.5%;
+    width: 54.7%;
+    background-color: #f2711c;
+    cursor: move;
+}
+#etv-assumes {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 54.7%;
+    height: 29.5%;
+    background-color: #faf3ff;
+}
+
+.ETVComment {
+    color: #b1b4b7;
+}
+
+.ETVNumber {
+    color: #3bbbbc;
+}
+
+.ETVSrcL {
+    position: relative;
+    background-color: #d7f0f0;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+/* Error trace: Line number object */
+.ETV_LN {
+    z-index: 100;
+    position: relative;
+    white-space: pre;
+    background-color: #ffe6d7;
+    padding-right: 5px;
+    cursor: pointer;
+}
+.ETV_LN:hover {
+    background-color: #efd6c8;
+}
+
+.ETV_LC {
+    white-space: pre;
+}
+.ETV_HideLink {
+    cursor: pointer;
+}
+
+.ETVText {
+    color: #20d467;
+}
+
+.ETVKey1 {
+    color: #1f984c;
+    font-weight: bold;
+}
+
+.ETVKey2 {
+    color: #291fbf;
+    font-weight: bold;
+}
+
+.ETVSelectedLine {
+    background-color: #ffa46d;
+}
+
+.ETV_CondAss {
+    color: #9928b4;
+    font-weight: bold;
+    font-style: italic;
+}
+
+.ETV_GlobalExpanderLink {
+    cursor: pointer;
+}
+
+.ETV_LN_Note {
+    background-color: #4aafdd;
+    border-radius: 2px;
+    color: #f7ff3a;
+}
+.ETV_LN_Note:hover {
+    background-color: #4aafdd;
+}
+.ETV_LN_Note_Selected {
+    background-color: #61d1f9;
+}
+.ETV_LN_Note_Selected:hover {
+    background-color: #61d1f9;
+}
+
+.ETV_LN_Warning {
+    background-color: #dd2222;
+    border-radius: 2px;
+    color: #f7ff3a;
+}
+.ETV_LN_Warning:hover {
+    background-color: #dd2222;
+}
+.ETV_LN_Warning_Selected {
+    background-color: #fb7471;
+}
+.ETV_LN_Warning_Selected:hover {
+    background-color: #fb7471;
+}
+
+.ETV_ShowCommentCode {
+    font-style: italic;
+    font-weight: bold;
+    cursor: pointer;
+}
+.ETV_WarnText {
+    color: #f0828f;
+}
+.ETV_WarnText:hover {
+    color: #c8646b;
+}
+.ETV_NoteText {
+    color: #6fb5bd;
+}
+.ETV_NoteText:hover {
+    color: #458599;
+}
+.ETV_Fname {
+    color: #67238f;
+    font-weight: bold;
+}
+.ETV_Fcomment {
+    color: #5019af;
+    font-weight: bold;
+}
+.ETV_THREAD {
+    background-color: #fffff1;
+}
+
+#etv-trace {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 45%;
+    background-color: #fffaf0;
+}
+
+.ETV_CallbackAction {
+    font-style: italic;
+    font-weight: bold;
+    color: #9e4b2e;
+    cursor: pointer;
+}
+.ETV_CallbackAction:hover {
+    color: #dd5e3f;
+}
+
+.ETV_Action {
+    font-style: italic;
+    color: #9e7926;
+    cursor: pointer;
+}
+.ETV_Action:hover {
+    color: #cfa62a;
+}
+.ETV_ShowCode {
+    cursor: pointer;
+}

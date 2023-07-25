@@ -1,0 +1,75 @@
+{% extends 'jobs/base.html' %}
+{% comment "License" %}
+% CVV is a continuous verification visualizer.
+% Copyright (c) 2023 ISP RAS (http://www.ispras.ru)
+% Ivannikov Institute for System Programming of the Russian Academy of Sciences
+%
+% Copyright (c) 2018 ISP RAS (http://www.ispras.ru)
+% Ivannikov Institute for System Programming of the Russian Academy of Sciences
+%
+% Licensed under the Apache License, Version 2.0 (the "License");
+% you may not use this file except in compliance with the License.
+% You may obtain a copy of the License at
+%
+%    http://www.apache.org/licenses/LICENSE-2.0
+%
+% Unless required by applicable law or agreed to in writing, software
+% distributed under the License is distributed on an "AS IS" BASIS,
+% WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+% See the License for the specific language governing permissions and
+% limitations under the License.
+{% endcomment %}
+
+{% load i18n %}
+{% load static %}
+
+{% block title %}{% trans 'Jobs Tree' %}{% endblock %}
+
+{% block jobs_head_block %}<script src="{% static 'jobs/js/jobtree.js' %}"></script>{% endblock %}
+{% block help_link %}jobs_tree{% endblock %}
+
+{% block body_block %}
+    <div class="tableScroll" id="jobtable">
+        {% include 'jobs/treeTable.html' %}
+    </div>
+
+    <div class="ui text small menu">
+        <div class="ui dropdown item">
+            <i class="ui check square outline icon"></i>{% trans 'Actions with selected jobs' %}
+            <i class="dropdown icon"></i>
+            <div class="menu">
+                <div id="compare_reports_btn" class="item"><i class="ui columns icon"></i>{% trans 'Compare reports' %}</div>
+                <div id="show_remove_jobs_popup" class="item {% if user.extended.role != '2' %} disabled{% endif %}"><i class="ui remove icon"></i>{% trans 'Delete' %}</div>
+            </div>
+        </div>
+        <div class="right menu">
+            <div class="item">
+                <button id="view_show_form_btn_{{ TableData.view.type }}" class="ui violet button">{{ TableData.view.viewtitle }}</button>
+            </div>
+        </div>
+    </div>
+    <div id="view_form_segment_{{ TableData.view.type }}" class="ui form yellow segment" style="display: none">
+        {% include TableData.view.template with view=TableData.view selected_columns=TableData.selected_columns available_columns=TableData.available_columns %}
+    </div>
+
+    <div id="remove_jobs_popup" class="ui basic modal">
+        <div class="ui icon header">
+            <i class="warning sign icon"></i>
+            {% trans 'Are you sure' %}?
+        </div>
+        <div class="content">
+            <div class="ui center aligned grid">
+                <p>{% trans 'All versions and all data of the selected jobs will be deleted' %}! {% trans 'If any job has children they will also be deleted' %}!</p>
+            </div>
+        </div>
+        <div class="actions">
+            <div class="ui center aligned grid">
+                <button id="cancel_remove_jobs" type="button" class="ui blue basic inverted button">{% trans 'Cancel' %}</button>
+                <button id="delete_jobs_btn" type="button" class="ui red basic inverted button">{% trans 'Delete' %}</button>
+            </div>
+        </div>
+    </div>
+    <span id="error__no_jobs_to_download" hidden>{% trans 'Please select jobs you want to download' %}</span>
+    <span id="error__no_jobs_to_delete" hidden>{% trans 'Please select jobs you want to delete' %}</span>
+    <span id="error__no_jobs_to_compare" hidden>{% trans 'Please select jobs which reports you want to compare' %}</span>
+{% endblock %}

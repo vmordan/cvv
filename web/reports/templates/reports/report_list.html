@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% comment "License" %}
+% CVV is a continuous verification visualizer.
+% Copyright (c) 2023 ISP RAS (http://www.ispras.ru)
+% Ivannikov Institute for System Programming of the Russian Academy of Sciences
+%
+% Copyright (c) 2018 ISP RAS (http://www.ispras.ru)
+% Ivannikov Institute for System Programming of the Russian Academy of Sciences
+%
+% Licensed under the Apache License, Version 2.0 (the "License");
+% you may not use this file except in compliance with the License.
+% You may obtain a copy of the License at
+%
+%    http://www.apache.org/licenses/LICENSE-2.0
+%
+% Unless required by applicable law or agreed to in writing, software
+% distributed under the License is distributed on an "AS IS" BASIS,
+% WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+% See the License for the specific language governing permissions and
+% limitations under the License.
+{% endcomment %}
+
+{% load i18n %}
+{% load static %}
+
+{% block title %}{{ TableData.title }}{% endblock %}
+
+{% block head_block %}
+    <script type="text/javascript" src="{% static 'reports/js/reportsList.js' %}"></script>
+{% endblock %}
+
+{% block body_block %}
+    <div class="ui grid">
+        <div class="seven wide column">
+            <div class="ui grid">
+                <div class="nine wide column">
+                    <span class="purple-title">{% trans 'Job' %}: </span>
+                    <a href="{% url 'jobs:job' report.root.job.pk %}">{{ report.root.job.name }}</a>
+                </div>
+                <div class="seven wide column">
+                    <span class="purple-title">{% trans 'Author' %}: </span>
+                    <a href="{% url 'users:show_profile' report.root.user.id %}">{{ report.root.user.get_full_name }}</a>
+                </div>
+            </div>
+        </div>
+        <div class="nine wide column">
+            <button id="view_show_form_btn_{{ TableData.view.type }}" class="ui tiny violet button" style="float:right;margin-right: 10px;">{{ TableData.view.viewtitle }}</button>
+
+            <div class="ui breadcrumb">
+                <a class="section parent-popup" href="{{ TableData.parents.0.href }}" data-variation="very wide">{{ TableData.parents.0.title }}</a>
+                <div class="ui special popup">
+                    <div class="header">{{ TableData.parents.0.title }}</div>
+                    <div class="content">
+                        {% for attr in TableData.parents.0.attrs %}
+                            <span class="purple-subtitle">{{ attr.0 }}: </span>{{ attr.1|safe }}<br><br>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% for parent in TableData.parents|slice:"1:" %}
+                    <i class="right arrow icon divider"></i>
+                    <a class="section parent-popup" href="{{ parent.href }}" data-variation="very wide">{{ parent.title }}</a>
+                    <div class="ui special popup">
+                        <div class="header">{{ parent.title }}</div>
+                        <div class="content">
+                            {% for attr in parent.attrs %}
+                                <span class="purple-subtitle">{{ attr.0 }}: </span>{{ attr.1|safe }}<br>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <br>
+    <div id="view_form_segment_{{ TableData.view.type }}" class="ui form yellow segment" style="display:none;">
+        {% include TableData.view.template with view=TableData.view verdicts=TableData.verdicts selected_columns=TableData.selected_columns available_columns=TableData.available_columns %}
+        <br>
+    </div>
+    {% if TableData.table_data.values|length %}
+        {# Pagination #}
+        {% if TableData.page %}
+            <!--<div>
+                {% if TableData.page.has_previous %}
+                    <i class="ui arrow left blue link icon page-link-icon" data-page-number="{{ TableData.page.previous_page_number }}"></i>
+                {% endif %}
+                <span>{% blocktrans with n1=TableData.page.number n2=TableData.page.paginator.num_pages %}Page {{ n1 }} of {{ n2 }}{% endblocktrans %}</span>
+                {% if TableData.page.has_next %}
+                    <i class="ui arrow right blue link icon page-link-icon" data-page-number="{{ TableData.page.next_page_number }}"></i>
+                {% endif %}
+            </div>-->
+        {% endif %}
+            <table class="ui compact celled selectable table sort-table {% if TableData.view.type == '6' %}orange{% elif TableData.view.type == '5' %}green{% elif TableData.view.type == '4' %}red{% endif %}" width="100%">
+                <thead>
+                    {% for column_row in TableData.table_data.header %}
+                        <tr class="info" style="text-align: center">
+                        {% for coldata in column_row %}
+                            <th colspan="{{ coldata.columns }}" rowspan="{{ coldata.rows }}">{{ coldata.title }}</th>
+                        {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </thead>
+                <tbody>
+                    {% for row_data in TableData.table_data.values %}
+                        <tr style="text-align: center">
+                            {% for v in row_data %}
+                                <td>
+                                    {% if v.html %}
+                                        <span>{{ v.value|safe }}</span>
+                                    {% elif v.href %}
+                                        <a class="black-link" href="{{ v.href }}">{{ v.value }}</a>
+                                    {% else %}
+                                        <a href="{{ row_data.0.href }}"
+                                           {% if v.style %} class="{{ v.style }}"
+                                           {% elif v.color %} style="color:{{ v.color }}"
+                                           {% else %} class="black-link"
+                                           {% endif %}
+                                        >
+                                            {% if not forloop.counter == 1 %}
+                                            {{ v.value }}
+                                            {% endif %}
+                                        </a>
+                                    {% endif %}
+                                </td>
+                            {% endfor %}
+                        </tr>
+                    {%  endfor %}
+                </tbody>
+            </table>
+    {% else %}
+        <h4>{% trans 'The list of reports is empty. Maybe it is because of the selected view.' %}</h4>
+    {% endif %}
+{% endblock %}

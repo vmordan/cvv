@@ -1,0 +1,292 @@
+{% comment "License" %}
+% CVV is a continuous verification visualizer.
+% Copyright (c) 2023 ISP RAS (http://www.ispras.ru)
+% Ivannikov Institute for System Programming of the Russian Academy of Sciences
+%
+% Copyright (c) 2018 ISP RAS (http://www.ispras.ru)
+% Ivannikov Institute for System Programming of the Russian Academy of Sciences
+%
+% Licensed under the Apache License, Version 2.0 (the "License");
+% you may not use this file except in compliance with the License.
+% You may obtain a copy of the License at
+%
+%    http://www.apache.org/licenses/LICENSE-2.0
+%
+% Unless required by applicable law or agreed to in writing, software
+% distributed under the License is distributed on an "AS IS" BASIS,
+% WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+% See the License for the specific language governing permissions and
+% limitations under the License.
+{% endcomment %}
+
+{% load i18n %}
+
+{% if reportdata.totals.unsafes.number > 0 or reportdata.totals.safes.number > 0 or reportdata.totals.unknowns.number > 0 or reportdata.data.resources|length %}
+    {% if reportdata.totals.unsafes.number > 0 or reportdata.totals.safes.number > 0 or reportdata.totals.unknowns.number > 0 %}
+    <div class="ui equal width grid">
+        <div class="column">
+            <h4 class="header ui red">
+                <a href="{{ reportdata.totals.unsafes.href }}" class="ui red button fluid big {% if not reportdata.totals.unsafes.number %}disabled{% endif %}" title="{% trans 'Show list' %}">
+                    {% trans 'Unsafes' %}: {{ reportdata.totals.unsafes.number }}
+                </a>
+            </h4>
+            {% if reportdata.totals.unsafes.number > 0 %}
+            <div class="ui styled accordion fluid">
+                <div class="active title">
+                    <i class="dropdown icon"></i>{% trans 'Details' %}
+                </div>
+                <div class="content active">
+                    <div style="overflow-x:auto;">
+                        {% if reportdata.data.unsafes|length %}
+                        <div class="ui list">
+                            {% for v in reportdata.data.unsafes %}
+                                <div class="item red">
+                                    {% if v.tags %}
+                                    <i class="plus circle icon" title="{% trans 'Show tags' %}" id="icon_unsafe_tags_{{ v.id }}" onclick="switch_report_tags({{ v.id }}, 'unsafe')" style="cursor:pointer;"></i>
+                                    {% else %}
+                                    <i class="arrow circle right icon"></i>
+                                    {% endif %}
+                                    <div class="content">
+                                        <span {% if v.color %} style="color:{{ v.color }};"{% endif %}>
+                                            {% if v.href %}<a class="{{ v.style }}" href="{{ v.href }}">{{ v.title }}: {{ v.value }}</a>{% endif %}
+                                            {% if v.tags %}
+                                            <div id="detailed_unsafe_tags_{{ v.id }}" class="ui list" hidden>
+                                            {% for tag_desc in v.tags %}
+                                                <div class="item" style="padding-left: {{ tag_desc.padding }}px;">
+                                                    <i class="tag tiny icon"></i>
+                                                    <div class="content">
+                                                        <span {% if tag_desc.desc != '' %} class="tag-description-popup" data-variation="very wide" data-content="{{ tag_desc.desc }}"{% endif %}>
+                                                            <a class="{{ v.style }}" href="{{ tag_desc.href }}">{{ tag_desc.name }}: {{ tag_desc.number }}</a>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                            </div>
+                                            {% endif %}
+                                        </span>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="column">
+            <h4 class="header ui green">
+                <a href="{{ reportdata.totals.safes.href }}" class="ui green button fluid big {% if not reportdata.totals.safes.number %}disabled{% endif %}" title="{% trans 'Show list' %}">
+                    {% trans 'Safes' %}: {{ reportdata.totals.safes.number }}
+                </a>
+            </h4>
+
+            {% if reportdata.totals.safes.number > 0 %}
+            <div class="ui styled accordion">
+                <div class="title">
+                    <i class="dropdown icon"></i>{% trans 'Details' %}
+                </div>
+                <div class="content">
+                    <div style="overflow-x:auto;">
+                        {% if reportdata.data.safes|length %}
+                        <div class="ui list">
+                            {% for v in reportdata.data.safes %}
+                                <div class="item">
+                                    {% if v.tags %}
+                                    <i class="plus circle icon" title="{% trans 'Show tags' %}" id="icon_safe_tags_{{ v.id }}" onclick="switch_report_tags({{ v.id }}, 'safe')" style="cursor:pointer;"></i>
+                                    {% else %}
+                                    <i class="arrow circle right icon"></i>
+                                    {% endif %}
+                                    <div class="content">
+                                        <span {% if v.color %} style="color:{{ v.color }};"{% endif %}>
+                                            {% if v.href %}<a class="{{ v.style }}" href="{{ v.href }}">{{ v.title }}: {{ v.value }}</a>{% endif %}
+                                            {% if v.tags %}
+                                            <div id="detailed_safe_tags_{{ v.id }}" class="ui list" hidden>
+                                            {% for tag_desc in v.tags %}
+                                                <div class="item" style="padding-left: {{ tag_desc.padding }}px;">
+                                                    <i class="tag tiny icon"></i>
+                                                    <div class="content">
+                                                        <span {% if tag_desc.desc != '' %} class="tag-description-popup" data-variation="very wide" data-content="{{ tag_desc.desc }}"{% endif %}>
+                                                            <a class="{{ v.style }}" href="{{ tag_desc.href }}">{{ tag_desc.name }}: {{ tag_desc.number }}</a>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                            </div>
+                                            {% endif %}
+                                        </span>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="column">
+            <h4 class="header ui orange">
+                <a href="{{ reportdata.totals.unknowns.href }}" class="ui orange button fluid big {% if not reportdata.totals.unknowns.number %}disabled{% endif %}" title="{% trans 'Show list' %}">
+                    {% trans 'Unknowns' %}: {{ reportdata.totals.unknowns.number }}
+                </a>
+            </h4>
+            {% if reportdata.data.unknowns|length %}
+            <div class="ui styled accordion">
+                <div class="title">
+                    <i class="dropdown icon"></i>{% trans 'Components' %}
+                </div>
+                <div class="content">
+                    <div style="overflow-x:auto;">
+                        <div class="ui small list">
+                            {% for comp in reportdata.data.unknowns %}
+                                <div class="item">
+                                    <i class="plus circle icon" title="{% trans 'Show problems' %}" id="icon_unknown_tags_{{ comp.component }}" onclick="switch_report_tags('{{ comp.component }}', 'unknown')" style="cursor:pointer;"></i>
+                                    <div class="content">{% for probl in comp.problems %}{% if probl.problem == 'total' %} <a href="{{ probl.href }}" class="orange-link">{{ comp.component }}: {{ probl.num }}</a>{% endif %}{% endfor %}</div>
+                                </div>
+                                <div class="item">
+                                    <div id="detailed_unknown_tags_{{ comp.component }}" class="ui list" hidden>
+                                        {% for probl in comp.problems %}
+                                            {% if probl.problem != 'total' %}
+                                                <div class="item" style="margin-left: 20px;">
+                                                    <i class="tag tiny icon"></i>
+                                                    <div class="content"><a href="{{ probl.href }}" class="orange-link">{{ probl.problem }}: {{ probl.num }}</a></div>
+                                                </div>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+    <div class="ui equal width grid">
+        <div class="column">
+            <h4>
+                {% if coverage %}
+                <a href="{% url 'reports:coverage_light' reportdata.report.id %}" class="ui yellow button fluid" style="color: black">
+                    {% trans 'Coverage' %}:
+                    {% if coverage.union %}
+                        {{coverage.union.0}}% {% trans 'by functions' %} / {{coverage.union.1}}% {% trans 'by lines' %}
+                    {%elif coverage.max%}
+                        {{coverage.max.0}}% {% trans 'by functions' %} / {{coverage.max.1}}% {% trans 'by lines' %}
+                    {%else%}
+                        {{coverage}}
+                    {%endif%}
+                </a>
+                {% elif report and report.covnum %}
+                <a href="{% url 'reports:coverage_light' report.id %}" class="ui yellow button fluid">
+                    {% trans 'Coverage' %}
+                </a>
+                {% else %}
+                <a class="ui yellow button fluid disabled">{% trans 'Coverage' %} {% trans 'was not computed' %}</a>
+                {% endif %}
+            </h4>
+            {% if coverage %}
+            <div class="ui styled accordion fluid">
+                <div class="title">
+                    <i class="dropdown icon"></i>{% trans 'Details' %}
+                </div>
+                <div class="content">
+                    <table class="ui celled compact yellow table selectable striped">
+                        <thead style="background-color:lightgray; text-align: center">
+                            <tr>
+                                <td>{% trans 'Coverage type' %}</td>
+                                <td>{% trans 'Function coverage' %}</td>
+                                <td>{% trans 'Line coverage' %}</td>
+                            </tr>
+                        </thead>
+                        <tbody style="text-align: center">
+                            {% if coverage.max %}
+                            <tr>
+                                <td>
+                                    {% trans 'Maximal potential coverage' %}
+                                </td>
+                                <td style="color: darkblue">{{ coverage.max.0 }}%</td>
+                                <td style="color: darkblue">{{ coverage.max.1 }}%</td>
+                            </tr>
+                            {%endif%}
+                            {% if coverage.intersection %}
+                            <tr>
+                                <td>
+                                    {% trans 'Covered by all properties' %}
+                                </td>
+                                <td style="color: darkblue">{{ coverage.intersection.0 }}%</td>
+                                <td style="color: darkblue">{{ coverage.intersection.1 }}%</td>
+                            </tr>
+                            {%endif%}
+                            {% for identifier, cov_percent  in coverage.items|sort_list %}
+                                {% if not identifier == 'union' and not identifier == 'intersection' and not identifier == 'max'%}
+                                <tr>
+                                    <td>
+                                        {% trans 'Property' %} '{{identifier}}'
+                                    </td>
+                                    <td style="color: darkblue">{{ cov_percent.0 }}%</td>
+                                    <td style="color: darkblue">{{ cov_percent.1 }}%</td>
+                                </tr>
+                                {%endif%}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            {%endif%}
+        </div>
+        <div class="column">
+            {% if reportdata.data.resources|length %}
+            <h4>
+                <a {% if job.id %}href="{% url 'jobs:quantile' job.id %}"{% endif %} class="ui purple button fluid">
+                    {% trans 'Consumed resources' %}:
+                    {% with reportdata.data.resources|last as cur_comp %}
+                        {{ cur_comp.cpu }} / {{ cur_comp.mem }}
+                    {% endwith %}
+                </a>
+            </h4>
+            <div class="ui styled accordion fluid">
+                <div class="title">
+                    <i class="dropdown icon"></i>{% trans 'Details' %}
+                </div>
+                <div class="content">
+                    <table class="ui celled selectable compact purple table striped" id="resource_table_body">
+                        <thead style="background-color:lightgray;" class="center aligned">
+                        <tr>
+                            <td>{% trans 'Component' %}</td>
+                            <td>{% trans 'Instances' %}</td>
+                            <td>{% trans 'CPU time' %}</td>
+                            <td>{% trans 'Memory' %}</td>
+                            <td>{% trans 'Wall time' %}</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {% for res_data in reportdata.data.resources %}
+                                <tr>
+                                    <td>
+                                        {% if reportdata.report.component.name == res_data.component %}
+                                            <div class="purple-title">{% trans 'Overall' %}</div>
+                                        {%else%}
+                                            {{ res_data.component }}
+                                        {%endif%}
+                                    </td>
+                                    <td class="center aligned" style="color: darkblue">{{ res_data.instances }}</td>
+                                    <td class="right aligned" style="color: darkblue"><strong>{{ res_data.cpu }}</strong></td>
+                                    <td class="right aligned" style="color: darkblue">{{ res_data.mem }}</td>
+                                    <td class="center aligned" style="color: darkblue">{{ res_data.wall }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+{% else %}
+<h1 class="ui divider horizontal header">{% trans 'Report is empty' %}</h1>
+{% endif %}

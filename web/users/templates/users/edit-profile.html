@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% comment "License" %}
+% CVV is a continuous verification visualizer.
+% Copyright (c) 2023 ISP RAS (http://www.ispras.ru)
+% Ivannikov Institute for System Programming of the Russian Academy of Sciences
+%
+% Copyright (c) 2018 ISP RAS (http://www.ispras.ru)
+% Ivannikov Institute for System Programming of the Russian Academy of Sciences
+%
+% Licensed under the Apache License, Version 2.0 (the "License");
+% you may not use this file except in compliance with the License.
+% You may obtain a copy of the License at
+%
+%    http://www.apache.org/licenses/LICENSE-2.0
+%
+% Unless required by applicable law or agreed to in writing, software
+% distributed under the License is distributed on an "AS IS" BASIS,
+% WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+% See the License for the specific language governing permissions and
+% limitations under the License.
+{% endcomment %}
+
+{% load i18n %}
+{% load static %}
+{% block title %}{% trans 'Settings' %}{% endblock %}
+
+{% block head_block %}
+    <script src="{% static 'users/js/users.js' %}"></script>
+    <link href="{% static 'users/css/style.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block body_block %}
+    <div class="ui olive segment">
+        <h3 class="ui header">{% trans 'Settings' %}</h3>
+        <form id="user_form" method="post" action="{% url 'users:edit_profile' %}">
+            {% csrf_token %}
+            <div class="ui grid form">
+                <div class="five wide column">
+                    <div class="ui teal segment">
+                        <h4 class="ui header">{% trans 'Profile' %}</h4>
+                        <div class="field required">
+                            <label>{{ user_form.first_name.label }}</label>
+                            {{ user_form.first_name }}
+                            <br>{{ user_form.errors.first_name }}
+                        </div>
+                        <div class="field required">
+                            <label>{{ user_form.last_name.label }}</label>
+                            {{ user_form.last_name }}
+                            <br>{{ user_form.errors.last_name }}
+                        </div>
+                        <div class="field">
+                            <label>{{ user_form.email.label }}</label>
+                            {{ user_form.email }}
+                        </div>
+                        <div class="field">
+                            <label>{{ profile_form.language.label }}</label>
+                            {{ profile_form.language }}
+                        </div>
+                        <div class="field">
+                            <label for="timezone">{% trans 'Time zone' %}</label>
+                            <select id="timezone" class="ui search dropdown" name="timezone">
+                                {% for tmz in timezones %}
+                                    <option value="{{ tmz }}"{% if tmz == user.extended.timezone %} selected="selected"{% endif %}>{{ tmz }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="five wide column">
+                    <div class="ui teal segment">
+                        <h4 class="ui header">{% trans 'Visualization settings' %}</h4>
+                        <div class="field">
+                            <label>{{ profile_form.accuracy.label }}</label>
+                            {{ profile_form.accuracy }}
+                            <br>{{ profile_form.errors.accuracy }}
+                        </div>
+                        <div class="field">
+                            <div class="ui checkbox">
+                                {{ profile_form.triangles }}
+                                <label>{{ profile_form.triangles.label }}<i class="ui help blue icon note-popup" data-content="{% trans 'This setting turns on visualization of error trace closing triangles at the end of each thread.' %}"></i></label>
+                            </div>
+                        </div>
+                        <div class="field" hidden>
+                            <label>{{ profile_form.data_format.label }}<i class="ui help blue icon note-popup" data-content="{% trans 'Most of dates are not updated automatically, so human-readable dates could become outdated until you reload page by hand' %}"></i></label>
+                            {{ profile_form.data_format }}
+                        </div>
+                    </div>
+                </div>
+                <div class="five wide column">
+                    <div class="ui red segment">
+                        <h4 class="ui header">{% trans 'Change password' %}</h4>
+                        <div class="field">
+                            <label>{{ user_form.new_password.label }}</label>
+                            {{ user_form.new_password }}
+                            <br>{{ user_form.errors.new_password }}
+                        </div>
+                        <div class="field">
+                            <label>{{ user_form.retype_password.label }}</label>
+                            {{ user_form.retype_password }}
+                            <br>{{ user_form.errors.retype_password }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="ui divider"></div>
+            <input id="submit_settings" type="submit" class="ui olive button" style="float: right;" name="submit" value="{% trans 'Save' %}">
+            <br><br>
+        </form>
+    </div>
+{% endblock %}

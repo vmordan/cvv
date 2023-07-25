@@ -1,0 +1,90 @@
+{% comment "License" %}
+% CVV is a continuous verification visualizer.
+% Copyright (c) 2023 ISP RAS (http://www.ispras.ru)
+% Ivannikov Institute for System Programming of the Russian Academy of Sciences
+%
+% Copyright (c) 2018 ISP RAS (http://www.ispras.ru)
+% Ivannikov Institute for System Programming of the Russian Academy of Sciences
+%
+% Licensed under the Apache License, Version 2.0 (the "License");
+% you may not use this file except in compliance with the License.
+% You may obtain a copy of the License at
+%
+%    http://www.apache.org/licenses/LICENSE-2.0
+%
+% Unless required by applicable law or agreed to in writing, software
+% distributed under the License is distributed on an "AS IS" BASIS,
+% WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+% See the License for the specific language governing permissions and
+% limitations under the License.
+{% endcomment %}
+
+{% load i18n %}
+
+{% load tz %}
+
+{% if TableData.values|length %}
+    <table class="ui celled striped compact selectable teal table tree alternate-color">
+        <thead>
+            {% for column_row in TableData.header %}
+                <tr>
+                    {% for coldata in column_row %}
+                        <th style="background: #cafdff; text-align: center;" colspan="{{ coldata.columns }}" rowspan="{{ coldata.rows }}">{{ coldata.title }}</th>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </thead>
+        <tbody>
+            {% for row_data in TableData.values %}
+                <tr class="treegrid-{{ row_data.id }}{% if row_data.parent %} treegrid-parent-{{ row_data.parent }}{% endif %}
+                           {% if row_data.children %} children {% endif %}
+                           {% if row_data.double_children %} double {% endif %}
+                           {% if row_data.black %} black {% endif %} "
+                    style="{% if row_data.black %}color: silver;{% endif %} {% if not row_data.children and row_data.parent %}display:none;{% endif %}"
+                    {% if row_data.desc %} title="{{ row_data.desc }}"{% endif %}>
+                <td id="value__{{ row_data.id }}" width="1%">
+                    <div class="ui fitted checkbox">
+                        <input type="checkbox" id="job_checkbox__{{ row_data.id }}">
+                        <label for="job_checkbox__{{ row_data.id }}"></label>
+                    </div>
+                </td>
+                {% for v in row_data.values %}
+                    <td id="value__{{ v.id }}__{{ row_data.id }}" class="collapsing"
+                        {% if 'name__' not in v.id %} style="text-align: center;"
+                        {% else %}
+                            style="
+                            {% if row_data.level == 0 %} font-size: 18px;
+                            {% elif row_data.level == 1 %} font-size: 16px;
+                            {% elif row_data.level == 2 %} font-size: 14px;
+                            {% else %}
+                            {% endif %}
+                            {% if row_data.children %} font-weight: bold
+                            {% endif %}
+                            "
+                        {% endif %}
+
+                        {% if v.hidden %} value="{{ v.hidden }}" {% endif %}>
+                        {% if v.href %}
+                            <a href="{{ v.href }}">{{ v.value }}</a>
+                        {% else %}
+                            <span>{{ v.value|safe }}</span>
+                        {% endif %}
+                    </td>
+                {% endfor %}
+                </tr>
+            {%  endfor %}
+        </tbody>
+    {% if TableData.footer|length %}
+        <tfoot>
+        <tr style="background: #cafdff">
+            <th class="right aligned" colspan="{{ TableData.footer_title_length }}" style="background: #cafdff;">{% trans 'All for checked' %}</th>
+            {% for fc in TableData.footer %}
+                <td id="checked__{{ fc }}" style="text-align: center;">-</td>
+            {% endfor %}
+        </tr>
+        </tfoot>
+    {% endif %}
+    </table>
+{% else %}
+    <h1 class="ui violet header">{% trans 'List of jobs is empty, please populate them or change the view' %}</h1>
+{% endif %}
