@@ -159,6 +159,8 @@ class ParseErrorTrace:
         self.actions = list(data['actions']) if 'actions' in data else []
         self.callback_actions = list(data['callback actions']) if 'callback actions' in data else []
         self.functions = list(data['funcs']) if 'funcs' in data else []
+        # TODO: Add argument in web-interface
+        self.notes_level = 2
         self.type = data.get('type')
         self.include_assumptions = include_assumptions
         self.triangles = triangles
@@ -337,8 +339,16 @@ class ParseErrorTrace:
             self.scope.show_current_scope('warning')
             new_data['warning'] = re.sub(r'\s+', ' ', warn)
         elif note is not None:
-            self.scope.show_current_scope('note')
-            new_data['note'] = re.sub(r'\s+', ' ', note)
+            is_hide = False
+            value = str(note)
+            level = 1
+            if isinstance(note, dict):
+                level = int(note.get("level", level))
+                is_hide = note.get("hide", is_hide)
+                value = note.get("value", value)
+            if not is_hide and level <= self.notes_level:
+                self.scope.show_current_scope('note')
+                new_data['note'] = re.sub(r'\s+', ' ', value)
         elif env is not None:
             self.scope.show_current_scope('env')
             new_data['env'] = re.sub(r'\s+', ' ', env)
