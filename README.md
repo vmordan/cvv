@@ -1,5 +1,7 @@
 # Continuous Verification Visualizer (CVV)
 
+[![Apache 2.0 License](https://img.shields.io/badge/license-Apache--2-brightgreen.svg)](https://www.apache.org/licenses/LICENSE-2.0)
+
 Continuous Verification Visualizer (CVV) is a web-interface for visualization of 
 verification results with support for continuous verification.
 
