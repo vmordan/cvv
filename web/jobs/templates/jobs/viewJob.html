@@ -129,7 +129,7 @@
                     <tr>
                         <td class="ui header center aligned" colspan="2"  style="background: #baedef">
                             {% trans 'Attributes' %}
-                            <button id="apply_attributes" class="ui tiny red button basic "><b><i class="ui icon crosshairs"></i>{% trans 'Apply' %}</b></button>
+                            <button id="apply_attributes" class="ui tiny red button basic "><b><i class="ui icon crosshairs"></i>{% trans 'Filter' %}</b></button>
                             {% if reportdata.attrs %}
                                 <button id="cancel_attributes" class="ui tiny red button basic ">{% trans 'Cancel' %}</button>
                             {% endif %}
@@ -159,10 +159,17 @@
                                     <label>{{ val }}</label>
                                     {% endfor %}
                                 </div>
+                            {% elif vals|length > 256 %}
+                            <!-- Do not show to big lists, since it is inconvenient to view all list -->
+                            <div class="ui checkbox">
+                                <div class="title">
+                                    {{ vals|length }} {% trans 'elements' %}
+                                </div>
+                            </div>
                             {% else %}
                             <div class="ui accordion">
-                                <div class="title"><i class="dropdown icon"></i>{{ vals|length }}
-                                    {% if vals|length == 1 %} {% trans 'element' %} {% else %} {% trans 'elements' %} {% endif %}
+                                <div class="title">
+                                    <i class="dropdown icon"></i>{{ vals|length }} {% trans 'elements' %}
                                 </div>
                                 <div class="content">
                                     {% for val in vals %}
