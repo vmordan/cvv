@@ -63,6 +63,9 @@ def user_signin(request):
         extended_user = Extended.objects.get(user=user)
         if extended_user.role == '4':
             return render(request, 'users/login.html', {'login_errors': _("Cannot login as a service user")})
+        if extended_user.role == '0':
+            return render(request, 'users/login.html', {'login_errors': _("You do not have access to loging. "
+                                                                          "Please contact the administrator.")})
     except ObjectDoesNotExist:
         extend_user(user)
     login(request, user)
