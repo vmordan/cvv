@@ -195,6 +195,10 @@ function get_attrs() {
     );
 }
 
+function compare_job(job_id) {
+    window.location.href = '/reports/comparison/' + $('#job_id').val() + '/' + job_id;
+}
+
 $(document).ready(function () {
     $('.ui.dropdown').dropdown();
     $('#resources-note').popup();

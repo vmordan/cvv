@@ -108,7 +108,8 @@ class JobPage(LoggedCallMixin, Bview.DataViewMixin, DetailView):
             'parents': jobs.utils.get_job_parents(self.request.user, self.object),
             'children': jobs.utils.get_job_children(self.request.user, self.object),
             'reportdata': ViewJobData(self.request.user, self.get_view(VIEW_TYPES[2]), report),
-            'attrs': attrs, 'coverage': coverage
+            'attrs': attrs, 'coverage': coverage,
+            'other_leaves': jobs.utils.get_other_leaves(self.request.user, self.object)
         }
 
 

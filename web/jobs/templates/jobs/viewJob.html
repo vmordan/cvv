@@ -107,7 +107,7 @@
                 <tr><td class="right aligned">{% trans 'Description' %}</td><td><span style="white-space: pre-wrap;">{{ last_version.description|safe }}</span></td></tr>
                 {% endif %}
                 <tr id="tr_before_progress">
-                    <td class="right aligned">{% trans 'Last change' %}</td>
+                    <td width="30%" class="right aligned">{% trans 'Last change' %}</td>
                     <td>
                         {% if user.extended.data_format == 'hum' %}{{ last_version.change_date|naturaltime }}{% else %}{{ last_version.change_date }}{% endif %}
                         {% if last_version.change_author %}
@@ -125,9 +125,22 @@
                         {% endif %}
                     </td>
                 </tr>
+                {% if other_leaves %}
+                <tr>
+                    <td class="ui right aligned">{% trans 'Compare with' %}</td>
+                    <td>
+                        <select id="compared_jobs" class="ui dropdown" onchange="compare_job(this.value)">
+                            <option value="" selected disabled hidden>{% trans 'Select job' %}</option>
+                            {% for leaf in other_leaves %}
+                                <option value="{{ leaf.pk }}">{{ leaf.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+                {% endif %}
                 {% if attrs %}
                     <tr>
-                        <td class="ui header center aligned" colspan="2"  style="background: #baedef">
+                        <td class="ui header center aligned" colspan="2" style="background: #baedef">
                             {% trans 'Attributes' %}
                             <button id="apply_attributes" class="ui tiny red button basic "><b><i class="ui icon crosshairs"></i>{% trans 'Filter' %}</b></button>
                             {% if reportdata.attrs %}

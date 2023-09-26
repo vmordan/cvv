@@ -161,6 +161,17 @@ def get_job_parents(user, job):
     return parents
 
 
+def get_other_leaves(user, job):
+    leaves = []
+    job_parent = job.parent
+    if not job_parent:
+        return leaves
+    for child in job_parent.children.order_by('-id'):
+        if JobAccess(user, child).can_view() and child.pk != job.pk:
+            leaves.append({'pk': child.pk, 'name': child.name})
+    return leaves
+
+
 def get_job_children(user, job):
     children = []
     for child in job.children.order_by('-id'):
