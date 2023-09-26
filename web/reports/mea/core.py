@@ -77,7 +77,6 @@ ASSIGN_MARK = " = "
 DEFAULT_NOTES_LEVEL = 1
 DEFAULT_SIMILARITY_THRESHOLD = 100  # in % (all threads are equal)
 DEFAULT_PROPERTY_CHECKS_TEXT = "property check description"
-IGNORED_FUNCTION_NAMES_BY_PREFIX = ["cif_"]
 
 
 def convert_error_trace(error_trace: dict, conversion_function: str, args: dict = dict) -> list:
@@ -152,9 +151,6 @@ def __convert_call_tree_filter(error_trace: dict, args: dict = None) -> list:
     double_funcs = {}
 
     def process_names(function_name: str) -> str:
-        for ignored_prefix in IGNORED_FUNCTION_NAMES_BY_PREFIX:
-            if ignored_prefix in function_name:
-                return ""
         # Remove id for generated names
         function_name = re.sub(r"_(\d+)$", "", function_name)
         return function_name
