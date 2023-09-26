@@ -531,13 +531,13 @@ class JobsComparison:
         self.unused_attrs_names = dict()
 
         # MEA.
-        self.enable_clustering = False
+        self.enable_clustering = True
         self.conversion_functions = CONVERSION_FUNCTIONS
         self.comparison_functions = COMPARISON_FUNCTIONS
         self.similarity = DEFAULT_SIMILARITY_THRESHOLD
         self.conversion_function = DEFAULT_CONVERSION_FUNCTION
         self.comparison_function = DEFAULT_COMPARISON_FUNCTION
-        self.clustering_type = CLUSTERING_TYPE_ALL
+        self.clustering_type = CLUSTERING_TYPE_DIFF_CLUSTERS
 
         # Problems (Unknowns).
         self.show_problems = False
