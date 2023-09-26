@@ -31,7 +31,7 @@ from pycparser import c_parser, c_generator, c_ast
 from sympy import sympify, symbols
 from sympy.logic import boolalg
 
-TAB_LENGTH = 4
+TAB_LENGTH = 2
 MAX_CODE_LINE = 256
 SOURCE_CLASSES = {
     'comment': "ETVComment",
