@@ -77,6 +77,7 @@ ASSIGN_MARK = " = "
 DEFAULT_NOTES_LEVEL = 1
 DEFAULT_SIMILARITY_THRESHOLD = 100  # in % (all threads are equal)
 DEFAULT_PROPERTY_CHECKS_TEXT = "property check description"
+IGNORED_FUNCTION_NAMES_BY_PREFIX = ["cif_"]
 
 
 def convert_error_trace(error_trace: dict, conversion_function: str, args: dict = dict) -> list:
@@ -149,13 +150,24 @@ def __convert_call_tree_filter(error_trace: dict, args: dict = None) -> list:
     counter = 0
     # TODO: check this in core (one node for call and return edges).
     double_funcs = {}
+
+    def process_names(function_name: str) -> str:
+        for ignored_prefix in IGNORED_FUNCTION_NAMES_BY_PREFIX:
+            if ignored_prefix in function_name:
+                return ""
+        # Remove id for generated names
+        function_name = re.sub(r"_(\d+)$", "", function_name)
+        return function_name
+
     for edge in error_trace['edges']:
         if 'env' in edge:
             continue
         if 'enter' in edge and 'return' in edge:
             double_funcs[edge['enter']] = edge['return']
         if 'enter' in edge:
-            function_call = error_trace['funcs'][edge['enter']]
+            function_call = process_names(error_trace['funcs'][edge['enter']])
+            if not function_call:
+                continue
             converted_error_trace.append({
                 CET_OP: CET_OP_CALL,
                 CET_THREAD: edge['thread'],
@@ -165,7 +177,9 @@ def __convert_call_tree_filter(error_trace: dict, args: dict = None) -> list:
                 CET_ID: counter
             })
         elif 'return' in edge:
-            function_return = error_trace['funcs'][edge['return']]
+            function_return = process_names(error_trace['funcs'][edge['return']])
+            if not function_return:
+                continue
             converted_error_trace.append({
                 CET_OP: CET_OP_RETURN,
                 CET_THREAD: edge['thread'],
