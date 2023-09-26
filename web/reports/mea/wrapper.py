@@ -55,6 +55,7 @@ FUNCTION_CALL_SEPARATOR = " "
 CET_END = "__ERROR__"
 
 DEBUG_ERROR_TRACE_COMPARISON = False
+DISABLE_CACHE = False  # Use this flag for debugging MEA filters
 
 
 def process_args(args: dict, as_str=False):
@@ -99,19 +100,25 @@ def get_or_convert_error_trace(unsafe, conversion_function: str, args: dict) -> 
     process_args(args)
     args_str = json.dumps(args, sort_keys=True)
 
-    try:
-        with ErrorTraceConvertionCache.objects.filter(
-                unsafe=report_unsafe, function=conversion_function, args=args_str).last().converted.file as fp:
-            converted_error_trace = fp.read().decode('utf8')
-    except:
-        if DEBUG_ERROR_TRACE_COMPARISON:
-            print("No cache for {}, {}, {}".format(report_unsafe, conversion_function, args_str))
+    def apply_new_conversion_function() -> list:
         parsed_trace = json.loads(
             ArchiveFileContent(report_unsafe, 'error_trace', ERROR_TRACE_FILE).content.decode('utf8'))
-        converted_error_trace = convert_error_trace(parsed_trace, conversion_function, args)
-        et_file = dump_converted_error_trace(converted_error_trace)
-        ErrorTraceConvertionCache.objects.create(unsafe=report_unsafe, function=conversion_function, converted=et_file,
-                                                 args=args_str)
+        return convert_error_trace(parsed_trace, conversion_function, args)
+
+    if not DISABLE_CACHE:
+        try:
+            with ErrorTraceConvertionCache.objects.filter(
+                    unsafe=report_unsafe, function=conversion_function, args=args_str).last().converted.file as fp:
+                converted_error_trace = fp.read().decode('utf8')
+        except:
+            if DEBUG_ERROR_TRACE_COMPARISON:
+                print("No cache for {}, {}, {}".format(report_unsafe, conversion_function, args_str))
+            converted_error_trace = apply_new_conversion_function()
+            et_file = dump_converted_error_trace(converted_error_trace)
+            ErrorTraceConvertionCache.objects.create(unsafe=report_unsafe, function=conversion_function, converted=et_file,
+                                                     args=args_str)
+    else:
+        converted_error_trace = apply_new_conversion_function()
     return converted_error_trace
 
 
@@ -169,20 +176,27 @@ def get_or_convert_error_trace_auto(unsafe_id: int, conversion_function: str, ar
         args = {}
     process_args(args)
     args_str = json.dumps(args, sort_keys=True)
+    report_unsafe = ReportUnsafe.objects.get(id=unsafe_id)
 
-    try:
-        with ErrorTraceConvertionCache.objects.filter(
-                unsafe__id=unsafe_id, function=conversion_function, args=args_str).last().converted.file as fp:
-            converted_error_trace = fp.read().decode('utf8')
-    except:
-        report_unsafe = ReportUnsafe.objects.get(id=unsafe_id)
+    def convert_error_trace_auto():
         parsed_trace = json.loads(
             ArchiveFileContent(report_unsafe, 'error_trace', ERROR_TRACE_FILE).content.decode('utf8'))
-        converted_error_trace = convert_error_trace(parsed_trace, conversion_function, args)
-        et_file = dump_converted_error_trace(converted_error_trace)
+        return convert_error_trace(parsed_trace, conversion_function, args)
+
+    if not DISABLE_CACHE:
+        try:
+            with ErrorTraceConvertionCache.objects.filter(
+                    unsafe=report_unsafe, function=conversion_function, args=args_str).last().converted.file as fp:
+                converted_error_trace = fp.read().decode('utf8')
+        except:
+            converted_error_trace = convert_error_trace_auto()
+            et_file = dump_converted_error_trace(converted_error_trace)
+            converted_error_trace = json.dumps(converted_error_trace)
+            ErrorTraceConvertionCache.objects.create(unsafe=report_unsafe, function=conversion_function,
+                                                     converted=et_file, args=args_str)
+    else:
+        converted_error_trace = convert_error_trace_auto()
         converted_error_trace = json.dumps(converted_error_trace)
-        ErrorTraceConvertionCache.objects.create(unsafe=report_unsafe, function=conversion_function, converted=et_file,
-                                                 args=args_str)
     return converted_error_trace
 
 
