@@ -86,19 +86,31 @@ class ViewJobData:
 
     def __get_config(self) -> dict:
         res = dict()
+        SETPROP = "setprop"
+        OTHER_OPTS = "default"
         for name, val in VerifierConfig.objects.filter(report=self.report).values_list('name', 'value'):
             if name == "Options":
-                options = list()
-                for i, op in enumerate(val.split(" -")):
-                    op = str(op).strip()
-                    if i:
-                        op = "-" + op
-                    full_op = None
-                    if len(op) > MAX_OPTION_LEN:
-                        full_op = op
-                        op = op[:MAX_OPTION_LEN] + "..."
-                    options.append((op, full_op))
-                res[name] = sorted(options)
+                filtered_opts = []
+                other_opts = []
+                res[name] = {}
+
+                for opt in val.split(" -"):
+                    opt = str(opt).strip()
+                    if opt.startswith("-"):
+                        opt = opt[1:]
+                    if opt.startswith(SETPROP):
+                        opt = opt[len(SETPROP):].strip()
+                        filtered_opts.append(opt)
+                    else:
+                        other_opts.append(opt)
+
+                def proc_opts(opts: list, tag_name: str):
+                    opts = sorted(opts)
+                    if opts:
+                        res[name][tag_name] = opts
+
+                proc_opts(filtered_opts, SETPROP)
+                proc_opts(other_opts, OTHER_OPTS)
             else:
                 res[name] = val
         return res

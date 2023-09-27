@@ -222,16 +222,9 @@
                         <td class="right aligned">{{ name }}</td>
                         <td>
                             {% if name == "Options" %}
-                                <div class="ui accordion">
-                                    <div class="title"><i class="dropdown icon"></i>{% trans 'Show' %}</div>
-                                    <div class="content">
-                                        <ul class="ui list">
-                                        {% for op in val %}
-                                            <li class="content" {%if op.1%}title="{{op.1}}{%endif%}">{{op.0}}</li>
-                                        {% endfor %}
-                                        </ul>
-                                    </div>
-                                </div>
+                                <a class="blue-link" style="cursor:pointer;" onclick="show_options()">
+                                    {% trans 'Show' %}
+                                </a>
                             {% else %}
                                 {{val}}
                             {% endif %}
@@ -391,6 +384,42 @@
             <button id="upload_reports_cancel" type="button" class="ui blue button">{% trans 'Cancel' %}</button>
         </div>
     </div>
+{% endif %}
+
+{% if reportdata.config %}
+<div id="show_options" class="ui dinamic modal fullscreen">
+    <div class="ui header">{% trans 'Verifier options' %}</div>
+    <div class="scrolling content">
+        {% for name, val in reportdata.config.items|sort_list %}
+            {% if name == "Options" %}
+            <ul class="ui list">
+            {% for op_type, opts in val.items|sort_list %}
+                {% if op_type == "setprop" %}
+                <li value="*" class="content">{% trans 'CPAchecker setprop' %}:
+                    <ul class="ui list">
+                        {% for opt in opts %}
+                        <li value="-" class="content"><code>{{ opt }}</code></li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                {% else %}
+                    {% for opt in opts %}
+                    <li value="*" class="content"><code>{{ opt }}</code></li>
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+            </ul>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div class="actions">
+        <div class="ui grid">
+            <div class="eight wide column right aligned">
+                <button id="close_show_options" type="button" class="ui blue button small">{% trans 'Close' %}</button>
+            </div>
+        </div>
+    </div>
+</div>
 {% endif %}
 
 <span id="stop_autorefresh" hidden>{% trans 'Stop page autorefresh' %}</span>
