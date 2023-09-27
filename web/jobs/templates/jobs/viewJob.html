@@ -115,6 +115,7 @@
                         {% endif %}
                     </td>
                 </tr>
+                {% if not job.get_status_display == "Solved" %}
                 <tr id="job_status_popup_activator">
                     <td class="right aligned">{% trans 'Status' %}</td>
                     <td>
@@ -125,6 +126,15 @@
                         {% endif %}
                     </td>
                 </tr>
+                {% endif %}
+                {% if reportdata.report %}
+                <tr>
+                    <td class="right aligned">{% trans 'Components tree' %}</td>
+                    <td>
+                        <a class="blue-link" href="{% url 'reports:component' reportdata.report.id %}">{% trans 'Show' %}</a>
+                    </td>
+                </tr>
+                {% endif %}
                 {% if other_leaves %}
                 <tr>
                     <td class="ui right aligned">{% trans 'Compare with' %}</td>
