@@ -203,6 +203,21 @@ function show_options() {
     $('#show_options').modal('show');
 }
 
+function switch_attributes(attribute_name) {
+    attrs_id = "attributes_switch_" + attribute_name;
+    attrs_element = document.getElementById(attrs_id);
+    if (!attrs_element) {
+        return;
+    }
+    if (attrs_element.hidden) {
+        attrs_element.hidden = false;
+        // icon_element.className = "minus circle icon";
+    } else {
+        attrs_element.hidden = true;
+        // icon_element.className = "plus circle icon";
+    }
+}
+
 $(document).ready(function () {
     $('.ui.dropdown').dropdown();
     $('#resources-note').popup();

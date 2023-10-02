@@ -119,11 +119,7 @@
                 <tr id="job_status_popup_activator">
                     <td class="right aligned">{% trans 'Status' %}</td>
                     <td>
-                        {% if reportdata.report %}
-                            <a class="blue-link" href="{% url 'reports:component' reportdata.report.id %}">{{ job.get_status_display }} ({% trans 'components tree' %})</a>
-                        {% else %}
-                            <span>{{ job.get_status_display }}</span>
-                        {% endif %}
+                        <span>{{ job.get_status_display }}</span>
                     </td>
                 </tr>
                 {% endif %}
@@ -182,20 +178,17 @@
                                     <label>{{ val }}</label>
                                     {% endfor %}
                                 </div>
-                            {% elif vals|length > 256 %}
-                            <!-- Do not show to big lists, since it is inconvenient to view all list -->
-                            <div class="ui checkbox">
-                                <div class="title">
-                                    {{ vals|length }} {% trans 'elements' %}
-                                </div>
+                            {% elif vals|length > 1024 %}
+                            <!-- Do not show too big lists -->
+                            <div class="title">
+                                {{ vals|length }} {% trans 'elements' %}
                             </div>
                             {% else %}
-                            <div class="ui accordion">
-                                <div class="title">
+                                <div class="title" title="{% trans 'Show attributes' %}" onclick="switch_attributes('{{name}}')" style="cursor:pointer;">
                                     <i class="dropdown icon"></i>{{ vals|length }} {% trans 'elements' %}
                                 </div>
-                                <div class="content">
-                                    {% for val in vals %}
+                                <div id="attributes_switch_{{name}}" class="content" hidden>
+                                    {% for val in vals|sort_list %}
                                     <div class="ui checkbox">
                                         <input type="checkbox" id="attr_{{ name }}_{{ val }}" value="{{val}}"
                                         {% if name in reportdata.attrs %}
@@ -215,7 +208,6 @@
                                     <br>
                                     {% endfor %}
                                 </div>
-                            </div>
                             {% endif %}
                         </td>
                     </tr>
