@@ -735,8 +735,8 @@ $(document).ready(function () {
 });
 
 function switch_report_tags(identifier, report_type) {
-    target_id = "detailed_" + report_type + "_tags_" + identifier
-    icon_id = "icon_" + report_type + "_tags_" + identifier
+    target_id = "detailed_" + report_type + "_tags_" + identifier;
+    icon_id = "icon_" + report_type + "_tags_" + identifier;
     tags_element = document.getElementById(target_id);
     icon_element = document.getElementById(icon_id);
     if (!tags_element) {
