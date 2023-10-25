@@ -53,6 +53,8 @@ urlpatterns = [
 
     # Reports comparison
     path('comparison/<int:job1_id>/<int:job2_id>/', views.ReportsComparisonView.as_view(), name='comparison'),
+    path('comparison/<int:job_id>/', views.ReportsComparisonNodeView.as_view(), name='comparison'),
+    path('comparison-data/<int:pk>/', views.ReportsComparisonNodeDataView.as_view()),
 
     # Coverage
     path('coverage/<int:report_id>/', views.CoverageView.as_view(), name='coverage'),

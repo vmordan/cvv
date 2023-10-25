@@ -21,6 +21,7 @@
 
 import argparse
 import getpass
+import json
 import logging
 import os
 import re
@@ -87,13 +88,6 @@ class Session:
         return host
 
     def __request(self, path_url, data=None, **kwargs):
-        sleep_time = self._args.sleep
-        if sleep_time:
-            try:
-                sleep_time = float(sleep_time)
-                time.sleep(sleep_time)
-            except ValueError as e:
-                print("Cannot sleep {}s in request due to '{}'".format(sleep_time, e))
         url = self._host + path_url
         method = 'POST' if data else 'GET'
 
@@ -171,6 +165,11 @@ class Session:
 
     def job_progress(self, job, filename):
         resp = self.__request('/jobs/get_job_progress_json/{0}/'.format(self.__get_job_id(job)))
+        with open(filename, mode='w', encoding='utf8') as fp:
+            fp.write(resp.json()['data'])
+
+    def get_comparison_data(self, job, filename):
+        resp = self.__request('/reports/comparison-data/{0}/'.format(self.__get_job_id(job)))
         with open(filename, mode='w', encoding='utf8') as fp:
             fp.write(resp.json()['data'])
 

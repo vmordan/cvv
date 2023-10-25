@@ -97,28 +97,11 @@ function check_jobs_access(jobs) {
     return status;
 }
 
-function compare_reports_old() {
-    var sel_jobs = [];
-    $('input[id^="job_checkbox__"]:checked').each(function () {
-        sel_jobs.push($(this).attr('id').replace('job_checkbox__', ''));
-    });
-    if (sel_jobs.length !== 2) {
-        err_notify($('#error__no_jobs_to_compare').text());
-        return false;
-    }
+function compare_reports_node() {
+    var job_id = $('#job_id').val()
     $('#dimmer_of_page').addClass('active');
-    $.post('/jobs/check_compare_access/', {job1: sel_jobs[0], job2: sel_jobs[1]}, function (data) {
-        if (data.error) {
-            $('#dimmer_of_page').removeClass('active');
-            err_notify(data.error);
-        }
-        else {
-            $.post('/reports/fill_compare_cache/' + sel_jobs[0] + '/' + sel_jobs[1] + '/', {}, function (data) {
-                $('#dimmer_of_page').removeClass('active');
-                data.error ? err_notify(data.error) : window.location.href = '/reports/comparison_old/' + sel_jobs[0] + '/' + sel_jobs[1] + '/';
-            }, 'json');
-        }
-    }, 'json');
+    var basic_url = '/reports/comparison/' + job_id + '/';
+    window.location.replace(basic_url);
 }
 
 function compare_reports() {
@@ -139,18 +122,6 @@ function compare_reports() {
         window.location.replace(basic_url);
     else
         window.location.replace(get_url_with_get_parameter(basic_url, 'jobs', JSON.stringify(sel_jobs)));
-}
-
-function compare_files() {
-    var selected_jobs = [];
-    $('input[id^="job_checkbox__"]:checked').each(function () {
-        selected_jobs.push($(this).attr('id').replace('job_checkbox__', ''));
-    });
-    if (selected_jobs.length !== 2) {
-        err_notify($('#error__no_jobs_to_compare').text());
-        return false;
-    }
-    window.location.href = '/jobs/comparison/' + selected_jobs[0] + '/' + selected_jobs[1] + '/';
 }
 
 $(document).ready(function () {
@@ -235,5 +206,5 @@ $(document).ready(function () {
     });
 
     $('#compare_reports_btn').click(compare_reports);
-    $('#compare_files_btn').click(compare_files);
+    $('#compare_reports_node_btn').click(compare_reports_node);
 });
