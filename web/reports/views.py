@@ -53,7 +53,7 @@ from service.models import Task
 from tools.profiling import LoggedCallMixin
 from web.utils import logger, ArchiveFileContent, BridgeException, BridgeErrorResponse
 from web.vars import JOB_STATUS, VIEW_TYPES, LOG_FILE, PROBLEM_DESC_FILE
-
+from jobs.utils import get_job_children
 
 # These filters are used for visualization component specific data. They should not be used for any other purposes.
 @register.filter
@@ -635,36 +635,101 @@ class UnsafeUploadView(LoggedCallMixin, Bview.JsonDetailPostView):
         return {}
 
 
+def _get_root_report_by_job(job_id):
+    try:
+        return ReportRoot.objects.get(job_id=job_id)
+    except ObjectDoesNotExist:
+        raise BridgeException(f"Job with id {job_id} does not exist")
+
+
+def _get_comparison_data_for_node(job_id, user, get_request, jobs_tree) -> JobsComparison:
+    try:
+        root_job = Job.objects.get(pk=job_id)
+    except ObjectDoesNotExist:
+        raise BridgeException(f"Job with id {job_id} does not exist")
+    args, other_jobs = _process_comparison_get_request(get_request)
+    for child in get_job_children(user, root_job):
+        child_id = child['pk']
+        other_jobs.append(child_id)
+    if len(other_jobs) < 2:
+        raise BridgeException(f"Job node {job_id} is invalid. It should contains at least 2 children")
+    root1 = _get_root_report_by_job(job_id=other_jobs[0])
+    root2 = _get_root_report_by_job(job_id=other_jobs[1])
+    return JobsComparison([root1, root2], args, other_jobs, jobs_tree)
+
+
+def _create_jobs_tree(user, view):
+    tree = TableTree(user, view)
+    jobs_tree = list()
+    for job in tree.values:
+        jobs_tree.append(
+            {
+                'id': job['id'],
+                'level': 10 * job['level'],
+                'name': job['values'][0]['value'],
+                'parent': job['parent'],
+                'children': job['children'],
+                'double_children': job['double_children']
+            }
+        )
+    return jobs_tree
+
+
+def _process_comparison_get_request(get_request):
+    if get_request:
+        args = json.loads(get_request.get('data', '{}'))
+        other_jobs = json.loads(get_request.get('jobs', '[]'))
+    else:
+        args = {}
+        other_jobs = []
+    return args, other_jobs
+
+
 @method_decorator(login_required, name='dispatch')
 class ReportsComparisonView(LoggedCallMixin, TemplateView, Bview.DataViewMixin):
     template_name = 'reports/comparison/two_reports.html'
 
     def get_context_data(self, **kwargs):
-        try:
-            root1 = ReportRoot.objects.get(job_id=self.kwargs['job1_id'])
-            root2 = ReportRoot.objects.get(job_id=self.kwargs['job2_id'])
-        except ObjectDoesNotExist:
-            raise BridgeException(code=406)
-        if self.request.GET:
-            args = json.loads(self.request.GET.get('data', '{}'))
-            other_jobs = json.loads(self.request.GET.get('jobs', '[]'))
-        else:
-            args = {}
-            other_jobs = []
-        tree = TableTree(self.request.user, self.get_view(VIEW_TYPES[1]))
-        jobs_tree = list()
-        for job in tree.values:
-            jobs_tree.append(
-                {
-                    'id': job['id'],
-                    'level': 10 * job['level'],
-                    'name': job['values'][0]['value'],
-                    'parent': job['parent'],
-                    'children': job['children'],
-                    'double_children': job['double_children']
-                }
-            )
+        root1 = _get_root_report_by_job(job_id=self.kwargs['job1_id'])
+        root2 = _get_root_report_by_job(job_id=self.kwargs['job2_id'])
+        args, other_jobs = _process_comparison_get_request(self.request.GET)
+        jobs_tree = _create_jobs_tree(self.request.user, self.get_view(VIEW_TYPES[1]))
         return {'data': JobsComparison([root1, root2], args, other_jobs, jobs_tree)}
+
+
+@method_decorator(login_required, name='dispatch')
+class ReportsComparisonNodeView(LoggedCallMixin, TemplateView, Bview.DataViewMixin):
+    template_name = 'reports/comparison/two_reports.html'
+
+    def get_context_data(self, **kwargs):
+        jobs_tree = _create_jobs_tree(self.request.user, self.get_view(VIEW_TYPES[1]))
+        cmp_data = _get_comparison_data_for_node(self.kwargs['job_id'], self.request.user, self.request.GET, jobs_tree)
+        return {'data': cmp_data}
+
+
+@method_decorator(login_required, name='dispatch')
+class ReportsComparisonNodeDataView(LoggedCallMixin, Bview.JsonDetailView):
+    model = Job
+
+    def get_context_data(self, **kwargs):
+        cmp = _get_comparison_data_for_node(self.kwargs['pk'], self.request.user, self.request.GET, []).comparison
+        results = {
+            "job_id": cmp[0]["job"].id,
+            "compared_job_id": cmp[1]["job"].id,
+            "safes": cmp[0]["safes_len"],
+            "unsafes": cmp[0]["clusters_len"],
+            "unsafes_marked": cmp[0]["cluster_marks"],
+            "unknowns": cmp[0]["unknowns_len"],
+            "new_traces": cmp[1]["clusters_ama_new"],
+            "new_traces_marked": cmp[1]["clusters_am_new"],
+            "missing_trace": cmp[1]["clusters_ama_lost"],
+            "missing_trace_marked": cmp[1]["clusters_am_lost"],
+            "cpu_time": cmp[0]["overall_cpu"],
+            "wall_time": cmp[0]["overall_wall"],
+            "average_speedup": cmp[1]["average_speedup"],
+            "overall_speedup": cmp[1]["overall_speedup"]
+        }
+        return {'data': json.dumps(results)}
 
 
 @method_decorator(login_required, name='dispatch')

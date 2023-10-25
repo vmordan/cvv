@@ -121,7 +121,7 @@ class JobsComparison:
                 other_jobs = list()
         if other_jobs:
             self.job_ids = list()
-            for job_id, job_name in Job.objects.filter(id__in=other_jobs).values_list('id', 'name'):
+            for job_id, job_name in Job.objects.filter(id__in=other_jobs).order_by('-id').values_list('id', 'name'):
                 self.job_ids.append((job_id, job_name))
                 self.potential_jobs.add(job_id)
 
