@@ -40,7 +40,7 @@ import web.CustomViews as Bview
 from jobs.JobTableProperties import TableTree
 from jobs.ViewJobData import ViewJobData
 from jobs.models import Job
-from jobs.utils import JobAccess
+from jobs.utils import JobAccess, get_job_children
 from marks.tables import ReportMarkTable
 from reports.UploadReport import UploadReport
 from reports.comparison import JobsComparison
@@ -48,12 +48,13 @@ from reports.coverage import GetCoverage, GetCoverageSrcHTML
 from reports.etv import GetSource, GetETV
 from reports.models import ReportRoot, Report, ReportComponent, ReportSafe, ReportUnknown, ReportUnsafe, \
     AttrName, ReportAttr, CoverageArchive
-from reports.utils import get_edited_error_trace, get_error_trace_content, modify_error_trace, get_html_error_trace
+from reports.utils import get_edited_error_trace, get_error_trace_content, modify_error_trace, get_html_error_trace, \
+    get_root_report_by_job
 from service.models import Task
 from tools.profiling import LoggedCallMixin
 from web.utils import logger, ArchiveFileContent, BridgeException, BridgeErrorResponse
 from web.vars import JOB_STATUS, VIEW_TYPES, LOG_FILE, PROBLEM_DESC_FILE
-from jobs.utils import get_job_children
+
 
 # These filters are used for visualization component specific data. They should not be used for any other purposes.
 @register.filter
@@ -635,13 +636,6 @@ class UnsafeUploadView(LoggedCallMixin, Bview.JsonDetailPostView):
         return {}
 
 
-def _get_root_report_by_job(job_id):
-    try:
-        return ReportRoot.objects.get(job_id=job_id)
-    except ObjectDoesNotExist:
-        raise BridgeException(f"Job with id {job_id} does not exist")
-
-
 def _get_comparison_data_for_node(job_id, user, get_request, jobs_tree) -> JobsComparison:
     try:
         root_job = Job.objects.get(pk=job_id)
@@ -653,8 +647,8 @@ def _get_comparison_data_for_node(job_id, user, get_request, jobs_tree) -> JobsC
         other_jobs.append(child_id)
     if len(other_jobs) < 2:
         raise BridgeException(f"Job node {job_id} is invalid. It should contains at least 2 children")
-    root1 = _get_root_report_by_job(job_id=other_jobs[0])
-    root2 = _get_root_report_by_job(job_id=other_jobs[1])
+    root1 = get_root_report_by_job(job_id=other_jobs[1])
+    root2 = get_root_report_by_job(job_id=other_jobs[0])
     return JobsComparison([root1, root2], args, other_jobs, jobs_tree)
 
 
@@ -690,8 +684,8 @@ class ReportsComparisonView(LoggedCallMixin, TemplateView, Bview.DataViewMixin):
     template_name = 'reports/comparison/two_reports.html'
 
     def get_context_data(self, **kwargs):
-        root1 = _get_root_report_by_job(job_id=self.kwargs['job1_id'])
-        root2 = _get_root_report_by_job(job_id=self.kwargs['job2_id'])
+        root1 = get_root_report_by_job(job_id=self.kwargs['job1_id'])
+        root2 = get_root_report_by_job(job_id=self.kwargs['job2_id'])
         args, other_jobs = _process_comparison_get_request(self.request.GET)
         jobs_tree = _create_jobs_tree(self.request.user, self.get_view(VIEW_TYPES[1]))
         return {'data': JobsComparison([root1, root2], args, other_jobs, jobs_tree)}
@@ -713,19 +707,25 @@ class ReportsComparisonNodeDataView(LoggedCallMixin, Bview.JsonDetailView):
 
     def get_context_data(self, **kwargs):
         cmp = _get_comparison_data_for_node(self.kwargs['pk'], self.request.user, self.request.GET, []).comparison
+        job_id_1 = cmp[0]["job"].id
+        job_id_2 = cmp[1]["job"].id
+        root_report_1 = ReportComponent.objects.filter(root__job__id=job_id_1, parent=None).first()
+        root_report_2 = ReportComponent.objects.filter(root__job__id=job_id_2, parent=None).first()
         results = {
-            "job_id": cmp[0]["job"].id,
-            "compared_job_id": cmp[1]["job"].id,
-            "safes": cmp[0]["safes_len"],
-            "unsafes": cmp[0]["clusters_len"],
-            "unsafes_marked": cmp[0]["cluster_marks"],
-            "unknowns": cmp[0]["unknowns_len"],
-            "new_traces": cmp[1]["clusters_ama_new"],
+            "job_id": job_id_2,
+            "compared_job_id": job_id_1,
+            "root_report": root_report_2.id,
+            "compared_root_report": root_report_1.id,
+            "safes": cmp[1]["safes_len"],
+            "unsafes": cmp[1]["clusters_len"],
+            "unsafes_marked": cmp[1]["cluster_marks"],
+            "unknowns": cmp[1]["unknowns_len"],
+            "new_traces": cmp[1]["clusters_new"],
             "new_traces_marked": cmp[1]["clusters_am_new"],
-            "missing_trace": cmp[1]["clusters_ama_lost"],
+            "missing_trace": cmp[1]["clusters_lost"],
             "missing_trace_marked": cmp[1]["clusters_am_lost"],
-            "cpu_time": cmp[0]["overall_cpu"],
-            "wall_time": cmp[0]["overall_wall"],
+            "cpu_time": cmp[1]["overall_cpu"],
+            "wall_time": cmp[1]["overall_wall"],
             "average_speedup": cmp[1]["average_speedup"],
             "overall_speedup": cmp[1]["overall_speedup"]
         }

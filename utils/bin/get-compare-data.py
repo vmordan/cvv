@@ -22,9 +22,24 @@ from utils.utils import get_args_parser, Session
 parser = get_args_parser('Upload comparison data for 2 last children of a given node.')
 parser.add_argument('job',
                     help='Node job identifier or its name (note, it must have at least 2 children for comparison)')
-parser.add_argument('-o', '--out', help='File name, in which comparison data json will be saved', required=True)
+parser.add_argument('-o', '--out', help='File name, in which comparison data json will be saved')
 args = parser.parse_args()
 
 with Session(args) as session:
     job_id_or_name = args.job
-    job_id = session.get_comparison_data(job_id_or_name, args.out)
+    data = session.get_comparison_data(job_id_or_name, args.out)
+    new_traces_without_marks = int(data['new_traces']) - int(data['new_traces_marked'])
+    missing_traces_without_marks = int(data['missing_trace']) - int(data['missing_trace_marked'])
+    all_traces_without_marks = int(data['unsafes']) - int(data['unsafes_marked'])
+    mes = f"### Statistics\n" \
+          f" - New issues: {data['new_traces']}, without review: {new_traces_without_marks} " \
+          f"({args.host}/reports/component/{data['root_report']}/unsafes/?cmp={data['compared_job_id']})\n" \
+          f" - Missing issues: {data['missing_trace']}, without review: {missing_traces_without_marks} " \
+          f"({args.host}/reports/component/{data['compared_root_report']}/unsafes/?cmp={data['job_id']})\n" \
+          f" - Total issues: {data['unsafes']}, without review: {all_traces_without_marks} " \
+          f"({args.host}/reports/component/{data['root_report']}/unsafes/)\n\n" \
+          f"### Links\n" \
+          f" - Link to the new results: {args.host}/jobs/{data['job_id']}\n" \
+          f" - Link to the previous results: {args.host}/jobs/{data['compared_job_id']}\n" \
+          f" - Link to the comparison with previous results: {args.host}/reports/comparison/{job_id_or_name}"
+    print(mes)

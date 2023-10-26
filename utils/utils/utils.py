@@ -170,8 +170,11 @@ class Session:
 
     def get_comparison_data(self, job, filename):
         resp = self.__request('/reports/comparison-data/{0}/'.format(self.__get_job_id(job)))
-        with open(filename, mode='w', encoding='utf8') as fp:
-            fp.write(resp.json()['data'])
+        data = resp.json()['data']
+        if filename:
+            with open(filename, mode='w', encoding='utf8') as fp:
+                fp.write(resp.json()['data'])
+        return json.loads(data)
 
     def decision_results(self, job, filename):
         resp = self.__request('/jobs/decision_results_json/{0}/'.format(self.__get_job_id(job)))
