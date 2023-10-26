@@ -37,6 +37,7 @@ from django.utils.translation import gettext_lazy as _
 from jobs.utils import get_resource_data, get_user_time, get_user_memory
 from marks.models import UnknownProblem, SafeTag, UnsafeTag, MarkUnsafeReport
 from marks.utils import SAFE_COLOR, UNSAFE_COLOR, SAFE_LINK_CLASS, UNSAFE_LINK_CLASS, STATUS_COLOR
+from reports.comparison import JobsComparison
 from reports.etv import save_zip_trace
 from reports.models import ReportComponent, AttrFile, Attr, AttrName, ReportAttr, ReportUnsafe, ReportSafe, \
     ReportUnknown, ReportRoot
@@ -408,6 +409,13 @@ class SafesTable:
         pass
 
 
+def get_root_report_by_job(job_id):
+    try:
+        return ReportRoot.objects.get(job_id=job_id)
+    except ObjectDoesNotExist:
+        raise BridgeException(f"Job with id {job_id} does not exist")
+
+
 class UnsafesTable:
     columns_list = ['marks_number', 'report_verdict', 'mark_status',
                     'tags', 'verifiers:cpu', 'verifiers:wall', 'verifiers:memory']
@@ -457,6 +465,8 @@ class UnsafesTable:
                 kwargs['tag'] = tag
         if 'attr' in data:
             kwargs['attr'] = get_attr_vals(data['attr'])
+        if 'cmp' in data:
+            kwargs['cmp'] = data["cmp"]
         return kwargs
 
     def __selected(self):
@@ -495,7 +505,22 @@ class UnsafesTable:
 
         unsafes = {}
         ordered_ids = []
+
+        new_reports_only = []
+
+        if "cmp" in self._kwargs:
+            root_1 = get_root_report_by_job(self.report.root.job.id)
+            root_2 = get_root_report_by_job(self._kwargs["cmp"])
+            data = JobsComparison([root_1, root_2], {}, [], []).comparison[1]["clusters"]
+            for elem in data:
+                report = elem["reports"]
+                is_in_1 = "reports_0" in elem
+                is_in_2 = "reports_1" in elem
+                if is_in_1 and not is_in_2:
+                    new_reports_only.append(report)
         for unsafe_data in objects:
+            if new_reports_only and unsafe_data['id'] not in new_reports_only:
+                continue
             ordered_ids.append(unsafe_data['id'])
             unsafes[unsafe_data['id']] = unsafe_data
             if unsafe_data.get('tags'):
