@@ -77,6 +77,16 @@ SAFE_LINK_CLASS = {
 }
 
 
+def get_mark_comments(comments, user):
+    results = []
+    counter = 0
+    for m in comments.order_by('-id'):
+        is_edit = m.author == user or user.is_staff
+        results.append((m.author, m.date, m.description, m.id, is_edit, counter < 3))
+        counter += 1
+    return results
+
+
 class MarkAccess:
 
     def __init__(self, user, mark=None, report=None):

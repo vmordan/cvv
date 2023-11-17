@@ -36,7 +36,7 @@ from marks.models import MarkSafe, MarkUnsafe, MarkUnknown, MarkAssociationsChan
     MarkSafeTag, MarkUnsafeTag, UnknownProblem
 from marks.querysets import ListQuery
 from marks.tags import TagsInfo
-from marks.utils import UNSAFE_COLOR, SAFE_COLOR, STATUS_COLOR, MarkAccess
+from marks.utils import UNSAFE_COLOR, SAFE_COLOR, STATUS_COLOR, MarkAccess, get_mark_comments
 from reports.mea.wrapper import COMPARISON_FUNCTIONS, CONVERSION_FUNCTIONS
 from reports.models import ReportSafe, ReportUnsafe, ReportUnknown
 from users.utils import DEF_NUMBER_OF_ELEMENTS, ALL_ATTRS
@@ -317,7 +317,10 @@ class ReportMarkTable:
                 elif col == 'description' and len(mark_rep.mark.description) > 0:
                     val = mark_rep.mark.description
                 elif col == 'buttons':
-                    val = (mark_rep.mark_id, mark_rep.type)
+                    comments = []
+                    if self.type == 'unsafe':
+                        comments = get_mark_comments(mark_rep.mark.comments, self.user)
+                    val = (mark_rep.mark_id, mark_rep.type, comments)
                     href = '%sedit?report_to_redirect=%s' % (
                         reverse('marks:mark', args=[self.type, mark_rep.mark_id]), self.report.pk
                     )

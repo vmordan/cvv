@@ -19,6 +19,11 @@
  * limitations under the License.
  */
 
+function show_comments_for_mark(mark_id) {
+    $('#comments_' + mark_id).modal('setting', 'closable', false);
+    $('#comments_' + mark_id).modal('show');
+}
+
 function get_description() {
     var tmp_div = $('<div>').html($('#mark_description').val());
     tmp_div.find('script').remove();

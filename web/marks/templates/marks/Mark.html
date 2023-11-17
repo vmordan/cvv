@@ -46,13 +46,14 @@
                 </div>
             {% else %}
                 {% if markdata.tags.table %}
-                <div class="ui horizontal segments">
-                    <div class="ui pink segment">
-                        <h4 class="header ui pink">{% trans 'Tags' %}</h4>
-                        {% include 'marks/MarkTags.html' with tags=markdata.tags.table available=markdata.tags.available selected=markdata.tags.selected %}
-                    </div>
+                <div class="ui pink segment">
+                    <h4 class="ui top left attached pink label">{% trans 'Tags' %}</h4>
+                    {% include 'marks/MarkTags.html' with tags=markdata.tags.table available=markdata.tags.available selected=markdata.tags.selected %}
                 </div>
                 {% endif %}
+            {% endif %}
+            {% if markdata.type == 'unsafe' %}
+            {% include 'marks/Comments.html' with comments=comments mark_id=mark.pk show_short_comments_list=True %}
             {% endif %}
             {% if markdata.type == 'unsafe' %}
                 <div class="ui styled accordion fluid">
@@ -90,7 +91,7 @@
                     {% endif %}
 
                     <tr>
-                        <td class="right aligned" width="15%">{% trans 'Status' %}</td>
+                        <td class="right aligned" width="33%">{% trans 'Status' %}</td>
                         <td>
                             {% for s in markdata.statuses %}
                                 {% if s.checked %}<strong style="color: {{ s.color }};">{{ s.title }}</strong>{% endif %}
