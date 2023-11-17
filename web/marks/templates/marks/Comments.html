@@ -1,0 +1,62 @@
+{% comment "License" %}
+% CVV is a continuous verification visualizer.
+% Copyright (c) 2023 ISP RAS (http://www.ispras.ru)
+% Ivannikov Institute for System Programming of the Russian Academy of Sciences
+%
+% Copyright (c) 2018 ISP RAS (http://www.ispras.ru)
+% Ivannikov Institute for System Programming of the Russian Academy of Sciences
+%
+% Licensed under the Apache License, Version 2.0 (the "License");
+% you may not use this file except in compliance with the License.
+% You may obtain a copy of the License at
+%
+%    http://www.apache.org/licenses/LICENSE-2.0
+%
+% Unless required by applicable law or agreed to in writing, software
+% distributed under the License is distributed on an "AS IS" BASIS,
+% WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+% See the License for the specific language governing permissions and
+% limitations under the License.
+{% endcomment %}
+
+{% load i18n %}
+
+{% load static %}
+<link href="{% static 'marks/css/comments.css' %}" rel="stylesheet">
+<script type="text/javascript" src="{% static 'marks/js/comments.js' %}"></script>
+
+<div class="ui gray segment fluid">
+    <h4 class="ui top left attached gray label">{% trans 'Comments' %}</h4>
+    <div id="comments_root_{{mark_id}}" class="ui minimal comments" style="max-width: 100%">
+        {% for comment in comments %}
+        <div id="comment_{{comment.3}}" class="comment{% if not comment.5 and show_short_comments_list %} collapsed{% endif %}">
+            <div class="content">
+                <a href="{% url 'users:show_profile' comment.0.id %}" class="author">{{comment.0.username}}</a>
+                <div class="metadata">
+                    <span class="date">{{comment.1}}</span>
+                </div>
+                <div id="comment_text_{{comment.3}}" class="text">{{comment.2|safe}}</div>
+                <div class="actions" style="align-items: left">
+                    <a class="reply" onclick="reply_comment('{{comment.3}}', '{{comment.0.username}}', '{{mark_id}}')">{% trans 'Reply' %}</a>
+                    {% if comment.4 %}
+                    <a class="edit" onclick="edit_comment({{comment.3}}, {{mark_id}})">{% trans 'Edit' %}</a>
+                    <a class="delete" onclick="delete_comment({{comment.3}}, {{mark_id}})">{% trans 'Delete' %}</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% if comments|length > 3 and show_short_comments_list %}
+            <div id="show_comments_btn_{{mark_id}}" class="ui icon small basic compact button" onclick="show_comments({{mark_id}})">{% trans 'Show all' %}</div>
+        {% endif %}
+        <form class="ui reply form">
+            <div class="field">
+                <textarea id="new_comment_field_{{mark_id}}" placeholder="{% trans 'Comment' %}..." rows="2" style="resize:none; height: 100%" maxlength="512"></textarea>
+            </div>
+            <div class="ui green button small" onclick="new_comment({{mark_id}})">
+                <i class="icon edit"></i> {% trans 'Create comment' %}
+            </div>
+        </form>
+    </div>
+</div>
+<input id="edit_comment_id_{{mark_id}}" type="hidden" value="">

@@ -42,6 +42,19 @@
                                 <span style="white-space: pre-wrap;">{{ v.value|safe }}</span>
                             {% elif v.column == 'buttons' %}
                                 <div class="ui buttons">
+                                    {% if report_type == "unsafe" %}
+                                    <button onclick="show_comments_for_mark({{ v.value.0 }})" class="ui mini icon button violet basic note-popup" data-content="{% trans 'Show comments' %}"><i class="comment alternate icon"></i></button>
+                                    <div id="comments_{{ v.value.0 }}" class="ui modal">
+                                        {% include 'marks/Comments.html' with comments=v.value.2 mark_id=v.value.0  show_short_comments_list=True %}
+                                        <div class="actions">
+                                            <div class="ui grid">
+                                                <div class="eight wide column right aligned">
+                                                    <button type="button" class="ui blue button small cancel">{% trans 'Close' %}</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endif %}
                                     <a class="ui mini icon button basic blue note-popup" href="{{ row_data.0.href }}" data-content="{% trans 'Show' %}"><i class="eye icon"></i></a>
                                     <button id="inline_edit_mark_{{ v.value.0 }}" class="ui mini icon button teal basic note-popup" data-content="{% trans 'Adjust description' %}"><i class="edit icon"></i></button>
                                     <a class="ui mini icon button teal note-popup" href="{{ v.href }}" data-content="{% trans 'Edit' %}"><i class="edit outline icon"></i></a>

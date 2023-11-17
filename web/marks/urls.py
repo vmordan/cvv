@@ -69,4 +69,8 @@ urlpatterns = [
     path('get_last_mark/', views.GetLastMark.as_view()),
     path('get_converted_trace/<int:pk>/', views.GetConvertedTrace.as_view()),
     path('check-unknown-mark/<int:pk>/', views.CheckUnknownMarkView.as_view()),
+
+    # Comments
+    path('create-comment/', views.CreateComment.as_view()),
+    path('delete-comment/', views.DeleteComment.as_view()),
 ]

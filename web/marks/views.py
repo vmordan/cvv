@@ -43,7 +43,7 @@ import web.CustomViews as Bview
 from marks.Download import UploadMark, MarkArchiveGenerator, AllMarksGen, UploadAllMarks, PresetMarkFile
 from marks.UnsafeUtils import decode_optimizations
 from marks.models import MarkSafe, MarkUnsafe, MarkUnknown, MarkSafeHistory, MarkUnsafeHistory, MarkUnknownHistory, \
-    MarkUnsafeCompare, UnsafeTag, SafeTag, SafeTagAccess, UnsafeTagAccess, \
+    MarkUnsafeCompare, UnsafeTag, SafeTag, SafeTagAccess, UnsafeTagAccess, MarkUnsafeComment, \
     MarkSafeReport, MarkUnsafeReport, MarkUnknownReport, MarkAssociationsChanges, ReportComponent
 from marks.tables import MarkData, MarkChangesTable, MarkReportsTable, MarksList, AssociationChangesTable
 from marks.tags import GetTagsData, GetParents, SaveTag, TagsInfo, CreateTagsFromFile, TagAccess
@@ -89,6 +89,10 @@ class MarkPage(LoggedCallMixin, Bview.DataViewMixin, DetailView):
                 title += ': ' + m.comment
             versions.append({'version': m.version, 'title': title})
 
+        comments = []
+        if self.kwargs['type'] == "unsafe":
+            comments = mutils.get_mark_comments(self.object.comments, self.request.user)
+
         desc = {}
         markdata = MarkData(self.kwargs['type'], mark_version=history_set.first())
         edited_error_trace = None
@@ -125,7 +129,8 @@ class MarkPage(LoggedCallMixin, Bview.DataViewMixin, DetailView):
             'desc': desc,
             'similarity': similarity,
             'args': args, 'optimizations': optimizations,
-            'operators': ATTRIBUTES_OPERATORS
+            'operators': ATTRIBUTES_OPERATORS,
+            'comments': comments
         }
 
 
@@ -697,6 +702,55 @@ class GetLastMark(LoggedCallMixin, Bview.JsonView):
         if mark:
             results['mark'] = mark.id
         return results
+
+
+class CreateComment(LoggedCallMixin, Bview.JsonView):
+    def get_context_data(self, **kwargs):
+        description = self.request.POST['description']
+        mark_id = self.request.POST['mark_id']
+        comment_id = self.request.POST['comment_id']
+        context = {}
+        if comment_id:
+            # Edit comment
+            try:
+                mark_comment = MarkUnsafeComment.objects.get(id=comment_id)
+                if mark_comment.author == self.request.user or self.request.user.is_staff:
+                    mark_comment.description = description
+                    mark_comment.date = now()
+                    mark_comment.save()
+                else:
+                    raise BridgeException("You do not have an access to edit the selected comment")
+            except Exception as e:
+                logger.exception(e, stack_info=True)
+        else:
+            # Create new comment
+            mark = MarkUnsafe.objects.get(id=mark_id)
+            try:
+                mark_comment = MarkUnsafeComment.objects.create(
+                    mark=mark, description=description,
+                    author=self.request.user, date=now()
+                )
+                context['comment_id'] = mark_comment.id
+                context['user_name'] = self.request.user.username
+                context['user_id'] = self.request.user.id
+
+            except Exception as e:
+                logger.exception(e, stack_info=True)
+        return context
+
+
+class DeleteComment(LoggedCallMixin, Bview.JsonView):
+    def get_context_data(self, **kwargs):
+        comment_id = self.request.POST['comment_id']
+        try:
+            mark_comment = MarkUnsafeComment.objects.get(id=comment_id)
+            if mark_comment.author == self.request.user or self.request.user.is_staff:
+                mark_comment.delete()
+            else:
+                raise BridgeException("You do not have an access to delete the selected comment")
+        except Exception as e:
+            logger.exception(e, stack_info=True)
+        return {}
 
 
 class GetConvertedTrace(LoggedCallMixin, Bview.JsonDetailPostView):
