@@ -81,7 +81,7 @@ class Session:
 
         if not isinstance(host, str) or len(host) == 0:
             raise ValueError('Server host must be set')
-        if not host.startswith('http://'):
+        if not host.startswith('http://') and not host.startswith('https://'):
             host = 'http://' + host
         if host.endswith('/'):
             host = host[:-1]
