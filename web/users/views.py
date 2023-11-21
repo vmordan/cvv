@@ -276,7 +276,6 @@ def show_profile(request, user_id):
 
 
 @login_required
-@unparallel_group([])
 def show_comments(request):
     activate(request.user.extended.language)
     all_comments = []

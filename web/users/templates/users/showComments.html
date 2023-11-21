@@ -4,9 +4,6 @@
 % Copyright (c) 2023 ISP RAS (http://www.ispras.ru)
 % Ivannikov Institute for System Programming of the Russian Academy of Sciences
 %
-% Copyright (c) 2018 ISP RAS (http://www.ispras.ru)
-% Ivannikov Institute for System Programming of the Russian Academy of Sciences
-%
 % Licensed under the Apache License, Version 2.0 (the "License");
 % you may not use this file except in compliance with the License.
 % You may obtain a copy of the License at
@@ -25,15 +22,13 @@
 {% load static %}
 
 {% block head_block %}
-    <script type="text/javascript" src="{% static 'reports/js/ETV.js' %}"></script>
-    <script type="text/javascript" src="{% static 'reports/js/ETV-windows.js' %}"></script>
     <link href="{% static 'marks/css/comments.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block title %}{% trans 'Comments' %}{% endblock %}
 
 {% block body_block %}
-<div class="ui segment">
+<div class="ui basic segment">
     <h1>{% trans 'Comments to unsafe marks' %}</h1>
     <table class="ui celled compact gray selectable table sort-table show-min">
         <thead>
