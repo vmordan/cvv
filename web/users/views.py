@@ -34,6 +34,7 @@ from django.urls import reverse
 from django.utils.translation import gettext as _, activate
 
 from jobs.models import Job
+from marks.models import MarkUnsafeComment
 from tools.profiling import unparallel_group
 from users.forms import UserExtendedForm, UserForm, EditUserForm
 from users.models import Extended, User, View, PreferableView
@@ -271,6 +272,20 @@ def show_profile(request, user_id):
     return render(request, 'users/showProfile.html', {
         'target': target,
         'activity': list(reversed(sorted(activity, key=lambda x: x['date'])))[:actions_number],
+    })
+
+
+@login_required
+def show_comments(request):
+    activate(request.user.extended.language)
+    all_comments = []
+    try:
+        all_comments = MarkUnsafeComment.objects.order_by('-date')
+    except:
+        JsonResponse({'error': 'Comments were not found'})
+
+    return render(request, 'users/showComments.html', {
+        'comments': all_comments,
     })
 
 

@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% comment "License" %}
+% CVV is a continuous verification visualizer.
+% Copyright (c) 2023 ISP RAS (http://www.ispras.ru)
+% Ivannikov Institute for System Programming of the Russian Academy of Sciences
+%
+% Licensed under the Apache License, Version 2.0 (the "License");
+% you may not use this file except in compliance with the License.
+% You may obtain a copy of the License at
+%
+%    http://www.apache.org/licenses/LICENSE-2.0
+%
+% Unless required by applicable law or agreed to in writing, software
+% distributed under the License is distributed on an "AS IS" BASIS,
+% WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+% See the License for the specific language governing permissions and
+% limitations under the License.
+{% endcomment %}
+
+{% load i18n %}
+{% load tz %}
+{% load static %}
+
+{% block head_block %}
+    <link href="{% static 'marks/css/comments.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}{% trans 'Comments' %}{% endblock %}
+
+{% block body_block %}
+<div class="ui basic segment">
+    <h1>{% trans 'Comments to unsafe marks' %}</h1>
+    <table class="ui celled compact gray selectable table sort-table show-min">
+        <thead>
+            <tr style="text-align: center">
+                <th width="1%">#</th>
+                <th>{% trans 'Date' %}</th>
+                <th width="1%">{% trans 'Author' %}</th>
+                <th width="1%">{% trans 'Mark' %}</th>
+                <th width="1%">{% trans 'Error trace' %}</th>
+                <th>{% trans 'Job' %}</th>
+                <th>{% trans 'Description' %}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for comment in comments %}
+            <tr style="text-align: center">
+                <td>{{ forloop.counter }}</td>
+                <td>{{ comment.date }}</td>
+                <td><a href="{% url 'users:show_profile' comment.author.id %}">{{ comment.author.username }}</a></td>
+                <td><a href="{% url 'marks:mark' 'unsafe' comment.mark.id %}">{{ comment.mark.id }}</a></td>
+                <td><a href="{% url 'reports:unsafe' comment.mark.report.id %}">{{ comment.mark.report.id }}</a></td>
+                <td><a href="{% url 'jobs:job' comment.mark.report.root.job.id %}">{{comment.mark.report.root.job.name}}</a></td>
+                <td style="text-align: left">{{ comment.description|safe }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
