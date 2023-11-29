@@ -37,6 +37,9 @@
                 </div>
                 <div id="comment_text_{{comment.3}}" class="text">{{comment.2|safe}}</div>
                 <div class="actions" style="align-items: left">
+                    {% if comment.6 %}
+                    <a class="show" href="{% url 'reports:unsafe' comment.6.id %}">{% trans 'Show original report' %}</a>
+                    {% endif %}
                     <a class="reply" onclick="reply_comment('{{comment.3}}', '{{comment.0.username}}', '{{mark_id}}')">{% trans 'Reply' %}</a>
                     {% if comment.4 %}
                     <a class="edit" onclick="edit_comment({{comment.3}}, {{mark_id}})">{% trans 'Edit' %}</a>

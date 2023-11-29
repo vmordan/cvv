@@ -52,9 +52,10 @@ function new_comment(mark_id) {
         return;
     }
     const root_comment = $('#comments_root_' + mark_id);
+    const report_id = $('#report_pk').val();
 
     var cmt_data = {
-        description: desc, mark_id: mark_id, comment_id: comment_id
+        description: desc, mark_id: mark_id, comment_id: comment_id, report_id: report_id
     };
 
     $.post('/marks/create-comment/', cmt_data, function (data) {

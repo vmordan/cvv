@@ -178,6 +178,7 @@ class MarkUnsafeHistory(MarkHistory):
 
 class MarkUnsafeComment(models.Model):
     mark = models.ForeignKey(MarkUnsafe, models.CASCADE, related_name='comments')
+    report = models.ForeignKey(ReportUnsafe, models.SET_NULL, null=True)
     date = models.DateTimeField()
     author = models.ForeignKey(User, models.SET_NULL, null=True, related_name='+')
     description = models.TextField()

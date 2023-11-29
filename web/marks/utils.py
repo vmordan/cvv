@@ -82,7 +82,7 @@ def get_mark_comments(comments, user):
     counter = 0
     for m in comments.order_by('-id'):
         is_edit = m.author == user or user.is_staff
-        results.append((m.author, m.date, m.description, m.id, is_edit, counter < 3))
+        results.append((m.author, m.date, m.description, m.id, is_edit, counter < 3, m.report))
         counter += 1
     return results
 

@@ -709,6 +709,7 @@ class CreateComment(LoggedCallMixin, Bview.JsonView):
         description = self.request.POST['description']
         mark_id = self.request.POST['mark_id']
         comment_id = self.request.POST['comment_id']
+        report_id = self.request.POST.get('report_id', None)
         context = {}
         if comment_id:
             # Edit comment
@@ -725,10 +726,14 @@ class CreateComment(LoggedCallMixin, Bview.JsonView):
         else:
             # Create new comment
             mark = MarkUnsafe.objects.get(id=mark_id)
+            if report_id:
+                report = ReportUnsafe.objects.get(id=report_id)
+            else:
+                report = None
             try:
                 mark_comment = MarkUnsafeComment.objects.create(
                     mark=mark, description=description,
-                    author=self.request.user, date=now()
+                    author=self.request.user, date=now(), report=report
                 )
                 context['comment_id'] = mark_comment.id
                 context['user_name'] = self.request.user.username
