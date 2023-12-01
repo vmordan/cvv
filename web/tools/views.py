@@ -31,7 +31,7 @@ from django.utils.translation import gettext as _, activate
 
 from jobs.models import Job, JobFile
 from marks.UnsafeUtils import ConnectMarks, RecalculateTags
-from marks.models import ErrorTraceConvertionCache
+from marks.models import ErrorTraceConvertionCache, MarkUnsafeReview
 from marks.models import MarkUnsafe, MarkUnsafeHistory, UnknownProblem, ConvertedTraces
 from reports.mea.core import CACHED_CONVERSION_FUNCTIONS
 from reports.models import Component, Computer, JobViewAttrs
@@ -264,6 +264,17 @@ def clear_all_cet(request):
     ErrorTraceConvertionCache.objects.all().delete()
 
     return JsonResponse({'message': str(all_records) + _(' converted error traces have been deleted')})
+
+
+def clear_all_reviews(request):
+    activate(request.user.extended.language)
+    if not request.user.is_authenticated or request.method != 'POST' or request.user.extended.role != USER_ROLES[2][0]:
+        return JsonResponse({'error': 'Unknown error'})
+
+    all_records = MarkUnsafeReview.objects.count()
+    MarkUnsafeReview.objects.all().delete()
+
+    return JsonResponse({'message': str(all_records) + _(' user reviews have been deleted')})
 
 
 def clear_jobs_view(request):
