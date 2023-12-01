@@ -44,7 +44,7 @@ from marks.Download import UploadMark, MarkArchiveGenerator, AllMarksGen, Upload
 from marks.UnsafeUtils import decode_optimizations
 from marks.models import MarkSafe, MarkUnsafe, MarkUnknown, MarkSafeHistory, MarkUnsafeHistory, MarkUnknownHistory, \
     MarkUnsafeCompare, UnsafeTag, SafeTag, SafeTagAccess, UnsafeTagAccess, MarkUnsafeComment, \
-    MarkSafeReport, MarkUnsafeReport, MarkUnknownReport, MarkAssociationsChanges, ReportComponent
+    MarkSafeReport, MarkUnsafeReport, MarkUnknownReport, MarkAssociationsChanges, ReportComponent, MarkUnsafeReview
 from marks.tables import MarkData, MarkChangesTable, MarkReportsTable, MarksList, AssociationChangesTable
 from marks.tags import GetTagsData, GetParents, SaveTag, TagsInfo, CreateTagsFromFile, TagAccess
 from reports.mea.wrapper import error_trace_pretty_print, get_or_convert_error_trace, COMPARISON_FUNCTIONS, \
@@ -753,6 +753,38 @@ class DeleteComment(LoggedCallMixin, Bview.JsonView):
                 mark_comment.delete()
             else:
                 raise BridgeException("You do not have an access to delete the selected comment")
+        except Exception as e:
+            logger.exception(e, stack_info=True)
+        return {}
+
+
+class SubmitReview(LoggedCallMixin, Bview.JsonView):
+    def get_context_data(self, **kwargs):
+        mark_id = self.request.POST['mark_id']
+        report_id = self.request.POST['report_id']
+        try:
+            report = ReportUnsafe.objects.get(id=report_id)
+            mark = MarkUnsafe.objects.get(id=mark_id)
+            reviews = MarkUnsafeReview.objects.filter(mark=mark, report=report, author=self.request.user)
+            if len(reviews) == 0:
+                MarkUnsafeReview.objects.create(
+                    mark=mark, report=report,
+                    author=self.request.user
+                )
+        except Exception as e:
+            logger.exception(e, stack_info=True)
+        return {}
+
+
+class DeleteReview(LoggedCallMixin, Bview.JsonView):
+    def get_context_data(self, **kwargs):
+        mark_id = self.request.POST['mark_id']
+        report_id = self.request.POST['report_id']
+        try:
+            report = ReportUnsafe.objects.get(id=report_id)
+            mark = MarkUnsafe.objects.get(id=mark_id)
+            reviews = MarkUnsafeReview.objects.get(mark=mark, report=report, author=self.request.user)
+            reviews.delete()
         except Exception as e:
             logger.exception(e, stack_info=True)
         return {}

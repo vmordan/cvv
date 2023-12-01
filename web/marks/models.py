@@ -209,6 +209,15 @@ class MarkUnsafeReport(models.Model):
         db_table = "cache_mark_unsafe_report"
 
 
+class MarkUnsafeReview(models.Model):
+    mark = models.ForeignKey(MarkUnsafe, models.CASCADE)
+    report = models.ForeignKey(ReportUnsafe, models.CASCADE)
+    author = models.ForeignKey(User, models.CASCADE)
+
+    class Meta:
+        db_table = "cache_mark_unsafe_review"
+
+
 # Tags tables
 class SafeTag(models.Model):
     author = models.ForeignKey(User, models.CASCADE)

@@ -94,12 +94,15 @@
                     <button id="clear_call_logs" class="ui yellow button">{% trans 'Remove call log that is older than 30 days' %}</button>
                     <button id="clear_cet" class="ui yellow button">{% trans 'Remove unused converted error traces' %}</button>
                     <button id="clear_system" class="ui yellow button">{% trans 'Remove unused files and DB rows' %}</button>
-
+                    <button id="clear_jobs_view" class="ui yellow button">{% trans 'Clear job attributes views' %}</button>
+                    <button id="clear_all_reviews" class="ui yellow button">{% trans 'Clear all users reviews' %}</button>
                 </div>
-                <h4 class="ui horizontal divider header">{% trans 'Unsafe DB cleaning (do *not* use!)' %}</h4>
+                <h4 class="ui horizontal divider header" title="{% trans 'Note: recalculating error trace caches may take a lot of time' %}">
+                    {% trans 'Unsafe DB cleaning' %}
+                </h4>
                 <div class="ui vertical fluid buttons">
                     <button id="clear_all_cet" class="ui red button">{% trans 'Clear all converted error traces' %}</button>
-                    <button id="clear_jobs_view" class="ui red button">{% trans 'Clear job attributes views' %}</button>
+
                     <!--<a href="{% url 'tools:processing_list' %}" class="ui yellow button">{% trans 'View processing reqeusts' %}</a>
                     <a href="{% url 'tools:view_call_logs' %}" class="ui yellow button">{% trans 'View function call logs' %}</a>
                     <button id="clear_tasks" class="ui red button">{% trans 'Remove tasks for not solving jobs' %}</button>-->
