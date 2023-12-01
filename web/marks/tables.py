@@ -33,7 +33,7 @@ from jobs.utils import JobAccess
 from marks.models import MarkSafe, MarkUnsafe, MarkUnknown, MarkAssociationsChanges, \
     MarkSafeAttr, MarkUnsafeAttr, MarkUnknownAttr, \
     MarkSafeHistory, MarkUnsafeHistory, MarkUnknownHistory, ConvertedTraces, \
-    MarkSafeTag, MarkUnsafeTag, UnknownProblem
+    MarkSafeTag, MarkUnsafeTag, UnknownProblem, MarkUnsafeReview
 from marks.querysets import ListQuery
 from marks.tags import TagsInfo
 from marks.utils import UNSAFE_COLOR, SAFE_COLOR, STATUS_COLOR, MarkAccess, get_mark_comments
@@ -318,9 +318,14 @@ class ReportMarkTable:
                     val = mark_rep.mark.description
                 elif col == 'buttons':
                     comments = []
+                    is_reviewed = 0
                     if self.type == 'unsafe':
                         comments = get_mark_comments(mark_rep.mark.comments, self.user)
-                    val = (mark_rep.mark_id, mark_rep.type, comments)
+
+                        is_reviewed = len(MarkUnsafeReview.objects.filter(mark=mark_rep.mark,
+                                                                          report=mark_rep.report, author=self.user))
+
+                    val = (mark_rep.mark_id, mark_rep.type, comments, is_reviewed)
                     href = '%sedit?report_to_redirect=%s' % (
                         reverse('marks:mark', args=[self.type, mark_rep.mark_id]), self.report.pk
                     )

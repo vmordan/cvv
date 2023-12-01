@@ -99,7 +99,7 @@ REPORT_CHILDREN_VIEW = {
 UNSAFES_VIEW = {
     'elements': [DEF_NUMBER_OF_ELEMENTS],
     'columns': ['report_verdict', 'tags', 'mark_status',
-                'verifiers:cpu', 'verifiers:wall', 'verifiers:memory', ALL_ATTRS],
+                'verifiers:cpu', 'verifiers:wall', 'verifiers:memory', 'reviewed', ALL_ATTRS],
     # order: [up|down, attr|parent_cpu|parent_wall|parent_memory, <any text, not empty for attr only>]
     # 'order': ['down', 'attr', 'Requirement'],
     # 'attr': ['LKVOG strategy:Name', 'istartswith', 'Separate']

@@ -35,7 +35,7 @@ from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
 from jobs.utils import get_resource_data, get_user_time, get_user_memory
-from marks.models import UnknownProblem, SafeTag, UnsafeTag, MarkUnsafeReport
+from marks.models import UnknownProblem, SafeTag, UnsafeTag, MarkUnsafeReport, MarkUnsafeReview
 from marks.utils import SAFE_COLOR, UNSAFE_COLOR, SAFE_LINK_CLASS, UNSAFE_LINK_CLASS, STATUS_COLOR
 from reports.comparison import JobsComparison
 from reports.etv import save_zip_trace
@@ -62,6 +62,7 @@ REP_MARK_TITLES = {
     'verifiers:cpu': _('CPU time'),
     'verifiers:wall': _('Wall time'),
     'verifiers:memory': _('RAM'),
+    'reviewed': _('Reviewed'),
     'problems': _('Problems'),
     'total_similarity': _('Total similarity')
 }
@@ -418,7 +419,7 @@ def get_root_report_by_job(job_id):
 
 class UnsafesTable:
     columns_list = ['marks_number', 'report_verdict', 'mark_status',
-                    'tags', 'verifiers:cpu', 'verifiers:wall', 'verifiers:memory']
+                    'tags', 'verifiers:cpu', 'verifiers:wall', 'verifiers:memory', 'reviewed']
     columns_set = set(columns_list)
 
     def __init__(self, user, report, view, data):
@@ -605,6 +606,19 @@ class UnsafesTable:
                     val = get_user_time(self.user, unsafes[rep_id]['wall_time'])
                 elif col == 'verifiers:memory':
                     val = get_user_memory(self.user, unsafes[rep_id]['memory'])
+                elif col == 'reviewed':
+                    reviews_total = 0
+                    reviews_by_me = 0
+                    for review in MarkUnsafeReview.objects.filter(report_id=rep_id):
+                        if review.author == self.user:
+                            reviews_by_me += 1
+                        reviews_total += 1
+                    if reviews_total:
+                        val = f"{reviews_by_me} / {reviews_total}"
+                    else:
+                        val = "0"
+                    if reviews_by_me:
+                        style = "red-pale-link"
                 values_row.append({'value': val, 'color': color, 'href': href, 'style': style})
             values_data.append(values_row)
             cnt += 1

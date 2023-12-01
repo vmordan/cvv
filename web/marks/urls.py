@@ -73,4 +73,6 @@ urlpatterns = [
     # Comments
     path('create-comment/', views.CreateComment.as_view()),
     path('delete-comment/', views.DeleteComment.as_view()),
+    path('submit-review/', views.SubmitReview.as_view()),
+    path('delete-review/', views.DeleteReview.as_view()),
 ]

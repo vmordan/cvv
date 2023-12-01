@@ -107,3 +107,33 @@ function delete_comment(comment_id, mark_id) {
         removed_comment.parentNode.removeChild(removed_comment);
     });
 }
+
+function review_mark(mark_id) {
+    let removed_button = document.getElementById("review_" + mark_id);
+    removed_button.setAttribute('disabled', '');
+    const report_id = $('#report_pk').val();
+    var review_data = {
+        report_id: report_id, mark_id: mark_id
+    };
+    $.post('/marks/submit-review/', review_data, function (data) {
+        if (data.error) {
+            err_notify(data.error);
+            return false;
+        }
+    });
+}
+
+function delete_review(mark_id) {
+    let removed_button = document.getElementById("delete_review_" + mark_id);
+    removed_button.setAttribute('disabled', '');
+    const report_id = $('#report_pk').val();
+    var review_data = {
+        report_id: report_id, mark_id: mark_id
+    };
+    $.post('/marks/delete-review/', review_data, function (data) {
+        if (data.error) {
+            err_notify(data.error);
+            return false;
+        }
+    });
+}
