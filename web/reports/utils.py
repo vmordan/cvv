@@ -552,11 +552,11 @@ class UnsafesTable:
             ordered_ids = new_ids
 
         attributes = {}
-        for r_id, a_name, a_value in ReportAttr.objects.filter(report_id__in=ordered_ids).order_by('id') \
-                .values_list('report_id', 'attr__name__name', 'attr__value'):
+        for r_id, a_name, a_value, a_assoc in ReportAttr.objects.filter(report_id__in=ordered_ids).order_by('id') \
+                .values_list('report_id', 'attr__name__name', 'attr__value', 'associate'):
             if a_name not in attributes:
                 self.available_columns.append({'value': a_name, 'title': a_name})
-                if ALL_ATTRS in self.view['columns']:
+                if ALL_ATTRS in self.view['columns'] and a_assoc:
                     self.selected_columns.append({'value': a_name, 'title': a_name})
                     columns.append(a_name)
                 attributes[a_name] = {}
@@ -608,16 +608,13 @@ class UnsafesTable:
                     val = get_user_memory(self.user, unsafes[rep_id]['memory'])
                 elif col == 'reviewed':
                     reviews_total = 0
-                    reviews_by_me = 0
+                    reviews_by_me = "No"
                     for review in MarkUnsafeReview.objects.filter(report_id=rep_id):
                         if review.author == self.user:
-                            reviews_by_me += 1
+                            reviews_by_me = "Yes"
                         reviews_total += 1
-                    if reviews_total:
-                        val = f"{reviews_by_me} / {reviews_total}"
-                    else:
-                        val = "0"
-                    if reviews_by_me:
+                    val = f"{reviews_by_me} (in total {reviews_total})"
+                    if reviews_by_me == "No":
                         style = "red-pale-link"
                 values_row.append({'value': val, 'color': color, 'href': href, 'style': style})
             values_data.append(values_row)
