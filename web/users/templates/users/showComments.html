@@ -36,8 +36,6 @@
                 <th width="1%">#</th>
                 <th>{% trans 'Date' %}</th>
                 <th width="1%">{% trans 'Author' %}</th>
-                <th width="1%">{% trans 'Mark' %}</th>
-                <th width="1%">{% trans 'Error trace' %}</th>
                 <th>{% trans 'Job' %}</th>
                 <th>{% trans 'Description' %}</th>
             </tr>
@@ -48,14 +46,15 @@
                 <td>{{ forloop.counter }}</td>
                 <td>{{ comment.date }}</td>
                 <td><a href="{% url 'users:show_profile' comment.author.id %}">{{ comment.author.username }}</a></td>
-                <td><a href="{% url 'marks:mark' 'unsafe' comment.mark.id %}">{{ comment.mark.id }}</a></td>
-                {% if comment.report %}
-                <td><a href="{% url 'reports:unsafe' comment.report.id %}">{% trans 'Specific' %}</a></td>
-                {% else %}
-                <td><a href="{% url 'reports:unsafe' comment.mark.report.id %}">{% trans 'Original' %}</a></td>
-                {% endif %}
                 <td><a href="{% url 'jobs:job' comment.mark.report.root.job.id %}">{{comment.mark.report.root.job.name}}</a></td>
-                <td style="text-align: left">{{ comment.description|safe }}</td>
+                <td style="text-align: left">
+                    {{ comment.description|safe }}
+                    <br>
+                    {% if comment.report %}
+                    (<a href="{% url 'reports:unsafe' comment.report.id %}">{% trans 'See error trace' %}</a>)
+                    {% else %}
+                    (<a href="{% url 'marks:mark' 'unsafe' comment.mark.id %}">{% trans 'See mark' %}</a>)
+                    {% endif %}
             </tr>
         {% endfor %}
         </tbody>
