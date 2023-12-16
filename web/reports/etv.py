@@ -1109,7 +1109,7 @@ class GetSource:
             parsed_line = self.__parse_line(line)
             cur_edges = list(filter(
                 lambda edge: (edge['start line'] == int(line_num) or
-                              edge['end line'] == int(line_num)) and
+                              'end line' in edge and edge['end line'] == int(line_num)) and
                              not edge['condition'], self.edges))
             if cnt in self.__lines:
                 val = self.__lines[cnt]
