@@ -39,7 +39,7 @@
             {% if l.env %}
                 <span class="{{ l.scope }}" data-thread="{{ l.thread_id }}" data-type="comment">
                     <span class="ETV_LN"><span class="ETV_ID" hidden>{{l.id}}</span><span class="ETV_THREAD">{{ l.thread|safe }}</span>{{ l.line_offset }}{% if l.line %}<a class="ETV_La">{{ l.line }}</a><span class="ETV_File" hidden>{{ l.file }}</span>{% endif %}</span>
-                    <span class="ETV_LC">{{ l.offset }}<a class="ETV_ShowCommentCode ETV_CallbackAction">{{ l.env }}</a></span><br>
+                    <span class="ETV_LC">{{ l.offset }}<a class="ETV_ShowCommentCode ETV_CallbackAction {% if l.env_relevant %}relevant{% endif%}">{{ l.env }}</a></span><br>
                 </span>
             {% endif %}
             {% if l.warning %}

@@ -168,8 +168,8 @@ class ParseErrorTrace:
         self.scope = ScopeInfo(cnt, thread_id)
         self.global_lines = []
         self.lines = []
+        self.max_line_length = 0
         self.curr_file = None
-        self.max_line_length = 5
         self.assume_scopes = {}
         self.double_return = set()
         self._amp_replaced = False
@@ -204,7 +204,7 @@ class ParseErrorTrace:
                 raise ValueError("Global initialization edge can't contain enter")
             if line_data['code'] is not None:
                 line_data.update(
-                    self.__get_comment(edge.get('note'), edge.get('warn'), edge.get('env')))
+                    self.__get_comment(edge.get('note'), edge.get('warn'), edge.get('env'), edge.get('env_relevant')))
                 self.global_lines.append(line_data)
             return
 
@@ -233,7 +233,7 @@ class ParseErrorTrace:
                 action_file = self.files[edge['original file']]
             line_data.update(self.__enter_action(new_action, action_line, action_file))
 
-        line_data.update(self.__get_comment(edge.get('note'), edge.get('warn'), edge.get('env')))
+        line_data.update(self.__get_comment(edge.get('note'), edge.get('warn'), edge.get('env'), edge.get('env_relevant')))
 
         if 'enter' in edge:
             line_data.update(self.__enter_function(
@@ -333,8 +333,11 @@ class ParseErrorTrace:
         while self.scope.can_return():
             self.__return(if_possible=True)
 
-    def __get_comment(self, note, warn, env):
+    def __get_comment(self, note, warn, env, env_relevant):
         new_data = {}
+        if env_relevant is not None:
+            self.scope.show_current_scope('env_relevant')
+            new_data['env_relevant'] = env_relevant
         if warn is not None:
             self.scope.show_current_scope('warning')
             new_data['warning'] = re.sub(r'\s+', ' ', warn)

@@ -144,6 +144,10 @@
 .ETV_LC {
     white-space: pre;
 }
+
+.relevant {
+    font-weight: bold;
+}
 .ETV_HideLink {
     cursor: pointer;
 }
@@ -208,7 +212,6 @@
 
 .ETV_ShowCommentCode {
     font-style: italic;
-    font-weight: bold;
     cursor: pointer;
 }
 .ETV_WarnText {
@@ -246,7 +249,6 @@
 
 .ETV_CallbackAction {
     font-style: italic;
-    font-weight: bold;
     color: #9e4b2e;
     cursor: pointer;
 }
