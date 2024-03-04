@@ -168,8 +168,8 @@ class ParseErrorTrace:
         self.scope = ScopeInfo(cnt, thread_id)
         self.global_lines = []
         self.lines = []
-        self.max_line_length = 5
         self.curr_file = None
+        self.max_line_length = 5
         self.assume_scopes = {}
         self.double_return = set()
         self._amp_replaced = False
