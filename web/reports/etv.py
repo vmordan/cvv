@@ -338,6 +338,7 @@ class ParseErrorTrace:
         if env_relevant is not None:
             self.scope.show_current_scope('env_relevant')
             new_data['env_relevant'] = env_relevant
+            
         if warn is not None:
             self.scope.show_current_scope('warning')
             new_data['warning'] = re.sub(r'\s+', ' ', warn)
