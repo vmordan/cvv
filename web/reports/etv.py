@@ -337,11 +337,7 @@ class ParseErrorTrace:
         warn = edge.get('warn')
         note = edge.get('note')
         env = edge.get('env')
-        env_relevant = edge.get('env_relevant')
         new_data = {}
-        if env_relevant is not None:
-            self.scope.show_current_scope('env_relevant')
-            new_data['env_relevant'] = env_relevant
 
         if warn is not None:
             self.scope.show_current_scope('warning')
@@ -360,6 +356,10 @@ class ParseErrorTrace:
         elif env is not None:
             self.scope.show_current_scope('env')
             new_data['env'] = re.sub(r'\s+', ' ', env)
+            env_relevant = edge.get('env_relevant')
+            if not env_relevant is None:
+                self.scope.show_current_scope('env_relevant')
+                new_data['env_relevant'] = env_relevant
         return new_data
 
     def __add_assumptions(self, assumption):
