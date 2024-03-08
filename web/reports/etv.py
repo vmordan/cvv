@@ -168,7 +168,7 @@ class ParseErrorTrace:
         self.scope = ScopeInfo(cnt, thread_id)
         self.global_lines = []
         self.lines = []
-        self.max_line_length = 0
+        self.max_line_length = 5
         self.curr_file = None
         self.assume_scopes = {}
         self.double_return = set()
@@ -204,7 +204,7 @@ class ParseErrorTrace:
                 raise ValueError("Global initialization edge can't contain enter")
             if line_data['code'] is not None:
                 line_data.update(
-                    self.__get_comment(edge.get('note'), edge.get('warn'), edge.get('env'), edge.get('env_relevant')))
+                    self.__get_comment(edge))
                 self.global_lines.append(line_data)
             return
 
@@ -233,7 +233,7 @@ class ParseErrorTrace:
                 action_file = self.files[edge['original file']]
             line_data.update(self.__enter_action(new_action, action_line, action_file))
 
-        line_data.update(self.__get_comment(edge.get('note'), edge.get('warn'), edge.get('env'), edge.get('env_relevant')))
+        line_data.update(self.__get_comment(edge))
 
         if 'enter' in edge:
             line_data.update(self.__enter_function(
@@ -333,8 +333,11 @@ class ParseErrorTrace:
         while self.scope.can_return():
             self.__return(if_possible=True)
 
-    def __get_comment(self, note, warn, env, env_relevant):
+    def __get_comment(self, edge):
         new_data = {}
+        warn = edge.get('warn')
+        note = edge.get('note')
+        env = edge.get('env')
         if env_relevant is not None:
             self.scope.show_current_scope('env_relevant')
             new_data['env_relevant'] = env_relevant
@@ -355,6 +358,10 @@ class ParseErrorTrace:
         elif env is not None:
             self.scope.show_current_scope('env')
             new_data['env'] = re.sub(r'\s+', ' ', env)
+            env_relevant = edge.get('env_relevant')
+            if env_relevant is not None:
+                self.scope.show_current_scope('env_relevant')
+                new_data['env_relevant'] = env_relevant
         return new_data
 
     def __add_assumptions(self, assumption):
