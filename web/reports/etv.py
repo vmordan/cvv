@@ -168,8 +168,8 @@ class ParseErrorTrace:
         self.scope = ScopeInfo(cnt, thread_id)
         self.global_lines = []
         self.lines = []
-        self.max_line_length = 5
         self.curr_file = None
+        self.max_line_length = 5
         self.assume_scopes = {}
         self.double_return = set()
         self._amp_replaced = False
@@ -338,9 +338,6 @@ class ParseErrorTrace:
         warn = edge.get('warn')
         note = edge.get('note')
         env = edge.get('env')
-        if env_relevant is not None:
-            self.scope.show_current_scope('env_relevant')
-            new_data['env_relevant'] = env_relevant
         if warn is not None:
             self.scope.show_current_scope('warning')
             new_data['warning'] = re.sub(r'\s+', ' ', warn)
