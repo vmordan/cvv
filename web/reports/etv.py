@@ -160,7 +160,7 @@ class ParseErrorTrace:
         self.callback_actions = list(data['callback actions']) if 'callback actions' in data else []
         self.functions = list(data['funcs']) if 'funcs' in data else []
         # TODO: Add argument in web-interface
-        self.notes_level = 2
+        self.notes_level = 1
         self.type = data.get('type')
         self.include_assumptions = include_assumptions
         self.triangles = triangles
