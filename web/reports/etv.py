@@ -349,9 +349,11 @@ class ParseErrorTrace:
                 level = int(note.get("level", level))
                 is_hide = note.get("hide", is_hide)
                 value = note.get("value", value)
-            if not is_hide and level <= self.notes_level:
-                self.scope.show_current_scope('note')
-                new_data['note'] = re.sub(r'\s+', ' ', value)
+            if not is_hide:
+                if level == 1:
+                    self.scope.show_current_scope('note')
+                if level <= 2:
+                    new_data['note'] = re.sub(r'\s+', ' ', value)
         elif env is not None:
             self.scope.show_current_scope('env')
             new_data['env'] = re.sub(r'\s+', ' ', env)
