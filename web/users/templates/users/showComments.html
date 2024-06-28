@@ -46,7 +46,13 @@
                 <td>{{ forloop.counter }}</td>
                 <td>{{ comment.date }}</td>
                 <td><a href="{% url 'users:show_profile' comment.author.id %}">{{ comment.author.username }}</a></td>
-                <td><a href="{% url 'jobs:job' comment.mark.report.root.job.id %}">{{comment.mark.report.root.job.name}}</a></td>
+                <td>
+                    {% if comment.mark.report %}
+                    <a href="{% url 'jobs:job' comment.mark.report.root.job.id %}">{{comment.mark.report.root.job.name}}</a>
+                    {% else %}
+                    {% trans 'Root report was deleted' %}
+                    {% endif %}
+                </td>
                 <td style="text-align: left">
                     {{ comment.description|safe }}
                     <br>
