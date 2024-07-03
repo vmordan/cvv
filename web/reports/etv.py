@@ -360,6 +360,8 @@ class ParseErrorTrace:
             if env_relevant is not None:
                 self.scope.show_current_scope('env_relevant')
                 new_data['env_relevant'] = env_relevant
+            if edge.get('env_instrumented'):
+                new_data['env_instrumented'] = True
         return new_data
 
     def __add_assumptions(self, assumption):

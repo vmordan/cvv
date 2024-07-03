@@ -269,3 +269,10 @@
 .irrelevant_env_comment {
     font-weight: normal;
 }
+
+.env_instrumented {
+    color: #53b729;
+}
+.env_instrumented:hover {
+    color: #c6ba1b;
+}
