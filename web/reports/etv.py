@@ -92,7 +92,7 @@ class ScopeInfo:
     def show_current_scope(self, comment_type):
         if not self.initialised:
             return
-        if comment_type in {'note', 'env'}:
+        if comment_type in {'note'}:
             if all(ss not in self._hidden for ss in self._stack):
                 for ss in self._stack:
                     if ss not in self._shown:
@@ -350,9 +350,10 @@ class ParseErrorTrace:
                 is_hide = note.get("hide", is_hide)
                 value = note.get("value", value)
             if not is_hide and level <= self.notes_level:
-                self.scope.show_current_scope('note')
                 new_data['note'] = re.sub(r'\s+', ' ', value)
-        elif env is not None:
+                if level == 1:
+                    self.scope.show_current_scope('note')
+        if env is not None:
             self.scope.show_current_scope('env')
             new_data['env'] = re.sub(r'\s+', ' ', env)
             env_relevant = edge.get('env_relevant')
@@ -467,15 +468,16 @@ class ParseErrorTrace:
                         del self.lines[i]['comment_class']
             a = 'warning' in self.lines[i]
             b = 'note' in self.lines[i]
+            is_env = 'env' in self.lines[i]
             c = not self.scope.is_shown(self.lines[i]['scope'])
             d = 'hide_id' not in self.lines[i]
             e = 'hide_id' in self.lines[i] and not self.scope.is_shown(self.lines[i]['hide_id'])
             f = self.lines[i]['type'] == 'eye-control' and self.lines[i]['scope'] != 'global'
-            if a or b and (c or d or e) or not a and not b and c and (d or e) or f:
+            if a or b or is_env and (c or d or e) or not a and not b and not is_env and c and (d or e) or f:
                 self.lines[i]['hidden'] = True
             if e:
                 self.lines[i]['collapsed'] = True
-            if a or b:
+            if a or b or is_env:
                 self.lines[i]['commented'] = True
             if b and c and self.lines[i]['scope'] != 'global':
                 self.lines[i]['note_hidden'] = True
