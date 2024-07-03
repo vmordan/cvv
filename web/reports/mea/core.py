@@ -156,7 +156,7 @@ def __convert_call_tree_filter(error_trace: dict, args: dict = None) -> list:
         return function_name
 
     for edge in error_trace['edges']:
-        if 'env' in edge:
+        if 'entry_point' in edge or 'ignore MEA' in edge:
             continue
         if 'enter' in edge and 'return' in edge:
             double_funcs[edge['enter']] = edge['return']
@@ -502,9 +502,7 @@ def __convert_to_number_of_compared_threads(result: dict) -> int:
                     used_transitions.add(id_str)
                     number_of_threads += 1
                     break
-        if number_of_threads > max_number_of_threads:
-            max_number_of_threads = number_of_threads
-
+        max_number_of_threads = max(max_number_of_threads, number_of_threads)
         if number_of_threads == 0:
             break
     return max_number_of_threads
