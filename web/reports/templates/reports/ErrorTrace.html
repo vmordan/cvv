@@ -64,6 +64,7 @@
     {% for assumption in etv.assumes %}
         <span id="{{ assumption.0 }}" hidden>{{ assumption.1 }}</span>
     {% endfor %}
+    <br>
 </div>
 <div id="change_et_form" class="ui modal">
     <h3 class="ui header center aligned">{% trans 'Modify error trace element' %}</h3>
