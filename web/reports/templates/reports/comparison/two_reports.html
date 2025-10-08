@@ -390,6 +390,46 @@
 
         <tr style="vertical-align: top">
             <td colspan="2">
+                {% for cmp_new in data.comparison|slice:"1:" %}
+                    <div class="ui accordion">
+                        <div class="title center aligned">
+                            <div class="black-link"><b>
+                                {% trans 'New proofs' %}: {{ cmp_new.new_proofs|length }}
+                            </b></div>
+                        </div>
+                        <div class="content">
+                            <table class="ui selectable compact table celled striped">
+                                <thead>
+                                    <tr>
+                                        <td style="background: #d3d3d3; text-align: center" width="50%">{% trans 'Attributes' %}</td>
+                                        <td style="background: #d3d3d3; text-align: center" width="25%">{% trans 'Report' %}</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for cluster in cmp_new.new_proofs %}
+                                    <tr>
+                                        <td style="text-align: center; background: lightgreen">
+                                            {{cluster.1}}
+                                        </td>
+                                        <td style="text-align: center; background: lightgreen">
+                                            {% if cluster.2 %}
+                                            <a href="{% url 'reports:safe' cluster.2.0 %}">{% trans 'Show proof' %}</a>
+                                            {% else %}
+                                            -
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                {% endfor %}
+            </td>
+        </tr>
+
+        <tr style="vertical-align: top">
+            <td colspan="2">
             {% for cmp in data.comparison|slice:"1:"  %}
                 <div class="ui accordion">
                     <div class="title center aligned"><div class="black-link"><b>

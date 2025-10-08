@@ -59,6 +59,7 @@ TAG_REPORTS = "reports"
 TAG_CET = "cet"
 TAG_COLOR = "color"
 TAG_HIDE = "hide"
+TAG_NEW_PROOFS = "new_proofs"
 
 CLUSTERING_COLORS = ["#ebadad", "#adebad"]
 
@@ -188,6 +189,8 @@ class JobsComparison:
                     if not self.show_same_transitions[verdicts_type]:
                         if not (self.show_problems and verdicts_type == VERDICTS_UNKNOWN):
                             cmp['{0}_{0}'.format(verdicts_type)] = []
+                if TAG_NEW_PROOFS in cmp:
+                    cmp[TAG_NEW_PROOFS] = sorted(cmp[TAG_NEW_PROOFS], key=lambda x: x[1])
 
             if self.enable_clustering:
                 clusters.append(self.perform_clustering(unsafes, unsafe_incompletes, cmp))
@@ -620,6 +623,10 @@ class JobsComparison:
                         print("Warning: lost transition from reports {} for attrs {} (core attrs are {})".
                               format(old_reports, cur_attrs, core_cur_attrs))
 
+        if not verdicts_type == VERDICTS_SAFE:
+            if TAG_NEW_PROOFS not in cmp:
+                cmp[TAG_NEW_PROOFS] = []
+            cmp[TAG_NEW_PROOFS].extend(to_safes)
         cmp['{}_safes'.format(verdicts_type)] = sorted(to_safes, key=lambda x: x[1])
         cmp['{}_unsafes'.format(verdicts_type)] = sorted(to_unsafes, key=lambda x: x[1])
         cmp['{}_unsafe_incompletes'.format(verdicts_type)] = sorted(to_unsafe_incompletes, key=lambda x: x[1])
