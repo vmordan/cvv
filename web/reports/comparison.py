@@ -23,7 +23,7 @@ from jobs.models import Job
 from jobs.utils import get_resource_data
 from marks.models import MarkUnsafeReport, MarkUnknownReport
 from reports.mea.wrapper import COMPARISON_FUNCTIONS, CONVERSION_FUNCTIONS, DEFAULT_SIMILARITY_THRESHOLD, \
-    DEFAULT_COMPARISON_FUNCTION, DEFAULT_CONVERSION_FUNCTION, get_or_convert_error_trace_auto, is_trace_equal
+    DEFAULT_COMPARISON_FUNCTION, DEFAULT_CONVERSION_FUNCTION, compare_converted_traces, get_or_convert_error_trace_auto
 from reports.models import ReportAttr, ReportSafe, ReportUnsafe, ReportUnknown, ReportRoot, ComponentResource
 
 VERDICT_SAFE = 'safe'
@@ -239,7 +239,7 @@ class JobsComparison:
                         if cluster_2[TAG_ORIGIN] == CLUSTERING_ORIGIN_AUTO and cluster_2[TAG_ATTRS] == compared_attrs \
                                 and TAG_AUTO_ID not in cluster_2:
                             cet_2 = cluster_2[TAG_CET]
-                            if is_trace_equal(cet_1, cet_2, self.comparison_function, self.similarity)[0]:
+                            if compare_converted_traces(cet_1, cet_2, self.comparison_function, self.similarity):
                                 common_ama_counter += 1
                                 cluster_1[TAG_AUTO_ID] = common_ama_counter
                                 cluster_2[TAG_AUTO_ID] = common_ama_counter
@@ -488,8 +488,8 @@ class JobsComparison:
                 else:
                     is_equal = False
                     for processed_cet in converted_error_traces.keys():
-                        if is_trace_equal(converted_error_trace, processed_cet, self.comparison_function,
-                                          self.similarity)[0]:
+                        if compare_converted_traces(converted_error_trace, processed_cet, self.comparison_function,
+                                                    self.similarity):
                             is_equal = True
                             converted_error_traces[processed_cet].add(report_id)
                             break

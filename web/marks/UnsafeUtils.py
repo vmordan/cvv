@@ -33,7 +33,7 @@ from marks.models import ConvertedTraces, MarkUnsafe, MarkUnsafeHistory, MarkUns
     MarkUnsafeTag, UnsafeTag, UnsafeReportTag, ReportUnsafeTag
 from reports.mea.wrapper import error_trace_pretty_parse, TAG_CONVERSION_FUNCTION, TAG_COMPARISON_FUNCTION, \
     TAG_EDITED_ERROR_TRACE, get_or_convert_error_trace, dump_converted_error_trace, DEFAULT_CONVERSION_FUNCTION, \
-    DEFAULT_COMPARISON_FUNCTION, is_trace_equal, automatic_error_trace_editing
+    DEFAULT_COMPARISON_FUNCTION, compare_edited_traces, automatic_error_trace_editing
 from reports.models import ReportComponentLeaf, ReportUnsafe
 from users.models import User
 from web.utils import logger, BridgeException, unique_id
@@ -140,7 +140,7 @@ class NewMark:
             mark_unsafe.save()
         converted_error_trace = get_or_convert_error_trace(mark_unsafe, self.conversion_function,
                                                            self.conversion_function_args)
-        if not is_trace_equal(self.edited_error_trace, converted_error_trace, self.comparison_function,
+        if not compare_edited_traces(self.edited_error_trace, converted_error_trace, self.comparison_function,
                               self.similarity_threshold)[0]:
             raise BridgeException(_("Mark cannot be applied to the initial error trace"), response_type='json')
         self.error_trace_id = dump_converted_error_trace(self.edited_error_trace)
@@ -439,7 +439,7 @@ class ConnectMarks:
                 try:
                     converted_error_trace = get_or_convert_error_trace(unsafe, self.conversion_functions[mark_id],
                                                                        self.conversion_function_args)
-                    is_equal, compare_result = is_trace_equal(self.edited_error_trace[mark_id], converted_error_trace,
+                    is_equal, compare_result = compare_edited_traces(self.edited_error_trace[mark_id], converted_error_trace,
                                                               self.comparison_functions[mark_id],
                                                               self.similarity_threshold)
                     counter_all += 1
@@ -562,7 +562,7 @@ class ConnectReport:
                 converted_error_trace = get_or_convert_error_trace(self._unsafe,
                                                                    self._marks[mark_id]['conversion_functions'],
                                                                    json.loads(self._marks[mark_id]['args'] or "{}"))
-                is_equal, compare_result = is_trace_equal(self._marks[mark_id]['edited_error_trace'],
+                is_equal, compare_result = compare_edited_traces(self._marks[mark_id]['edited_error_trace'],
                                                           converted_error_trace,
                                                           self._marks[mark_id]['comparison_functions'],
                                                           self._marks[mark_id]['similarity_threshold'])

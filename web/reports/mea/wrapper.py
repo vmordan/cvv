@@ -163,8 +163,8 @@ def automatic_error_trace_editing(unsafe_report: ReportUnsafe) -> tuple:
 
     for cv in [CONVERSION_FUNCTION_MODEL_FUNCTIONS, CONVERSION_FUNCTION_CALL_TREE]:
         converted_error_trace = __load_json(get_or_convert_error_trace(unsafe_report, cv, args))
-        is_equal = is_trace_equal(edited_error_trace, converted_error_trace, comparison_function,
-                                  DEFAULT_SIMILARITY_THRESHOLD)[0]
+        is_equal = compare_edited_traces(edited_error_trace, converted_error_trace, comparison_function,
+                                         DEFAULT_SIMILARITY_THRESHOLD)[0]
         if is_equal:
             conversion_function = cv
             break
@@ -200,8 +200,8 @@ def get_or_convert_error_trace_auto(unsafe_id: int, conversion_function: str, ar
     return converted_error_trace
 
 
-def is_trace_equal(edited_error_trace: list, compared_error_trace: list, comparison_function: str,
-                   similarity_threshold: int) -> (bool, float):
+def compare_edited_traces(edited_error_trace: list, compared_error_trace: list, comparison_function: str,
+                          similarity_threshold: int) -> (bool, float):
     edited_error_trace = __load_json(edited_error_trace)
     compared_error_trace = error_trace_pretty_parse(error_trace_pretty_print(__load_json(compared_error_trace)))
     if DEBUG_ERROR_TRACE_COMPARISON:
@@ -216,6 +216,14 @@ def is_trace_equal(edited_error_trace: list, compared_error_trace: list, compari
     similarity = compare_error_traces(edited_error_trace, compared_error_trace, comparison_function)
     is_equal = is_equivalent(similarity, similarity_threshold)
     return is_equal, similarity
+
+
+def compare_converted_traces(cet_1: list, cet_2: list, comparison_function: str, similarity_threshold: int) -> bool:
+    cet_1 = __load_json(cet_1)
+    cet_2 = __load_json(cet_2)
+    similarity = compare_error_traces(cet_1, cet_2, comparison_function)
+    is_equal = is_equivalent(similarity, similarity_threshold)
+    return is_equal
 
 
 def __load_json(et):
