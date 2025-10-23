@@ -17,34 +17,79 @@
 # limitations under the License.
 #
 
-DEFAULT_DB_NAME=$1
-ADMIN_USER=${2:-admin}
-ADMIN_PASS=${3:-admin}
-CV_DIR=$(pwd)
+#!/bin/bash
 
-if [ -z ${DEFAULT_DB_NAME} ];
-then
-    echo "Usage: $0 <database name> [<user> <password>]"
-    exit 1
+DEFAULT_DB_NAME="$1"
+ADMIN_USER="${2:-admin}"
+ADMIN_PASS="${3:-admin}"
+CV_DIR="$(pwd)"
+
+if [ -z "$DEFAULT_DB_NAME" ]; then
+	    echo "Usage: $0 <database name> [<user> <password>]"
+	        exit 1
 fi
 
-echo "Create ${DEFAULT_DB_NAME} database"
-sudo sed -i '/^local/c\local all all trust' /etc/postgresql/*/main/pg_hba.conf
-sudo service postgresql restart || { echo 'Cannot restart postgresql' ; exit 1; }
-is_exist_out=$(psql -U postgres -c "SELECT datname FROM pg_catalog.pg_database WHERE datname='${DEFAULT_DB_NAME}'")
-if [[ $is_exist_out == *"(1 row)"* ]]; then
-  echo "Drop database ${DEFAULT_DB_NAME}"
-  dropdb -U postgres ${DEFAULT_DB_NAME}
+set -e  # stop on error
+set -o pipefail
+
+echo "Creating database: $DEFAULT_DB_NAME"
+
+# Ensure we can edit PostgreSQL config and restart the service
+PG_HBA_PATH=$(ls /etc/postgresql/*/main/pg_hba.conf | head -n 1)
+if [ -z "$PG_HBA_PATH" ]; then
+	    echo "PostgreSQL pg_hba.conf not found!"
+	        exit 1
 fi
-createdb -U postgres -T template0 -E utf8 -O postgres ${DEFAULT_DB_NAME} || { echo 'Cannot create new database' ; exit 1; }
 
-echo "Set up CV web-interface"
-echo $'{\n\t\"ENGINE\": \"django.db.backends.postgresql_psycopg2\",\n\t\"NAME\": \"'${DEFAULT_DB_NAME}$'\",\n\t\"USER\": \"postgres\"\n}' > ${CV_DIR}/web/web/db.json
-echo -e 'from web.development import *\nPERFORM_AUTO_SAVE=False' > ${CV_DIR}/web/web/settings.py
-python3 ${CV_DIR}/web/manage.py compilemessages || { echo 'Cannot compile messages' ; exit 1; }
-python3 ${CV_DIR}/web/manage.py makemigrations jobs marks reports service tools users || { echo 'Cannot create migrations for database' ; exit 1; }
-python3 ${CV_DIR}/web/manage.py migrate || { echo 'Cannot update database' ; exit 1; }
-echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser('${ADMIN_USER}', '', '${ADMIN_PASS}')" | python3 ${CV_DIR}/web/manage.py shell
-echo "from django.contrib.auth.models import User; from web.populate import Population, extend_user; user = User.objects.first(); extend_user(user, 2); Population(user=user)" | python3 ${CV_DIR}/web/manage.py shell
+# Update pg_hba.conf to "trust" for local connections
+sed -i 's/^local .*/local   all             all                                     trust/' "$PG_HBA_PATH"
+service postgresql restart || { echo "Cannot restart postgresql"; exit 1; }
 
-echo "Launch web-interface by command: './start.sh --host <host> --port <port> &'"
+# Drop DB if exists
+DB_EXISTS=$(psql -U postgres -tAc "SELECT 1 FROM pg_database WHERE datname='${DEFAULT_DB_NAME}'")
+if [ "$DB_EXISTS" = "1" ]; then
+	    echo "Dropping existing database: $DEFAULT_DB_NAME"
+	        dropdb -U postgres "$DEFAULT_DB_NAME"
+fi
+
+# Create DB
+createdb -U postgres -T template0 -E UTF8 -O postgres "$DEFAULT_DB_NAME" || { echo "Cannot create new database"; exit 1; }
+
+echo "Setting up CV web-interface"
+
+cat > "${CV_DIR}/web/web/db.json" <<EOF
+{
+    "ENGINE": "django.db.backends.postgresql_psycopg2",
+    "NAME": "${DEFAULT_DB_NAME}",
+    "USER": "postgres"
+}
+EOF
+
+cat > "${CV_DIR}/web/web/settings.py" <<EOF
+from web.development import *
+PERFORM_AUTO_SAVE = False
+EOF
+
+python3 "${CV_DIR}/web/manage.py" compilemessages || { echo "Cannot compile messages"; exit 1; }
+python3 "${CV_DIR}/web/manage.py" makemigrations jobs marks reports service tools users || { echo "Cannot create migrations"; exit 1; }
+python3 "${CV_DIR}/web/manage.py" migrate || { echo "Cannot update database"; exit 1; }
+
+# Create superuser if not exists
+python3 "${CV_DIR}/web/manage.py" shell <<EOF
+from django.contrib.auth import get_user_model
+User = get_user_model()
+if not User.objects.filter(username="${ADMIN_USER}").exists():
+    User.objects.create_superuser("${ADMIN_USER}", "", "${ADMIN_PASS}")
+EOF
+
+# Extend user
+python3 "${CV_DIR}/web/manage.py" shell <<EOF
+from django.contrib.auth.models import User
+from web.populate import Population, extend_user
+user = User.objects.first()
+extend_user(user, 2)
+Population(user=user)
+EOF
+
+echo "Launch web interface using:"
+echo "./start.sh --host <host> --port <port> &"
