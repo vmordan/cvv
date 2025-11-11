@@ -2,101 +2,223 @@
 
 [![Apache 2.0 License](https://img.shields.io/badge/license-Apache--2-brightgreen.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 
-Continuous Verification Visualizer (CVV) is a web-interface for visualization of 
-verification results with support for continuous verification.
+**Continuous Verification Visualizer (CVV)** is a web-based interface for visualizing software verification results, with built-in support for regression verification workflows.
+
+---
 
 ## Definitions
 
-- `Verification task` is a program with a given entry point and a checked property.
-For example, C-file and memory safety property, which checks correct usage of memory allocation and deallocation.
-- `Verification tool` is a tool, that solves a given `verification task` and provides `verification result`.
-Note, the result is provided in machine-readable format.
-- `Verification result` contains:
-  - a `correctness witness` (proof that property cannot be violated in a given program) or
-  - a set of `error traces` (paths in source code from an entry point to the property violation) or
-  - a reason of abnormal verifier termination (for example, resources exhaustion).
+* A **verification task** is a program associated with a specific entry point and a property to be checked.
+  For example, verifying a C source file for the *memory safety* property, which ensures correct usage of memory allocation and deallocation.
 
-CVV visualises a set of `verification results` in a human-readable format, which are unified by some criteria.
-For example, verification of a new version of an operating system.
+* A **verification tool** is a software verifier that solves a given verification task and produces a **verification result**.
+  The result is typically provided in a machine-readable format.
 
-CVV provides the following information for `verification results`:
-- `error traces` with links to the source code in human-readable format;
-- `correctness witnesses` is represented by invariants and conditions, which guarantee that the given property cannot be violated;
-- logs for abnormal termination of `verification tool`;
-- code coverage, which was obtained during verification;
-- statistics of resource usage by different components (such as CPU time, memory usage, read/write operations ets.);
-- comparison with other verification results, which allows to analyse only different results.
+* A **verification result** may contain:
 
-### Verification tasks preparation
+  * a **correctness witness** -- a proof that the property cannot be violated in the given program, or
+  * one or more **error traces** -- execution paths from the program’s entry point to a property violation, or
+  * a report on **abnormal verifier termination** (for example, due to resource exhaustion).
 
-In order to prepare and solve verification tasks [Continuous Verification framework](https://github.com/ispras/cv) (for generic programs)
-or [Klever](https://github.com/ldv-klever/klever) (verification of Linux kernel modules) can be applied.
+---
+
+## Overview
+
+CVV visualizes sets of verification results in a human-readable and interactive format.
+These results are typically grouped by a common criterion -- for example, the verification outcomes for a new version of an operating system.
+
+CVV provides the following capabilities:
+
+* Visualization of **error traces** with interactive links to the corresponding source code.
+* Display of **correctness witnesses**, including invariants and conditions that ensure the verified property cannot be violated.
+* Inspection of **verifier logs** in cases of abnormal termination.
+* Visualization of **code coverage** data obtained during verification.
+* Presentation of **resource usage statistics** (e.g., CPU time, memory consumption, I/O operations).
+* **Comparison of verification results** across versions or configurations to highlight differences.
+
+---
+
+## Preparing Verification Tasks
+
+To prepare and execute verification tasks, you can use one of the following frameworks:
+
+* [**Continuous Verification (CV)**](https://github.com/ispras/cv) -- for generic software projects.
+* [**Klever**](https://github.com/ldv-klever/klever) -- for the verification of Linux kernel modules.
+
+---
 
 ## Requirements
 
-1. Ubuntu 16.04-22.04
-2. Additional tools:
-```shell
-sudo apt install python3-dev postgresql python3-pip libpq-dev gettext
+- **Operating system:** Ubuntu 20.04 or later  
+- **Dependencies:** Installed automatically via the provided Dockerfile
+
+If you prefer manual installation, make sure the following packages are available:
+
+```bash
+sudo apt update
+sudo apt install -y \
+    software-properties-common \
+    build-essential \
+    git \
+    python3-dev \
+    python3-pip \
+    python3-setuptools \
+    python3-wheel \
+    gettext \
+    postgresql \
+    libpq-dev \
+    graphviz
+````
+
+Then install Python dependencies:
+
+```bash
+pip3 install --upgrade pip
+pip3 install "setuptools<66.0.0"
+pip3 install \
+    requests \
+    ujson \
+    django==4.2 \
+    pluggy \
+    py \
+    attrs \
+    six \
+    more-itertools \
+    ply \
+    pytest \
+    atomicwrites \
+    pycparser \
+    psycopg2-binary \
+    sympy \
+    pytz
 ```
-3. Python modules:
-```shell
-sudo pip3 install --upgrade setuptools
-sudo pip3 install --upgrade pip
-sudo pip3 install requests ujson graphviz django psycopg2 pluggy py attrs six more-itertools ply pytest atomicwrites pycparser psycopg2 sympy pytz
-```
 
-## Deployment
+---
 
-1. Execute basic script, which creates data base and default user (login=admin, password=admin):
-```shell
-deploys/deployment.sh <database name>
-```
+## Installation and Deployment
 
-2. Start CV server with command:
-```shell
-./start.sh --host <host> --port <port>
-```
-or
-```shell
-nohup ./start.sh --host <host> --port <port> &
-```
-as a background process.
+### Option 1: Using Docker
 
-3. Set up user accounts via "Admin tools" (create additional users, change default passwords, etc.).
-4. Create reports tree structure if needed via copying and editing root report.
-5. Upload required reports.
-6. Stop background server with command:
-```shell
-./stop.sh
-```
+1. Build the image:
 
-## Web-interface usage
+   ```bash
+   docker build -t cv .
+   ```
 
-### Main page
+2. Run the container:
 
-This page combines a given verification results:
+   ```bash
+   docker run -d -p 8989:8989 --name cv cv
+   ```
+
+   This automatically installs and deploys the Continuous Verification Visualizer.
+
+3. Once the container is running, open your browser and navigate to:
+
+   ```
+   http://<your-machine-ip>:8989
+   ```
+
+   Log in with the default credentials (`admin/admin`).
+   You can later change them in the **Settings** panel.
+
+---
+
+### Option 2: Manual deployment
+
+1. Initialize the database and create a default user (`admin/admin`):
+
+   ```bash
+   deploys/deployment.sh <database_name>
+   ```
+
+2. Start the CV web server:
+   ```bash
+   nohup ./start.sh --host <host> --port <port> &
+   ```
+
+3. After startup, open a browser and navigate to:
+
+   ```
+   http://<host>:<port>
+   ```
+
+   Log in and proceed with configuration:
+
+   * Create or modify user accounts via **Admin tools**.
+   * Organize the reports tree if needed.
+   * Upload verification results.
+
+4. To stop the background server:
+
+   ```bash
+   ./stop.sh
+   ```
+
+---
+
+## Web Interface Usage
+
+### Main Page
+
+The main page displays a collection of verification results:
 ![Main page](docs/images/main_page.png)
-From there we can navigate to lists of `error traces` (`Unsafes: ...`), `correctness witnesses` (`Safes: ...`), logs
-of abnormal termination (`Unknowns: ...`), code coverage statistics and consumed resource details.
 
-### Unsafes page
-List of all `error traces` represent found potential bugs:
+From this view, you can navigate to list of **error traces**
+(`Unsafes: ...`), **correctness proofs** (`Safes: ...`),
+**verifier logs** of abnormal termination (`Unknowns: ...`),
+as well as **code coverage** statistics and detailed **resource usage** information.
+
+---
+
+### Unsafes Page
+
+The *Unsafes* page lists all **error traces**, representing potential bugs detected during verification:
 ![Unsafes page](docs/images/unsafes.png)
-They are distinguished by various attributes.
 
-### Unsafe page
-Each `error trace` shows a path in a source code to a potential bug with links to a source code:
+Each entry can be filtered and distinguished by various attributes, such as module name, property type.
+
+---
+
+### Unsafe Page
+
+Each **error trace** shows a path through the source code leading to a potential property violation:
 ![Unsafe page](docs/images/unsafe.png)
-A user may navigate through error trace by hiding and revealing some elements.
 
-### Mark creation
-A user analyses the given trace and decides whether it corresponds to a real bug or not (so called `False positive`).
-After that a mark can be created, which then will be applied to all similar error traces:
+Users can navigate through the trace interactively by expanding or collapsing individual elements to focus on the relevant steps.
+
+---
+
+### Mark Creation
+
+During analysis, the user determines whether the reported trace corresponds to a **real bug** or a **false positive**.
+Once this decision is made, a *mark* can be created, which will automatically apply to all similar error traces in the future:
 ![Mark creation](docs/images/mark_creation.png)
-When a new version will be verified, such marks help to skip already known `false positives` as well as to check if the found bug was actually fixed.
 
-### Safe page
-Each `correctness witness` shows important elements of proof (such as conditions and invariants):
+When verifying new software versions, such marks help to:
+
+* Skip already known false positives, and
+* Check whether previously identified bugs have been fixed.
+
+---
+
+### Safe Page
+
+Each **correctness witness** displays the essential proof elements, such as **conditions** and **invariants**:
 ![Safe page](docs/images/safe.png)
-Also, it contains code coverage and shows parts of a program, which were not analysed.
+
+The page also includes **code coverage** information, highlighting parts of the program that were not analyzed during verification.
+
+### Regression Verification Support
+
+CVV supports **regression verification**, allowing users to compare verification results across different software versions or tool runs:
+
+![Comparison page](docs/images/comparison.png)
+
+The comparison view highlights:
+
+* New error traces and new proofs introduced in the latest version,
+* transitions in verification results (e.g., from `Safe` to `Unsafe`), and
+* changes in resource consumption.
+
+This helps users quickly focus on the most relevant differences between verification runs and track the evolution of verification quality over time.
